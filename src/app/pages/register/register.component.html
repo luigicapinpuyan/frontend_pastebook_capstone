@@ -1,1 +1,133 @@
-<p>register works!</p>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="Colorlib Templates" />
+<meta name="author" content="Colorlib" />
+<meta name="keywords" content="Colorlib Templates" />
+
+<!-- Icons font CSS-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="vendor/mdi-font/css/material-design-iconic-font.min.css" media="all" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Font special for pages-->
+<link
+    href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet" />
+
+<!-- Vendor CSS-->
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center vh-100">
+            <div id="landing-left" class="col-md-6 px-5 d-none d-lg-flex justify-content-center text-dark">
+                <div class="registration-page d-flex align-items-center">
+                    <div class="form">
+                        <div class="registration">
+                            <h2 class="title text-center">Register Account</h2>
+                            <h6 class="text-center">Socialize. Connect. Paste It!</h6>
+                            <form (ngSubmit)="onRegister()" id="registrationForm" action="login.html" method="post"
+                                class="registration-form">
+                                <div class="row row-space">
+                                    <div class="col-2">
+                                        <div class="input-group ">
+                                            <span><i aria-hidden="true" class="fa fa-user"></i></span>
+
+                                            <input type="text" id="firstName" name="firstName" placeholder="First Name"
+                                                [(ngModel)]="user.firstName" class="input--style-4" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                                            <input type="text" id="lastName" name="lastName" placeholder="Last Name"
+                                                [(ngModel)]="user.lastName" class="input--style-4" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-space">
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span><i aria-hidden="true" class="fa fa-birthday-cake"></i></span>
+
+                                            <input type="date" id="birthday" name="birthday" placeholder="Birthday"
+                                                [(ngModel)]="user.birthDate" class="input--style-4" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span><i aria-hidden="true" class="fa fa-venus-mars"></i></span>
+
+                                            <select id="gender" name="gender"
+                                                class="input--style-4 form-control form-rounded form-outline mb-4"
+                                                [(ngModel)]="user.sex">
+                                                <option value="male" selected>Male &#9794;</option>
+                                                <option value="female">Female &#9792;</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-space">
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                                            <input type="email" id="email" name="email" placeholder="Email Address"
+                                                [(ngModel)]="user.email" class="input--style-4" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span><i aria-hidden="true" class="fa fa-phone"></i></span>
+                                            <input class="input--style-4" type="text" id="mobileNumber"
+                                                name="mobileNumber" pattern="[0-9]{10}" required
+                                                title="Please enter a 10-digit phone number" placeholder="Mobile Number"
+                                                [(ngModel)]="user.phoneNumber" autocomplete="mobile" />
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                                            <input class="input--style-4" type="password" id="password" name="password"
+                                                placeholder="Password" [(ngModel)]="user.password" required autocomplete="new-password"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+
+                                            <input class="input--style-4" type="password" id="confirmPassword"
+                                                name="confirmPassword" [(ngModel)]="confirmPassword"
+                                                placeholder="Confirm Password" required autocomplete="null" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-warning alert-sm" role="alert"
+                                    [hidden]="(user.password === confirmPassword) || (user.password == null && confirmPassword == '')">
+                                    Password and confirm password values do not match.
+                                </div>
+
+                                <div class="text-center text-lg-start mt-2 pt-2">
+                                    <button class="btn btn-primary btn-lg form-control form-rounded form-outline mb-2"
+                                        style="padding-left: 2rem; padding-right: 2rem" type="submit">
+                                        Register
+                                    </button>
+                                </div>
+                                <div class="d-flex justify-content-center">
+
+                                    <p class="message text-center text-dark fs-6">Already have an account? <a class="text-decoration-underline text-primary" routerLink="/login">Login here.</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="landing-right" class="col-10 col-md-6 p-5 justify-content-center text-light">
+                
+
+                <div class="flex-row align-items-center">
+                    <img class="img-fluid" src="/assets/images/Logo1.PNG" />
+                    <img src="/assets/images/register.svg" class="img-fluid" >
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
