@@ -8,7 +8,7 @@ import { SessionService } from './session.service';
   providedIn: 'root'
 })
 export class NotificationService {
-  private baseUrl: string = 'https://localhost:7116/api/notification'
+  private baseUrl: string = 'https://localhost:7208/api/notification'
 
   private header: HttpHeaders = new HttpHeaders({
     'Authorization': this.sessionService.getToken()
