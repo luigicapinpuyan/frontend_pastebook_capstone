@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Other head elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-oP6HI/tZ1XaIBlE1C4VrZKJfWe3WW1NpZl+cbzUq8KM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JmIEHPA7Is9m9qccFuc5LMI2J8f/+r6Q8f5RZO2BJqGccgP/QDZhclCQnqRYMtp" crossorigin="anonymous"></script>
+    
+    <style>
+        /* Custom CSS to hide the dropdown arrow */
+        .dropdown-toggle-no-caret::after {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark navbar-color">
+        <div class="container-fluid">
+            <!-- Logo1 for larger screens -->
+            <a class="navbar-brand" routerLink="/home">
+                <img class="img-fluid d-none d-md-block" src="assets/images/Logo1.PNG">
+            </a>
+            <!-- Logo2 for smaller screens -->
+            <a class="navbar-brand navbar-brand-mobile d-block d-md-none" routerLink="/">
+                <img src="assets/images/Logo2.PNG" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/home"><span><i aria-hidden="true" class="fa fa-home"></i></span> Home</a>
+                    </li>
+                </ul>
+                
+                <!-- Search Bar -->
+                <div class="d-flex mx-auto position-relative">
+                    <!-- <input class="form-control h-25 my-auto" type="search" placeholder="Search" aria-label="Search"
+                      [(ngModel)]="searchText" (keyup.enter)="onEnterPressed()" style="width: 400px;"> -->
+                      <input class="form-control h-25 my-auto" type="search" placeholder="Search" aria-label="Search"
+                      (keyup.enter)="onEnterPressed()" style="width: 400px;">
+                  
+                    <div class="position-absolute search" *ngIf="searchResults.length > 0">
+                      <ul class="dropdown-content">
+                        <li *ngFor="let result of searchResults" (click)="goToDetailsPage()">{{ result }}</li>
+                      </ul>
+                    </div>
+                  </div> 
+                
+                
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-no-caret" href="#" id="user-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/assets/images/notification-bell.png">
+                        </a>
+                        <app-notifications></app-notifications>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-no-caret" href="#" id="user-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/assets/images/user-icon.png">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                            <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
+                            <li><a class="dropdown-item" routerLink="/" (click)="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+
+</html>

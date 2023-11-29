@@ -54,3 +54,28 @@ export class MiniProfileDTO {
         public friendCount?: number
     ){}
 }
+
+export class ProfileDTO {
+    constructor(
+        public firstName?: string,
+        public lastName?: string,
+        public birthDate?: string,
+        public sex?: string,
+        public phoneNumber?: string,
+        public aboutMe?: string
+    ){}
+}
+
+export class EditPasswordDTO {
+    constructor(
+        public userId?: string,
+        public currentPassword?: string,
+        public newPassword?: string
+    ){}
+}
+
+export class AboutMeDTO {
+    constructor(
+        public aboutMe?: string
+    ){}
+}

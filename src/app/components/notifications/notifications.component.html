@@ -1,0 +1,52 @@
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+    <!-- Check if there are notifications -->
+    <ng-container *ngIf="notifications.length > 0; else noNotifications">
+        <!-- Loop through notifications -->
+        <li *ngFor="let notification of notifications" [ngClass]="{ 'read-notification': notification.isRead }">
+  <a class="dropdown-item">
+    <div
+      (click)="onClick(notification.notificationType)"
+      [ngStyle]="{ 'background-color': notification.isRead ? 'white' : 'lightgray' }"
+      
+    >
+      <!-- <ng-container *ngIf="notification.notificationType === 'like'">
+        <strong>{{ likeContexts[likeContexts.length - 1]?.liker?.firstName }} {{ likeContexts[likeContexts.length - 1]?.liker?.lastName }}</strong> liked your post.
+      </ng-container>
+
+      <ng-container *ngIf="notification.notificationType === 'comment'">
+        <strong>{{ commentContexts[commentContexts.length - 1]?.user?.firstName }} {{ commentContexts[commentContexts.length - 1]?.user?.lastName }}</strong> commented on your post.
+      </ng-container>
+
+      <ng-container *ngIf="notification.notificationType === 'add-friend-request'">
+        <strong>{{ friendRequestContexts[friendRequestContexts.length - 1]?.sender?.firstName }} {{ friendRequestContexts[friendRequestContexts.length - 1]?.sender?.lastName }}</strong> sent you a friend request.
+      </ng-container>
+
+      <ng-container *ngIf="notification.notificationType === 'accept-friend-request'">
+        <strong>{{ friendRequestContexts[friendRequestContexts.length - 1]?.receiver?.firstName }} {{ friendRequestContexts[friendRequestContexts.length - 1]?.receiver?.lastName }}</strong> accepted your friend request.
+      </ng-container> -->
+      <br>
+      <!-- "Mark as Read" option for unread notifications -->
+      <span class="mark-as-read-btn" *ngIf="!notification.isRead" (click)="markAsRead(notification)">Mark as Read</span>
+      <span class="mark-as-unread-btn" *ngIf="notification.isRead" (click)="markAsUnread(notification)">Mark as Unread</span>
+      <!-- "x" button to delete the notification -->
+      <span class="delete-btn" (click)="deleteNotification(notification)">x</span>
+    </div>
+  </a>
+  <hr />
+</li>
+        <!-- "Delete All" option -->
+        <li>
+            <a class="dropdown-item delete-all-btn" (click)="deleteAllNotifications()">Delete All</a>
+        </li>
+    </ng-container>
+
+    
+
+
+
+    <!-- Display message if no notifications -->
+    <ng-template #noNotifications>
+        <li><a class="dropdown-item">No notifications to display.</a></li>
+    </ng-template>
+</ul>
+  
