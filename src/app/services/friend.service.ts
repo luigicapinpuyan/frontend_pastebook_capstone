@@ -9,7 +9,7 @@ import { SessionService } from './session.service';
   providedIn: 'root'
 })
 export class FriendService {
-  private baseUrl: string = 'https://localhost:7116/api/friend'
+  private baseUrl: string = 'https://localhost:7208/api/friend'
 
   private header: HttpHeaders = new HttpHeaders({
     'Authorization': this.sessionService.getToken()
