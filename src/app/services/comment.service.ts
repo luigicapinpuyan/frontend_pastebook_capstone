@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Comment, CommentDTO } from '../models/comment';
 import { Observable } from 'rxjs';
-
+import { SessionService } from './session.service';
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
 
-  private baseUrl: string = 'https://localhost:7116/api/comment'
+  private baseUrl: string = 'https://localhost:7208/api/comment'
+
+  private header: HttpHeaders = new HttpHeaders({
+    'Authorization': this.sessionService.getToken()
+  })
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private sessionService: SessionService
+
   ) { }
 
   addComment(commentDTO: CommentDTO): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/add-comment`, commentDTO)
+    return this.http.post(`${this.baseUrl}/add-comment`, commentDTO, {headers: this.header})
   }
 
-  editComment(commentId: number, commentDTO: CommentDTO): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/update-comment/${commentId}`, commentDTO)
+  editComment(commentDTO: CommentDTO): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/update-comment`, commentDTO, {headers: this.header})
   }
 
-  deleteComment(commentId:number): Observable<Object> {
-    return this.http.delete(`${this.baseUrl}/delete-comment/${commentId}`)
+  deleteComment(commentId:string): Observable<Object> {
+    return this.http.delete(`${this.baseUrl}/delete-comment/${commentId}`, {headers: this.header})
   }
+
+  getCommentsByPostId(postId: string): Observable<Comment[]>{
+    return this.http.get<Comment[]>(`${this.baseUrl}/get-post-comments/${postId}`, {headers: this.header})
+  }
+
 }
