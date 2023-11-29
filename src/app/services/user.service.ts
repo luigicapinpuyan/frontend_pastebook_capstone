@@ -11,7 +11,7 @@ import { SessionService } from './session.service';
 })
 export class UserService {
 
-  private baseUrl: string = 'https://localhost:7116/api/'
+  private baseUrl: string = 'https://localhost:7208/api/'
 
   private header: HttpHeaders = new HttpHeaders({
     'Authorization': this.sessionService.getToken()
@@ -23,13 +23,15 @@ export class UserService {
   ) {
   }
 
+  login(email: string, password: string): Observable<Object> {
+    return this.http.post(this.baseUrl + 'authentication/login', {email, password})
+  }
+  
   register(user: UserRegisterDTO): Observable<Object> {
     return this.http.post(this.baseUrl + 'authentication/register', user)
   }
 
-  login(email: string, password: string): Observable<Object> {
-    return this.http.post(this.baseUrl + 'authentication/login', {email, password})
-  }
+  
 
   logout(): Observable<Object>{
     return this.http.post(this.baseUrl + `authentication/logout`, {headers: this.header});

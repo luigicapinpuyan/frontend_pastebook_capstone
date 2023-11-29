@@ -9,7 +9,7 @@ import { SessionService } from './session.service';
 })
 export class AlbumService {
 
-  private baseUrl: string = 'https://localhost:7116/api/album'
+  private baseUrl: string = 'https://localhost:7208/api/album'
 
   private header: HttpHeaders = new HttpHeaders({
     'Authorization': this.sessionService.getToken()
@@ -24,29 +24,24 @@ export class AlbumService {
     return this.http.post(this.baseUrl + '/add-album', albumDTO, {headers: this.header})
   }
 
+  updateAlbum(albumDTO: AlbumDTO): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/update-album/`, albumDTO, {headers: this.header})
+  }
+
+  deleteAlbum(albumId: string): Observable<Object> {
+    return this.http.delete(`${this.baseUrl}/delete-album/${albumId}`, {headers: this.header})
+  }
+
   getAllAlbums(): Observable<Album[]> {
     return this.http.get<Album[]>(`${this.baseUrl}/get-all-albums`, {headers: this.header})
   }
 
-  getAllPhotos(albumId: number): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/get-all-photos/${albumId}`)
-  }
-
-  updateAlbum(albumId: number, albumDTO: AlbumDTO): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/update-album/${albumId}`, albumDTO)
-  }
-
-  deleteAlbum(albumId: number): Observable<Object> {
-    return this.http.delete(`${this.baseUrl}/delete-album/${albumId}`)
+  getAllPhotos(albumId: string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/get-all-photos/${albumId}`, {headers: this.header})
   }
 
   getMiniAlbum(): Observable<Object> {
     return this.http.get(`${this.baseUrl}/get-mini-album`, {headers: this.header})
   }
-
-  getFirstPhoto(albumId: number): Observable<AlbumWithFirstPhoto[]> {
-    return this.http.get<AlbumWithFirstPhoto[]>(`${this.baseUrl}/get-first-photo/${albumId}`)
-  }
-
   
 }
