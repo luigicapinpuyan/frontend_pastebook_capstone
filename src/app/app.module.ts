@@ -21,6 +21,7 @@ import { SearchListComponent } from './pages/search-list/search-list.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -52,7 +53,8 @@ const  appRoutes: Routes = [
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
