@@ -1,0 +1,41 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="row justify-content-center vh-100">
+        <div id="landing-left" class="col-md-6 p-5 d-none d-lg-flex justify-content-center text-dark">
+          
+          <div class="flex-column my-auto">
+            <img class="img-fluid" src="assets/images/Logo1_dark.PNG">
+            <img src="/assets/images/people.png" class="img-fluid" >
+          </div>
+        </div>
+        <div id="landing-right" class="col-10 col-md-6 p-5 d-flex justify-content-center align-items-center text-light">
+          <div class="">
+            <div class="form">
+              <h2 class="text-center">Login Account</h2>
+              <h5 class="text-center mb-5">Socialize. Connect. Paste It!</h5>
+  
+              <form (ngSubmit)="onSubmit()" class="login-form mt-4">
+  
+                <label for="email">Email Address:</label>
+                <input class="rounded p-2" type="email" placeholder="Enter email" name="email" [(ngModel)]="email" required autocomplete="email"/>
+                  
+                <label for="password">Password:</label>
+                <input class="rounded p-2" type="password" placeholder="Enter password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+                <button class="btn mt-3 fw-bold me-auto" style="background-color: #eab676; text-decoration-color: blanchedalmond;"><span><i aria-hidden="true" class="fa fa-key"> LOGIN</i></span></button>
+  
+  
+              <p class="message text-center" style="font-size: 14px;"><a routerLink="/register" class="text-decoration-underline">Create an account</a></p>
+                <p class="message text-center" style="font-size: 14px;">Forgot Password? <a class="text-decoration-underline" routerLink="/forgot-password">Click here.</a></p>
+              </form>
+            </div>
+          </div>
+        </div>  
+          
+      </div>
+    </div>
+  </body>
+  
