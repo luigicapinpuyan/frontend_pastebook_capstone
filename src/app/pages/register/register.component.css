@@ -1,0 +1,177 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+p {
+    font-size: 30px;
+}
+body {
+  background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('/assets/images/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+}
+#landing-left {
+    background-color: #BED4E9;
+}
+
+#landing-right {
+    background-color: #3373B0;
+}
+
+#landing-left > button {
+    border-color: #3373B0;
+    color: #3373B0;
+}
+
+#landing-left > button:hover {
+    border-color: #BED4E9;
+    background-color: #3373B0;
+    color: #BED4E9;
+}
+
+#landing-right > button {
+    border-color: #BED4E9;
+    color: #BED4E9;
+}
+
+#landing-right > button:hover {
+    border-color: #3373B0;
+    background-color: #BED4E9;
+    color: #3373B0;
+}
+
+.input--style-4 {
+  line-height: 50px;
+  background: #f2f2f2;
+  outline: 0;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  width: 100%;
+  padding: 15px;
+  font-size: 14px;
+  color: #666;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+  
+.form button {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  border: 0;
+  width: 100%;
+  justify-content: center;
+  padding: 10px;
+  font-size: 16px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+  .form .message {
+    margin: 15px 0 0;
+    color: #E7F1FB;
+    font-size: 12px;
+  }
+  .form .message a {
+    color: #E7F1FB;
+    text-decoration: none;
+  }
+  
+  
+  
+  /* ==========================================================================
+     #BUTTON
+     ========================================================================== */
+  
+  
+  
+  
+  
+  .input--style-4 {
+    line-height: 40px;
+    background: #fafafa;
+    -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+  }
+  
+  .input--style-4::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #666;
+  }
+  
+  .input--style-4:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #666;
+    opacity: 1;
+  }
+  
+  .input--style-4::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #666;
+    opacity: 1;
+  }
+  
+  .input--style-4:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #666;
+  }
+  
+  .input--style-4:-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #666;
+  }
+  
+ 
+
+  
+.row {
+ display: -webkit-box;
+ display: -webkit-flex;
+ display: -moz-box;
+ display: -ms-flexbox;
+ display: flex;
+ -webkit-flex-wrap: wrap;
+ -ms-flex-wrap: wrap;
+ flex-wrap: wrap;
+}
+
+.row-space {
+ -webkit-box-pack: justify;
+ -webkit-justify-content: space-between;
+ -moz-box-pack: justify;
+ -ms-flex-pack: justify;
+ justify-content: space-between;
+}
+
+.col-2 {
+ width: -webkit-calc((100% - 30px) / 2);
+ width: -moz-calc((100% - 30px) / 2);
+ width: calc((100% - 30px) / 2);
+}
+
+@media (max-width: 767px) {
+ .col-2 {
+   width: 100%;
+ }
+}
