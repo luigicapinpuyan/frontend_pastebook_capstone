@@ -31,6 +31,7 @@ import { PostPageComponent } from './pages/post-page/post-page.component';
 
 
 
+
 const  appRoutes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'login', component:LoginComponent},
