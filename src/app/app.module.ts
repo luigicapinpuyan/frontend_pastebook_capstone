@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
+
 const  appRoutes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'login', component:LoginComponent},
@@ -47,7 +48,7 @@ const  appRoutes: Routes = [
     SearchListComponent,
     NavbarComponent,
     FooterComponent,
-    NotificationsComponent
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,
