@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/user';
+import { User, ProfileDTO } from 'src/app/models/user';
 import { PhotoService } from 'src/app/services/photo.service';
-// import { MatDialog } from '@angular/material/dialog';
-// import { EditAboutmeComponent } from 'src/app/modals/edit-aboutme/edit-aboutme.component';
+import { MatDialog } from '@angular/material/dialog';
+//import { EditAboutmeComponent } from 'src/app/modals/edit-aboutme/edit-aboutme.component';
 
 @Component({
   selector: 'app-profile',
@@ -13,18 +13,18 @@ import { PhotoService } from 'src/app/services/photo.service';
 })
 export class ProfileComponent implements OnInit{
 
-  // selectedTab: string = 'timeline';
+  selectedTab: string = 'timeline';
 
-  // changeTab(tab: string) {
-  //   this.selectedTab = tab;
-  // }
+  changeTab(tab: string) {
+    this.selectedTab = tab;
+  }
 
-  // profileDTO:  ProfileDTO = new ProfileDTO();
-  // private userId: number = Number(this.sessionService.getUserId());
+  profileDTO:  ProfileDTO = new ProfileDTO();
+  private userId: number = Number(this.sessionService.getUserId());
 
 
   constructor(
-    //public dialog: MatDialog,
+    public dialog: MatDialog,
     private userService: UserService,
     private sessionService: SessionService
   ){}
@@ -38,18 +38,18 @@ export class ProfileComponent implements OnInit{
   // }
 
   ngOnInit(): void{
-    //this.getMainProfile()
+    this.loadProfile()
   }
 
-  // getMainProfile(){
-  //   this.userService.getMainProfile().subscribe(
-  //     (response: ProfileDTO) => {
-  //       this.profileDTO = response;
-  //     },
-  //     (error) => {
-  //       console.error("Error fetching profile:", error);
-  //     }
-  //   );
-  // }
+  loadProfile(){
+    this.userService.getMainProfile().subscribe(
+      (response: ProfileDTO) => {
+        this.profileDTO = response;
+      },
+      (error) => {
+        console.error("Error fetching profile:", error);
+      }
+    );
+  }
 
 }

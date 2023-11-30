@@ -1,0 +1,21 @@
+<div class="container ">
+    <div class="row gap-2 d-flex flex-lg-row flex-xs-column justify-content-center align-items-center">
+      <div class="d-block col-lg-3 col-12 content pt-2" style="align-self: flex-start;">
+        <div class="d-flex">
+          <h6>About Me</h6>
+          <p class="ms-auto"><a (click)="openModal()" style="cursor: pointer;">Edit</a></p>
+        </div>
+        <div>
+          <p class="text-center">{{ profileDTO.aboutMe }}</p>
+          <div class="d-flex">
+            <span><i aria-hidden="true" class="fa fa-birthday-cake me-2"></i></span><p>{{profileDTO.birthDate | date: 'shortDate'}}</p></div>
+         <div class="d-flex"><span><i aria-hidden="true" class="fa fa-phone me-2"></i></span><p>{{profileDTO.phoneNumber}}</p></div>
+         <div class="d-flex"><i aria-hidden="true" class="fa fa-venus-mars me-2"></i><p>{{profileDTO.sex}}</p></div>
+          
+        </div>
+      </div>
+      <div class="col-lg-8 col-12 content">
+        <!-- <app-post *ngFor="let post of posts" [post]="post"></app-post>     -->
+      </div>
+    </div>
+  </div>

@@ -22,13 +22,22 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FriendListComponent } from './components/friend-list/friend-list.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { AboutmeModalComponent } from './modals/aboutme-modal/aboutme-modal.component';
+import { AlbumListComponent } from './components/album-list/album-list.component';
+import { AddAlbumModalComponent } from './modals/add-album-modal/add-album-modal.component';
+import { PhotoListComponent } from './pages/photo-list/photo-list.component';
 
 
 
 const  appRoutes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'login', component:LoginComponent},
-  {path: 'register', component:RegisterComponent}
+  {path: 'register', component:RegisterComponent},
+  {path: 'profile', component:ProfileComponent},
+  {path: 'settings', component:SettingsComponent},
+  {path: 'album', component: PhotoListComponent}
 ]
 
 @NgModule({
@@ -44,7 +53,13 @@ const  appRoutes: Routes = [
     SearchListComponent,
     NavbarComponent,
     FooterComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    FriendListComponent,
+    TimelineComponent,
+    AboutmeModalComponent,
+    AlbumListComponent,
+    AddAlbumModalComponent,
+    PhotoListComponent
   ],
   imports: [
     BrowserModule,

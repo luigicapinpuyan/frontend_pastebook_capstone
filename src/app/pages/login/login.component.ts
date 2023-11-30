@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   email: string = '';
   password: string = '';
+  rememberMe: boolean = false;
 
   constructor(
     private sessionService: SessionService,
@@ -38,9 +39,16 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const rememberMe = localStorage.getItem('rememberMe');
+    if (rememberMe) {
+      this.rememberMe = true;
+      this.email = localStorage.getItem('rememberedEmail') || '';
+      this.password = localStorage.getItem('rememberedPassword') || '';
+    }
+  }
 
-  onSubmit() {
+  onLogin() {
 
     if (this.email == "" && this.password == ""){
       this.toast.error({detail: "ERROR", summary: "Please input your email and password.", duration: 5000});
@@ -69,6 +77,19 @@ export class LoginComponent implements OnInit {
         console.log(result['error']);
       }
     })
+
+    
+    if (this.rememberMe) {
+      // Save email to localStorage if 'Remember Me' is checked
+      localStorage.setItem('rememberedEmail', this.email);
+      localStorage.setItem('rememberedPassword', this.password);
+      localStorage.setItem('rememberMe', 'true');
+    } else {
+      // Clear remembered email if 'Remember Me' is not checked
+      localStorage.removeItem('rememberedEmail');
+      localStorage.removeItem('rememberedPassword');
+      localStorage.removeItem('rememberMe');
+    }
   }
 
 }

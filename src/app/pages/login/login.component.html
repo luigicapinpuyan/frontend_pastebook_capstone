@@ -18,18 +18,30 @@
             <h2 class="text-center">Login Account</h2>
             <h5 class="text-center mb-5">Socialize. Connect. Paste It!</h5>
 
-            <form (ngSubmit)="onSubmit()" class="login-form mt-4">
+            <form (ngSubmit)="onLogin()" class="login-form mt-4">
 
               <label for="email">Email Address:</label>
               <input class="rounded p-2" type="email" placeholder="Enter email" name="email" [(ngModel)]="email" required autocomplete="email"/>
                 
               <label for="password">Password:</label>
               <input class="rounded p-2" type="password" placeholder="Enter password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
-              <button class="btn mt-3 fw-bold me-auto" style="background-color: #eab676; text-decoration-color: blanchedalmond;"><span><i aria-hidden="true" class="fa fa-key"> LOGIN</i></span></button>
 
+              <!-- remember me -->
+              <label for="rememberMe" class="form-check-label">
+                <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+              Remember Me
+              </label>
 
-            <p class="message text-center" style="font-size: 14px;"><a routerLink="/register" class="text-decoration-underline">Create an account</a></p>
-              <p class="message text-center" style="font-size: 14px;">Forgot Password? <a class="text-decoration-underline" routerLink="/forgot-password">Click here.</a></p>
+              <button class="btn mt-3 fw-bold me-auto" style="background-color: #eab676; text-decoration-color: blanchedalmond;">
+                <span><i aria-hidden="true" class="fa fa-key"> LOGIN</i></span>
+              </button>
+            
+              <p class="message text-center" style="font-size: 14px;">
+                <a routerLink="/register" class="text-decoration-underline">Create an account</a>
+              </p>
+              <p class="message text-center" style="font-size: 14px;">
+                Forgot Password? <a class="text-decoration-underline" routerLink="/forgot-password">Click here.</a>
+              </p>
             </form>
           </div>
         </div>

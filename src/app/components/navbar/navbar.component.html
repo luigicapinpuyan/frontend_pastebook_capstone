@@ -40,10 +40,8 @@
                 
                 <!-- Search Bar -->
                 <div class="d-flex mx-auto position-relative">
-                    <!-- <input class="form-control h-25 my-auto" type="search" placeholder="Search" aria-label="Search"
-                      [(ngModel)]="searchText" (keyup.enter)="onEnterPressed()" style="width: 400px;"> -->
-                      <input class="form-control h-25 my-auto" type="search" placeholder="Search" aria-label="Search"
-                      (keyup.enter)="onEnterPressed()" style="width: 400px;">
+                    <input class="form-control h-25 my-auto" type="search" placeholder="Search" aria-label="Search"
+                      [(ngModel)]="searchText" (keyup.enter)="onEnterPressed()" style="width: 400px;">
                   
                     <div class="position-absolute search" *ngIf="searchResults.length > 0">
                       <ul class="dropdown-content">

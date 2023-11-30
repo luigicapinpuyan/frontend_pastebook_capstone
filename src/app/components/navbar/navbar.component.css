@@ -1,0 +1,61 @@
+.navbar {
+  position: relative;
+  z-index: 1; /* Ensure the navbar is at a higher z-index than the dropdown */
+}
+
+.navbar-brand img {
+  max-width: 105px; /* Adjust the maximum width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.navbar-nav img, .search-bar {
+  max-width: 30px; /* Adjust the maximum width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.navbar-color {
+  background-color: #3373B0; /* Replace with your desired color code */
+}
+
+@media (max-width: 767px) {
+  .navbar-brand {
+      display: none; /* hide text on small screens */
+  }
+
+  .navbar-toggler {
+      display: block; /* show toggler on small screens */
+  }
+
+  .navbar-brand-mobile {
+      display: block; /* show image on small screens */
+  }
+}
+
+.position-relative {
+  position: relative;
+}
+
+.search {
+  display: block;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  margin-top: 35px;
+}
+
+.dropdown-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100px;
+}
+
+.dropdown-content li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.dropdown-content li:hover {
+  background-color: #f0f0f0;
+}
+

@@ -1,0 +1,23 @@
+<button (click)="close()" class="btn d-flex ms-auto" style="font-size: 20px; color: red;">
+    <i class="fa fa-close"></i>
+  </button>
+  
+  <div class="custom-modal">
+    <h2 class="text-center">Add New Album</h2>
+  
+    <form id="new-album" class="login-form mt-4" (ngSubmit)="addAlbum()">
+      <label for="albumName" class="me-3">Album Name:</label>
+      <input [(ngModel)]="newAlbum.albumName" class="rounded p-2" type="text" name="albumName" required />
+      
+      <!-- Optional: Allow user to upload a photo -->
+      <div style="width: 80px; height: 80px; overflow: hidden; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);">
+        <i class="plus-icon d-flex justify-content-center align-items-center" (click)="fileInput.click()">
+          +
+        </i>
+        <input type="file" (change)="onFileChange($event)" #fileInput style="display: none;" />
+      </div>
+  
+      <button type="submit" class="btn bg-success mt-3 d-flex ms-auto">Add New Album</button>
+    </form>
+  </div>
+  
