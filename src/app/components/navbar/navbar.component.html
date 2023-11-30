@@ -12,6 +12,7 @@
         .dropdown-toggle-no-caret::after {
             display: none !important;
         }
+        
     </style>
 </head>
 
@@ -19,7 +20,7 @@
     <nav class="navbar navbar-expand-md navbar-dark navbar-color">
         <div class="container-fluid">
             <!-- Logo1 for larger screens -->
-            <a class="navbar-brand" routerLink="/home">
+            <a class="navbar-brand" routerLink="/">
                 <img class="img-fluid d-none d-md-block" src="assets/images/Logo1.PNG">
             </a>
             <!-- Logo2 for smaller screens -->
@@ -34,16 +35,15 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="navbar-nav me-3 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/home"><span><i aria-hidden="true" class="fa fa-home"></i></span> Home</a>
+                        <a class="nav-link" routerLink="/"><span><i aria-hidden="true" class="fa fa-home"></i></span> Home</a>
                     </li>
                 </ul>
                 
                 <!-- Search Bar -->
                 <div class="d-flex mx-auto position-relative">
-                    <!-- <input class="form-control h-25 my-auto" type="search" placeholder="Search" aria-label="Search"
-                      [(ngModel)]="searchText" (keyup.enter)="onEnterPressed()" style="width: 400px;"> -->
+                    <!-- code for going to search-list page on pressing enter -->
                       <input class="form-control h-25 my-auto" type="search" placeholder="Search" aria-label="Search"
-                      (keyup.enter)="onEnterPressed()" style="width: 400px;">
+                      [(ngModel)]="searchText" (keyup.enter)="onEnterPressed(searchText)" style="width: 400px;">
                   
                     <div class="position-absolute search" *ngIf="searchResults.length > 0">
                       <ul class="dropdown-content">

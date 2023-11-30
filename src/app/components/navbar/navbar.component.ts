@@ -59,10 +59,11 @@ export class NavbarComponent {
     this.router.navigate(['/profile']); 
   }
 
-  onEnterPressed() {
+  onEnterPressed(name:string) {
+    
     if (this.searchText.trim() !== '') {
       // Navigate to the search page (replace '/search' with your desired route)
-      this.router.navigate(['/search-user-list']);
+      this.router.navigate(['/search-list'], { queryParams: { name: this.searchText } });
     }
   }
 

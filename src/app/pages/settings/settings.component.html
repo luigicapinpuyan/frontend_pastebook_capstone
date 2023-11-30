@@ -1,0 +1,167 @@
+<body>
+    <div class="container light-style flex-grow-1 container-p-y">
+        <h4 class="font-weight-bold py-3 mb-4">
+            Account settings
+        </h4>
+  
+    <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+            <!-- Tabs -->
+            <div class="col-md-3 pt-0">
+                <div class="list-group list-group-flush account-settings-links">
+                <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'account-general'"
+                (click)="switchTab('account-general')">Edit Profile</a>
+                <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'account-change-password'"
+                (click)="switchTab('account-change-password')">Change password</a>
+                <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'account-info'"
+                (click)="switchTab('account-info')">Change Email</a>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="tab-content"><!-- Edit Profile -->
+                <div class="tab-pane fade active show" id="account-general" *ngIf="activeTab === 'account-general'">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <div class="card-body">
+                                    <div class="e-profile">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-auto mb-3">
+                                                <div class="mx-auto">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <img [src]="imageURL" class="img img-fluid rounded-circle mt-2"
+                                    style="height: 140px; width: 140px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-3">{{ profile.firstName + " " + profile.lastName }}</h4>
+                                <div class="mt-2">
+                                    <label class="btn btn-outline-primary">
+                                        <i class="fa fa-fw fa-camera me-2"></i>Upload new photo
+                                        <input type="file" (change)="onFileChange($event)" class="account-settings-fileinput">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content pt-3">
+                        <div class="tab-pane active">
+                            <form class="form" novalidate="">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group mb-3">
+                                                    <label>First Name</label>
+                                                    <input class="form-control" type="text" name="name" placeholder="First Name" [(ngModel)] = "profile.firstName">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Last Name</label>
+                                                    <input class="form-control" type="text" name="username" placeholder="Last Name" [(ngModel)] = "profile.lastName">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Birthday</label>
+                                                    <input type="date" class="form-control" id="birthday" name="birthday" [(ngModel)]="profile.birthDate">
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label class="mb-2">Gender:</label><br>
+                                          <select id="gender" name="gender" class="mb-3" [(ngModel)]="profile.sex">
+                                            <option selected disabled >Select an Option</option>
+                                            <option [ngValue]="'male'">Male</option>
+                                            <option [ngValue]="'female'">Female</option>
+                                            <option [ngValue]="'other'">Other</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col mb-3">
+                                        <div class="form-group">
+                                          <label>About Me</label>
+                                          <textarea class="form-control" rows="5" placeholder="Bio" name="bio" [(ngModel)] = "profile.aboutMe"></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-default me-3 " style="float: right;">Cancel</button>
+                        <button class="btn btn-success me-3 " style="float: right;" (click)="onSubmitEditProfile()">Save Changes</button>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+
+
+              <!-- Change password -->
+              <div class="tab-pane fade active show mb-5" id="account-change-password"
+                *ngIf="activeTab === 'account-change-password'">
+                <div class="card-body pb-2">
+                  <form>
+                    <div class="form-group">
+                      <label class="form-label">Current password: </label>
+                      <input type="password" class="form-control passInput" name="password" placeholder="Current Password"
+                        [(ngModel)]="editPasswordDTO.currentPassword" autocomplete="current-password">
+                    </div>
+    
+                    <div class="form-group">
+                      <label class="form-label">New password: </label>
+                      <input type="password" class="form-control passInput" name="password" placeholder="New Password"
+                        [(ngModel)]="editPasswordDTO.newPassword" autocomplete="new-password">
+                    </div>
+    
+                    <div class="form-group mb-3">
+                      <label class="form-label">Confirm new password: </label>
+                      <input type="password" class="passInput form-control" name="confirmPassword"
+                        placeholder="Re-enter New Password" [(ngModel)]="repeatNewPassword" autocomplete="new-password">
+                    </div>
+    
+                    <button type="button" class="btn btn-default me-3 " style="float: right;">Cancel</button>
+                    <button (click)="onSubmitEditPassword()" class="btn btn-success me-3 " style="float: right;">Save
+                      Changes</button>
+                  </form>
+                </div>
+              </div>
+
+
+              <!-- Change email address -->
+              <div class="tab-pane fade active show " id="account-info" *ngIf="activeTab === 'account-info'">
+                <div class="row m-3">
+                  <div class="col">
+                    <div class="form-group mb-3">
+                      <label>Type New Email Address</label>
+                      <input class="form-control" type="email" name="email" placeholder="Email"
+                        [(ngModel)]="newEmail">
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-default me-3 " style="float: right;">Cancel</button>
+                <button (click)="onSubmitEditEmail()" class="btn btn-success me-3 " style="float: right;">Save
+                  Changes</button>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
