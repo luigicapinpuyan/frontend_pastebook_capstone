@@ -1,0 +1,27 @@
+.custom-modal {
+    width: 100vw; 
+    max-width: 500px;
+    height: 90vh;
+    padding: 20px; 
+    border-radius: 150px;
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 7px;
+    color: red;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+}
+
+.photo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}

@@ -4,7 +4,7 @@ import { MiniProfileDTO } from 'src/app/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
 import { FriendService } from 'src/app/services/friend.service';
-import { FriendRequestComponent } from 'src/app/modals/friend-request/friend-request.component';
+import { FriendRequestComponent } from 'src/app/modals/friend-request-modal/friend-request.component';
 import { SessionService } from 'src/app/services/session.service';
 import { Router } from '@angular/router';
 
@@ -40,14 +40,12 @@ export class HomeComponent implements OnInit{
           this.sessionService.clear();
           this.router.navigate(['login']);
         } else {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         }
       });
     }
-
     this.getProfile();
     this.getAllFriendRequests();
-    
   }
 
   //PROFILE
@@ -79,5 +77,8 @@ export class HomeComponent implements OnInit{
       console.log('The dialog was closed');
     });
   }
+
+
+
 
 }

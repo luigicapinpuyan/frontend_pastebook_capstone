@@ -15,9 +15,8 @@ export class FriendRequestIndividualComponent implements OnInit{
   constructor(
     private friendService: FriendService
   ){
-
+    
   }
-
   acceptRequest(requestId?: string, friend?: Friend){
     this.friendService.acceptFriendRequest(requestId).subscribe((response: Record<string, any>)=>{
       this.deleteFriendFromView(friend);

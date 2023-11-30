@@ -26,11 +26,11 @@ export class FriendService {
   }
 
   acceptFriendRequest(requestId?: string): Observable<Object>{
-    return this.http.post(this.baseUrl + `/accept-friend/${requestId}`, { });
+    return this.http.post(this.baseUrl + `/accept-friend/${requestId}`, {headers: this.header});
   }
 
   removeFriendRequest(requestId?: string): Observable<Object>{
-    return this.http.delete(this.baseUrl + `/reject-friend/${requestId}`);
+    return this.http.delete(this.baseUrl + `/reject-friend/${requestId}`, {headers: this.header});
   }
 
   getAllFriends(): Observable<MiniProfileDTO[]>{

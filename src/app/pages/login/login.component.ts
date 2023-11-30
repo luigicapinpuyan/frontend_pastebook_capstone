@@ -22,7 +22,20 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toast: NgToastService
   ){
+    let token: string = this.sessionService.getToken();
     
+    if (token != null) {
+      this.userService.validateToken().subscribe((response) => {
+        let isUsable: boolean = response;
+
+        if (isUsable == false) {
+          this.sessionService.clear();
+          this.router.navigate(['login']);
+        } else {
+          this.router.navigate(['']);
+        }
+      });
+    }
   }
 
   ngOnInit(): void {}

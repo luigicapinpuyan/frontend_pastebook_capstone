@@ -3,12 +3,13 @@
     
     <div class="row pe-5 ps-5 pt-5 justify-content-center gap-2 ">
         <div class="col-3 d-block p-3 custom-div d-none d-lg-flex d-flex flex-column align-items-center text-center">
-            <img src="{{ miniProfileDTO.photo ? miniProfileDTO.photo : '/assets/images/bg.jpg' }}" alt="Profile Photo" class="rounded-circle mb-3" width="100" height="100">
-            <h1>{{ miniProfileDTO.firstName + " " + miniProfileDTO.lastName }}</h1>
-            <p class="pb-2">Software Developer Trainee</p>
-            <h4>{{ miniProfileDTO.friendCount ? miniProfileDTO.friendCount : 0 }}</h4>
+            <img src="{{ miniProfileDTO.photo ? miniProfileDTO.photo : '/assets/images/bg.jpg' }}" alt="Profile Photo" class="rounded-circle mb-3 mt-2" width="100" height="100">
+            <h2>{{ miniProfileDTO.firstName }}</h2>
+            <h2>{{ miniProfileDTO.lastName }}</h2>
+            
+            <h4 class="mt-4">{{ miniProfileDTO.friendCount ? miniProfileDTO.friendCount : 0 }}</h4>
             <p>Friends</p>
-            <h5 class="text-primary pt-3" style="font-weight: bold;"><a routerLink="/profile" style="text-decoration: none;">View My Profile</a></h5>
+            <h5 class="text-primary pt-5" style="font-weight: bold;"><a routerLink="/profile" style="text-decoration: none;">View My Profile</a></h5>
         </div>
 
         <div class="col-12 col-lg-5 custom-div d-block">
@@ -52,7 +53,7 @@
         </div>
 
         <div class="col-12 col-lg-5 d-block p-3 custom-div" style="align-self: flex-start;">
-            <!-- <app-newsfeed></app-newsfeed> -->
+            <app-post-individual></app-post-individual>
         </div>
         <div class="col-3 d-block p-3 custom-div d-none d-lg-flex " style="align-self: flex-start;">
 
