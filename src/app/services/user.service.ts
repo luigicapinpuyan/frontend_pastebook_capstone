@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MiniProfileDTO, User, UserRegisterDTO } from '../models/user';
+import { EditPasswordDTO, MiniProfileDTO, ProfileDTO, User, UserRegisterDTO } from '../models/user';
 import { Post } from '../models/post';
 import { SessionService } from './session.service';
 
@@ -54,42 +54,36 @@ export class UserService {
     return this.http.post(this.baseUrl + `authentication/verify-email/${recipientEmail}`, {});
   }
 
-  // wait for UserController from Backend
-  // getMainProfile(): Observable<ProfileDTO>{
-  //   return this.http.get<ProfileDTO>(this.baseUrl + `profile/get-profile`, {headers: this.header});
-  // }
+  getMainProfile(): Observable<ProfileDTO>{
+    return this.http.get<ProfileDTO>(this.baseUrl + `profile/get-profile`, {headers: this.header});
+  }
 
-  // getMiniProfile(): Observable<MiniProfileDTO>{
-  //   return this.http.get<MiniProfileDTO>(this.baseUrl + `profile/get-mini-profile`, {headers: this.header});
-  // }
+  getMiniProfile(): Observable<MiniProfileDTO>{
+    return this.http.get<MiniProfileDTO>(this.baseUrl + `profile/get-mini-profile`, {headers: this.header});
+  }
 
-  
-
-  // editAboutMe(profileDTO: ProfileDTO): Observable<ProfileDTO>{
-  //   return this.http.put(this.baseUrl + `profile/edit-about-me`, profileDTO, {headers: this.header});
-  // }
+  editProfile(profileDTO: ProfileDTO): Observable<ProfileDTO>{
+    return this.http.put(this.baseUrl + `profile/edit-profile`, profileDTO, {headers: this.header});
+  }
 
 
-  // editProfile(profileDTO: ProfileDTO): Observable<ProfileDTO>{
-  //   return this.http.put(this.baseUrl + `profile/edit-profile`, profileDTO, {headers: this.header});
-  // }
+  editEmail(newEmail: string): Observable<ProfileDTO>{
+    return this.http.put(this.baseUrl + "profile/edit-email", newEmail, {headers: this.header});
+  }
 
-  // editPassword(editPasswordDTO: EditPasswordDTO): Observable<EditPasswordDTO>{
-  //   return this.http.put(this.baseUrl + "profile/edit-password", editPasswordDTO, {headers: this.header});
-  // }
+  editPassword(editPasswordDTO: EditPasswordDTO): Observable<EditPasswordDTO>{
+    return this.http.put(this.baseUrl + "profile/edit-password", editPasswordDTO, {headers: this.header});
+  }
 
-  // editEmail(editEmailDTO: EditEmailDTO): Observable<EditEmailDTO>{
-  //   return this.http.put(this.baseUrl + "profile/edit-email", editEmailDTO, {headers: this.header});
-  // }
-
- 
-
+  // we haven't called edit-profile-pic yet
+  editProfilePic(profileImageId: string): Observable<ProfileDTO>{
+    return this.http.put(this.baseUrl + `profile/edit-profile-pic/${profileImageId}`, {headers: this.header})
+  }
 
   getAllUserBySearch(name: string): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl + `profile/search-users/${name}`);
   }
 
   
-  // we haven't called edit-profile-pic yet 
-
+ 
 }

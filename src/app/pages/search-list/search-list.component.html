@@ -1,1 +1,62 @@
-<p>search-list works!</p>
+<div class="container">
+    <div class="row ng-scope">
+        <div class="col-md-3 col-md-push-9">
+            
+        </div>
+        <div class="col-md-9 col-md-pull-3">
+            <p class="search-results-count">About {{users.length}} result/s</p>
+
+            <ng-container *ngFor="let user of users">
+                <div class="row">
+                    <div class="col-9">
+                        <p> {{user.firstName}} {{user.lastName}} </p> 
+                    </div>
+                    <div>
+                        <button>Add Friend</button>
+                    </div>
+                </div>
+
+                
+            
+            </ng-container>
+            
+
+            <section class="search-result-item">
+                <div class="search-result-item-body">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h4 class="search-result-item-heading"><a href="#">john doe</a></h4>
+                            <p class="info">New York, NY 20188</p>
+                             <span class="badge bg-success fw-normal pull-right">Add friend </span>
+                            
+                        </div>
+                        <div class="col-sm-3 text-align-center">
+                            
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="search-result-item">
+                <a class="image-link" href="#"><img class="image" src="https://bootdey.com/img/Content/avatar/avatar6.png">
+                </a>
+                <div class="search-result-item-body">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h4 class="search-result-item-heading"><a href="#">john doe</a></h4>
+                            <span class="badge bg-success fw-normal pull-right">Add friend </span>
+                            <p class="info">Los Angeles, NY 20188</p>
+        
+                        </div>
+                        <div class="col-sm-3 text-align-center">
+                            
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+
+        
