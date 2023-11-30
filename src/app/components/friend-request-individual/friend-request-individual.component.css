@@ -1,0 +1,42 @@
+.friend-request {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #dddddd;
+}
+
+.friend-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+
+.friend-buttons {
+    display: flex;
+    border-bottom: 1px solid #dddddd;
+    gap: 5px;
+    padding-bottom: 8px;
+}
+
+.accept-btn, .ignore-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.accept-btn {
+    background-color:#7AE582 ;
+}
+
+.ignore-btn {
+    background-color: #FF4F4B ;
+}
+
+/* Add some styles for better appearance */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+h6 {
+    margin-bottom: 20px;
+}

@@ -1,7 +1,65 @@
 <body>
     <app-navbar></app-navbar>
-    <p>home works!</p>
+    
+    <div class="row pe-5 ps-5 pt-5 justify-content-center gap-2 ">
+        <div class="col-3 d-block p-3 custom-div d-none d-lg-flex d-flex flex-column align-items-center text-center">
+            <img src="{{ miniProfileDTO.photo ? miniProfileDTO.photo : '/assets/images/bg.jpg' }}" alt="Profile Photo" class="rounded-circle mb-3 mt-2" width="100" height="100">
+            <h2>{{ miniProfileDTO.firstName }}</h2>
+            <h2>{{ miniProfileDTO.lastName }}</h2>
+            
+            <h4 class="mt-4">{{ miniProfileDTO.friendCount ? miniProfileDTO.friendCount : 0 }}</h4>
+            <p>Friends</p>
+            <h5 class="text-primary pt-5" style="font-weight: bold;"><a routerLink="/profile" style="text-decoration: none;">View My Profile</a></h5>
+        </div>
+
+        <div class="col-12 col-lg-5 custom-div d-block">
+            <app-add-post></app-add-post>
+        </div>        
+        
+        <div class="col-3 p-3 custom-div d-none d-lg-flex flex-column text-center">
+            <div>
+                <div class="d-flex">
+                    <h6>Friend Requests</h6>   
+                    <p class="ms-auto"><a (click)="openFriendRequestModal()" style="cursor: pointer;">View All</a></p>
+                </div>
+                <app-friend-request-individual *ngFor="let friend of friends" [friend]="friend" [deleteFriendFromView]="deleteFriendFromView.bind(this)"></app-friend-request-individual>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add another div below every column -->
+    <div class="row pb-5 pe-5 ps-5 pt-2 justify-content-center gap-2">
+        <div class="col-3 d-none d-lg-block p-3 custom-div" style="align-self: flex-start;">
+            <div class="d-flex">
+              <h6>Album</h6>
+              <p class="ms-auto"><a routerLink="/album" class="text-decoration-none text-dark">View All</a></p>
+            </div>
+            <div class="">
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <a routerLink ="/photos"><img src="/assets/images/bg.jpg" alt="Photo 2"></a>
+                    </div>
+                    <div class="photo-item">
+                        <a routerLink ="/photos"><img src="/assets/images/bg.jpg" alt="Photo 2"></a>
+                    </div>
+                    <div class="photo-item">
+                        <a routerLink ="/photos"><img src="/assets/images/bg.jpg" alt="Photo 2"></a>
+                    </div>
+                    <div class="photo-item">
+                        <a routerLink ="/photos"><img src="/assets/images/bg.jpg" alt="Photo 2"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-5 d-block p-3 custom-div" style="align-self: flex-start;">
+            <app-post-individual></app-post-individual>
+        </div>
+        <div class="col-3 d-block p-3 custom-div d-none d-lg-flex " style="align-self: flex-start;">
+
+        </div>
+    </div>
     <app-footer></app-footer>
+
+
 </body>
-
-

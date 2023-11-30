@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
+import { EditPasswordDTO } from 'src/app/models/user';
 import { SessionService } from 'src/app/services/session.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,14 +11,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ForgotPasswordComponent implements OnInit{
 
+  selectedContainer: string = "change-pass";
   email: string = '';
   userId: string = this.sessionService.getUserId();
+  password: string = "";
+
 
   constructor(
     private userService: UserService,
     private sessionService: SessionService,
     private toast: NgToastService
-  ){}
+  ){
+  }
 
   ngOnInit(): void {}
 

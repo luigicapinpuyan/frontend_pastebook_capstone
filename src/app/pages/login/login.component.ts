@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ){
     let token: string = this.sessionService.getToken();
     
-    if (token != null) {3
+    if (token != null) {
       this.userService.validateToken().subscribe((response) => {
         let isUsable: boolean = response;
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
           this.sessionService.clear();
           this.router.navigate(['login']);
         } else {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         }
       });
     }

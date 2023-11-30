@@ -1,0 +1,72 @@
+<div class="card mb-3" >
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <div class="mr-2">
+                    <img class="rounded-circle me-2" width="47" height="47" src="/assets/images/bg.jpg" alt="">
+                </div>
+                <div class="ml-2">
+                    <div class="h5 m-0">{{ post.poster?.firstName + " " + post.poster?.lastName }}</div>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <i class="fa-regular fa-clock" style="color: #000000;"></i> {{ post.datePosted  }}
+                <button *ngIf="post.poster?.id === userId" class="ms-2 p-1 btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis" style="color: #000000;"></i>
+                </button>
+                <div *ngIf="post.poster?.id === userId" class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                  <a class="dropdown-item">Edit</a>
+                  <a class="dropdown-item">Delete</a>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <div class="card-body pb-0">
+        <h5 class="card-title">{{post.postTitle}}</h5>
+        <p class="card-text">
+            {{ post.postBody }}            
+        </p>
+        <div class="d-flex px-3">
+            <span id="likes-count" class="me-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Liked by Ad Min, Jayvee Tinio, Blessie Balagtas, and 1 other.">
+                <span class="text-body text-opacity-50" id="likes-count" style="cursor: pointer;" (click)="openLikesModal()" data-bs-toggle="modal" data-bs-target="#likesModal">4 Likes</span>
+            </span>
+            <span id="comments-count" class="ms-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="left" title="Comments on {{ post.postTitle }}">
+                <span class="text-body text-opacity-50" id="comments-count" style="cursor: pointer;" (click)="openCommentsModal()" data-bs-toggle="modal" data-bs-target="#commentsModal">4 Comments</span>
+            </span>
+        </div>
+    </div>    
+
+    <div class="post-method">
+        <hr class="mb-1 opacity-1" />
+        <div class="row text-center fw-bold">
+            <div class="col">
+                <a class="text-body text-opacity-50 text-decoration-none d-block p-2" style="cursor: pointer;"> <i class="fa fa-thumbs-up me-1 d-block d-sm-inline"></i> Like </a>
+            </div>
+            <div class="col">
+               <a class="text-body text-opacity-50 text-decoration-none d-block p-2" (click)="openCommentsModal()" style="cursor: pointer;"> <i class="fa fa-comment me-1 d-block d-sm-inline"></i> Comment </a>
+            </div>
+        </div>
+        <hr class="mb-1 mt-1 opacity-1" />
+    </div>
+
+    <div class="d-flex align-items-center m-3">
+        <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle" />
+        <div class="flex-fill ps-2">
+            <div class="position-relative d-flex align-items-center">
+                <input type="text" class="form-control rounded-pill bg-white bg-opacity-15" style="padding-right: 120px;" placeholder="Write a comment..." />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Initialize the tooltip -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>

@@ -1,0 +1,15 @@
+.custom-modal {
+    width: 100vw; 
+    max-width: 450px;
+    height: 90vh;
+    padding: 20px; 
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 7px;
+    color: red;
+}
