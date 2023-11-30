@@ -1,0 +1,46 @@
+.custom-modal {
+    width: 100vw; 
+    max-width: 450px;
+    height: 90vh;
+    padding: 20px; 
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 7px;
+    color: red;
+}
+
+.friend-request {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.friend-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+
+.friend-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.accept-btn, .ignore-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.accept-btn:hover {
+    background-color:#7AE582 ;
+}
+
+.ignore-btn:hover {
+    background-color: #FF4F4B ;
+}

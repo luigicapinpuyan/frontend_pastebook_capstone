@@ -7,7 +7,7 @@ import { NgToastModule } from 'ng-angular-popup';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -22,6 +22,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddPostComponent } from './components/add-post/add-post.component';
+import { FriendRequestComponent } from './modals/friend-request/friend-request.component';
+import { FriendRequestIndividualComponent } from './components/friend-request-individual/friend-request-individual.component';
 
 
 
@@ -47,7 +50,10 @@ const  appRoutes: Routes = [
     SearchListComponent,
     NavbarComponent,
     FooterComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    AddPostComponent,
+    FriendRequestComponent,
+    FriendRequestIndividualComponent
   ],
   imports: [
     BrowserModule,

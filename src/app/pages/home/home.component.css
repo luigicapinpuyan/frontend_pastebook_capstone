@@ -1,0 +1,54 @@
+body {
+    background-color: rgb(229, 225, 225);
+}
+.custom-div {
+    background-color: #f1f0f0; 
+}
+
+body, html {
+    margin: 0;
+    overflow-x: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+.col-3,
+.col-5 {
+    overflow-x: hidden;
+}
+
+
+textarea {
+  width: 100%;
+  min-height: 200px;
+  resize: none;
+}
+
+#postButton {
+  background-color: #3373B0;
+  color: #E7F1FB;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 5px;
+  }
+  
+  .photo-item {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .plus-icon {
+    font-size: 55px; /* Adjust the font size to make the plus icon larger */
+    color: #555; /* Adjust the color of the plus icon */
+    cursor: pointer;
+}

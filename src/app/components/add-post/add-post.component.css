@@ -1,0 +1,48 @@
+body {
+    background-color: rgb(229, 225, 225);
+}
+.custom-div {
+    background-color: #f1f0f0; 
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+.row {
+    width: 100%; 
+}
+
+.col-3,
+.col-5 {
+    max-width: 100%; 
+    overflow-x: hidden;
+}
+
+
+textarea {
+  width: 100%;
+  min-height: 200px;
+  resize: none;
+}
+
+#postButton {
+  background-color: #3373B0;
+  color: #E7F1FB;
+}
+
+.roundedBoarder{
+    border-radius: 5px;
+    border-color: lightgray;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.textHeight{
+    height: 200px;
+}

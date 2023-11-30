@@ -1,0 +1,18 @@
+<div class="mb-3">
+    <div class="col-6 col-lg-6 text-center mx-auto">
+        <h4 style="color: #3373B0;" class="mt-4 mb-3">What's on your mind?</h4>
+    </div>
+</div>
+<div class="custom-div d-flex flex-column justify-content-center">
+
+    <input class="roundedBoarder" type="text" placeholder="Title" name="title" [(ngModel)] ="post.postTitle">
+    <textarea class="textHeight roundedBoarder p-0 m-0" placeholder="Type your post here" [(ngModel)] = "post.postBody"></textarea>
+    
+    <div class="d-flex justify-content-end mt-4">
+        <label for="fileInput" class="btn btn-success me-2">
+          Upload Photo
+          <input type="file" (change)="onFileChange($event)" id="fileInput" style="display: none;" />
+        </label>
+        <button id="postButton" class="btn" (click)="addPost()">Add Post</button>
+    </div>
+</div>

@@ -21,15 +21,15 @@ export class FriendService {
   ) { }
 
 
-  getFriendRequests(): Observable<Friend[]>{
+  getAllFriendRequests(): Observable<Friend[]>{
     return this.http.get<Friend[]>(this.baseUrl + `/get-all-friend-request/`, {headers: this.header});
   }
 
-  acceptFriendRequest(requestId?: number): Observable<Object>{
+  acceptFriendRequest(requestId?: string): Observable<Object>{
     return this.http.post(this.baseUrl + `/accept-friend/${requestId}`, { });
   }
 
-  removeFriendRequest(requestId?: number): Observable<Object>{
+  removeFriendRequest(requestId?: string): Observable<Object>{
     return this.http.delete(this.baseUrl + `/reject-friend/${requestId}`);
   }
 
