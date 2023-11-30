@@ -39,6 +39,7 @@ export class SettingsComponent implements OnInit {
     this.searchForUploads();
   }
 
+  // Retrieves all albums of the current user
   getAlbums(){
     this.albumService.getAllAlbums().subscribe((response)=> {
       this.albumList = response;
@@ -83,6 +84,18 @@ export class SettingsComponent implements OnInit {
     }
     return "0"; // Return 0 if this.file is not defined
   }
+  // async uploadPhoto(): Promise<number> {
+  //   if (this.file) {
+  //     try {
+  //       const response = await this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
+  //       return response.photoId;
+  //     } catch (error) {
+  //       console.error(error);
+  //       return 0;
+  //     }
+  //   }
+  //   return 0; // Return 0 if this.file is not defined
+  // }
 
   onFileChange(event: any): void {
     const file = event.target.files[0];

@@ -16,7 +16,7 @@
                             Profile</a>
                         <a class="list-group-item list-group-item-action"
                             [class.active]="activeTab === 'account-change-password'"
-                            (click)="switchTab('account-change-password')">Change password</a>
+                            (click)="switchTab('account-change-password')">Change Password</a>
                         <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'account-info'"
                             (click)="switchTab('account-info')">Change Email</a>
                     </div>
@@ -93,9 +93,9 @@
                                                                         </div>
                                                                         <div class="col">
                                                                             <div class="form-group">
-                                                                                <label class="mb-2">Gender:</label><br>
+                                                                                <label>Gender:</label><br>
                                                                                 <select id="gender" name="gender"
-                                                                                    class="mb-3"
+                                                                                    class="input--style-4 form-control form-rounded form-outline"
                                                                                     >
                                                                                     <option hidden selected>{{gender}}</option>
                                                                                     <option disabled >Select an
