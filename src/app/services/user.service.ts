@@ -68,7 +68,7 @@ export class UserService {
 
 
   editEmail(newEmail: string): Observable<ProfileDTO>{
-    return this.http.put(this.baseUrl + "profile/edit-email", newEmail, {headers: this.header});
+    return this.http.put(this.baseUrl + `profile/edit-email/${newEmail}`, {headers: this.header});
   }
 
   editPassword(editPasswordDTO: EditPasswordDTO): Observable<EditPasswordDTO>{

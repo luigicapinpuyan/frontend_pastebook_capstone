@@ -96,8 +96,9 @@
                                                                                 <label class="mb-2">Gender:</label><br>
                                                                                 <select id="gender" name="gender"
                                                                                     class="mb-3"
-                                                                                    [(ngModel)]="profile.sex">
-                                                                                    <option selected disabled>Select an
+                                                                                    >
+                                                                                    <option hidden selected>{{gender}}</option>
+                                                                                    <option disabled >Select an
                                                                                         Option</option>
                                                                                     <option [ngValue]="'male'">Male
                                                                                     </option>
