@@ -5,6 +5,8 @@ import { SessionService } from 'src/app/services/session.service';
 import { UserService } from 'src/app/services/user.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { Photo } from 'src/app/models/photo';
+import { Album, AlbumDTO } from 'src/app/models/album';
+import { AlbumService } from 'src/app/services/album.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -21,19 +23,37 @@ export class SettingsComponent implements OnInit {
   profile: ProfileDTO = new ProfileDTO();
   gender: string = "";
   file: File | null = null;
+  albumList: Album[] = [];
+  albumId: string | undefined = '';
 
   ngOnInit(): void {}
   constructor(
     private userService: UserService,
     private sessionService: SessionService,
     private toast: NgToastService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private albumService: AlbumService
   ){
     this.getProfile();
-    
-    
+    this.getAlbums();
+    this.searchForUploads();
   }
 
+  // Retrieves all albums of the current user
+  getAlbums(){
+    this.albumService.getAllAlbums().subscribe((response)=> {
+      this.albumList = response;
+    })
+  }
+
+  searchForUploads(){
+    this.albumList.forEach(a => {
+      if(a.albumName?.toLowerCase() === "uploads"){
+        this.albumId = a.id;
+      }
+    });
+    console.log(this.albumId);
+  }
   
   getProfile(){
     this.userService.getMainProfile().subscribe((response)=>{
@@ -48,6 +68,21 @@ export class SettingsComponent implements OnInit {
         this.profile.birthDate = new Date(this.profile.birthDate).toISOString().split('T')[0];
       }
     });
+  }
+  async uploadPhoto(): Promise<string> {
+    if (this.file) {
+      try {
+        if(this.albumId != null){
+          const response = await this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
+          return response.photoId;
+        }
+        
+      } catch (error) {
+        console.error(error);
+        return "0";
+      }
+    }
+    return "0"; // Return 0 if this.file is not defined
   }
   // async uploadPhoto(): Promise<number> {
   //   if (this.file) {
