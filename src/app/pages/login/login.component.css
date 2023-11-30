@@ -1,0 +1,80 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+p {
+    font-size: 30px;
+}
+body {
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('/assets/images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+}
+
+#landing-left {
+    background-color: #f2f2f2;
+}
+
+#landing-right {
+    background-color: #3373B0;
+}
+
+#landing-left > button {
+    border-color: #3373B0;
+    color: #3373B0;
+}
+
+#landing-left > button:hover {
+    border-color: #BED4E9;
+    background-color: #3373B0;
+    color: #BED4E9;
+}
+
+#landing-right > button {
+    border-color: #BED4E9;
+    color: #BED4E9;
+}
+
+#landing-right > button:hover {
+    border-color: #3373B0;
+    background-color: #BED4E9;
+    color: #3373B0;
+}
+
+
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+.form button {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    border: 0;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+    color: #FFFFFF;
+    font-size: 16px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+
+  
+  .form .message {
+    margin: 15px 0 0;
+    color: #E7F1FB;
+    font-size: 12px;
+  }
+  .form .message a {
+    color: #E7F1FB;
+    text-decoration: none;
+  }
