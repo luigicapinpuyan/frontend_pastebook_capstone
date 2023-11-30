@@ -24,12 +24,13 @@ export class SettingsComponent implements OnInit {
     private toast: NgToastService
   ){
     this.getProfile();
+    
   }
 
   getProfile(){
     this.userService.getMainProfile().subscribe((response)=>{
       this.profile = response;
-
+      
       if (this.profile.birthDate) {
         this.profile.birthDate = new Date(this.profile.birthDate).toISOString().split('T')[0];
       }
