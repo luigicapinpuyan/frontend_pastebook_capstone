@@ -23,13 +23,7 @@ export class UserService {
   ) {
   }
 
-  // put these two posts into timeline service
-  getNewsFeedPosts(): Observable<Post[]>{
-    return this.http.get<Post[]>(this.baseUrl + `timeline/get-newsfeed-posts`, {headers: this.header});
-  }
-  getAllPosts(): Observable<Post[]>{
-    return this.http.get<Post[]>(this.baseUrl + `timeline/get-all-posts`, {headers: this.header});
-  }
+  
   // 
 
 

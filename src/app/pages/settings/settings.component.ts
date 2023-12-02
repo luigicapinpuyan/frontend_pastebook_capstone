@@ -55,20 +55,32 @@ export class SettingsComponent implements OnInit {
     console.log(this.albumId);
   }
   
-  getProfile(){
-    this.userService.getMainProfile().subscribe((response)=>{
-      this.profile = response;
-      console.log(this.profile.sex);
-      if(this.profile.sex != null){
-        this.gender = this.profile.sex;
+  getProfile() {
+    this.userService.getMainProfile().subscribe(
+      (response) => {
+        this.profile = response;
+        console.log(this.profile.sex);
+        
+        if (this.profile.sex != null) {
+          this.gender = this.profile.sex;
+        }
+  
+        if (this.profile.birthDate) {
+          const birthDate = new Date(this.profile.birthDate);
+  
+          if (!isNaN(birthDate.getTime())) {
+            this.profile.birthDate = birthDate;
+          } else {
+            console.error('Invalid birth date format');
+          }
+        }
+      },
+      (error) => {
+        console.error('Error fetching profile:', error);
       }
-     
-      
-      if (this.profile.birthDate) {
-        this.profile.birthDate = new Date(this.profile.birthDate).toISOString().split('T')[0];
-      }
-    });
+    );
   }
+  
   async uploadPhoto(): Promise<string> {
     if (this.file) {
       try {

@@ -5,6 +5,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import Swal from 'sweetalert2';
 import { PostService } from 'src/app/services/post.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-post',
@@ -17,16 +18,13 @@ export class AddPostComponent implements OnInit{
   albumId: string = '1';
   private userId: string = '';
 
-
   constructor(
     private photoService: PhotoService,
     private postService: PostService,
     private toast: NgToastService,
     private router: Router, 
-
-
+    private location: Location
   ){
-
   }
   ngOnInit(): void {}
 
@@ -52,7 +50,6 @@ export class AddPostComponent implements OnInit{
     if(photoId){
       this.post.photoId = photoId;
     }
-    this.post.posterId = this.userId;
 
     console.log(this.post);
     this.postService.addPost(this.post).subscribe({
@@ -61,13 +58,13 @@ export class AddPostComponent implements OnInit{
           title: "Post Added!",
           text: "New pastebook post success!",
           icon: "success"
-        });
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['home']);
+        }).then(() => {
+          window.location.reload();
         });
       },
-      error: () =>{
+      error: (response) =>{
         this.toast.error({detail: "ERROR", summary: "Error adding a new post!", duration: 5000});
+        console.log(response);
       }
     });
   }

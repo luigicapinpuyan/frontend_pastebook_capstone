@@ -22,11 +22,12 @@ export class FriendService {
 
 
   getAllFriendRequests(): Observable<Friend[]>{
-    return this.http.get<Friend[]>(this.baseUrl + `/get-all-friend-request/`, {headers: this.header});
+    return this.http.get<Friend[]>(this.baseUrl + `/get-all-friend-request`, {headers: this.header});
   }
 
   acceptFriendRequest(requestId?: string): Observable<Object>{
-    return this.http.post(this.baseUrl + `/accept-friend/${requestId}`, {headers: this.header});
+    const options = {headers: this.header};
+    return this.http.post(this.baseUrl + `/accept-friend/${requestId}`, {}, options);
   }
 
   removeFriendRequest(requestId?: string): Observable<Object>{

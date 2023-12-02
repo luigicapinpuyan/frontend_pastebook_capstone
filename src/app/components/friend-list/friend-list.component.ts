@@ -12,9 +12,6 @@ import { SessionService } from 'src/app/services/session.service';
 export class FriendListComponent implements OnInit {
   miniProfileDTO: MiniProfileDTO = new MiniProfileDTO();
   friends: MiniProfileDTO[] = []
-  private userId: number = Number(this.sessionService.getUserId());
-
-
 
   constructor(
     private friendService: FriendService,
@@ -24,18 +21,18 @@ export class FriendListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadFriends(this.userId)
-    this.getProfile(this.userId)
+    this.loadFriends()
+    this.getProfile()
   }
 
 
-  loadFriends(userId: number){
+  loadFriends(){
     this.friendService.getAllFriends().subscribe((response: MiniProfileDTO[]) => {
       this.friends = response
     });
   }
 
-  getProfile(userId: number) {
+  getProfile() {
     this.userService.getMiniProfile().subscribe(
       (response: MiniProfileDTO) => {
         this.miniProfileDTO = response;

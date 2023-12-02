@@ -46,7 +46,12 @@ export class PostService {
   }
 
   likePost(likeDTO: LikeDTO): Observable<Object>{
-    return this.http.post(`${this.baseUrl}/like-post`, {headers: this.header});
+    console.log(likeDTO)
+    return this.http.post(`${this.baseUrl}/like-post`, likeDTO, {headers: this.header});
+  }
+
+  isLiked(postId: string | undefined): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/is-post-liked/${postId}`, {headers: this.header});
   }
 
 }

@@ -6,6 +6,7 @@ import { SessionService } from 'src/app/services/session.service';
 import { ProfileDTO, User } from 'src/app/models/user';
 import { Post } from 'src/app/models/post';
 import { AboutmeModalComponent } from 'src/app/modals/aboutme-modal/aboutme-modal.component';
+import { TimelineService } from 'src/app/services/timeline.service';
 
 @Component({
   selector: 'app-timeline',
@@ -17,22 +18,18 @@ export class TimelineComponent implements OnInit{
   profileDTO: ProfileDTO = new ProfileDTO();
   posts: Post[] = [];
 
-
-
   constructor(
     public dialog: MatDialog,
     private userService: UserService,
-    private sessionService: SessionService
+    private timelineService: TimelineService
   ){
-    
     this.loadProfile();
-    this.loadAllPosts();
+    this.getAllPosts();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
+  //Modal
   openModal() {
     const dialogRef = this.dialog.open(AboutmeModalComponent);
 
@@ -41,6 +38,8 @@ export class TimelineComponent implements OnInit{
     });
   }
 
+
+  //User
   loadProfile(){
     this.userService.getMainProfile().subscribe(
       (response: ProfileDTO) => {
@@ -52,10 +51,9 @@ export class TimelineComponent implements OnInit{
     );
   }
 
-  
-
-  loadAllPosts(){
-    this.userService.getNewsFeedPosts().subscribe((response: Post[]) => {
+  //Timeline
+  getAllPosts(){
+    this.timelineService.getAllPosts().subscribe((response: Post[]) => {
       this.posts = response;
     },
     (error) => {
