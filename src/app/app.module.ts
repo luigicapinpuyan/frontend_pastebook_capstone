@@ -29,6 +29,12 @@ import { LikeModalComponent } from './modals/like-modal/like-modal.component';
 import { CommentModalComponent } from './modals/comment-modal/comment-modal.component';
 import { PostPageComponent } from './pages/post-page/post-page.component';
 
+import { FriendListComponent } from './components/friend-list/friend-list.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { AboutmeModalComponent } from './modals/aboutme-modal/aboutme-modal.component';
+import { AlbumListComponent } from './components/album-list/album-list.component';
+import { AddAlbumModalComponent } from './modals/add-album-modal/add-album-modal.component';
+import { PhotoListComponent } from './pages/photo-list/photo-list.component';
 
 
 
@@ -41,8 +47,8 @@ const  appRoutes: Routes = [
   {path: 'settings', component: SettingsComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'post-page', component: PostPageComponent},
-  {path: 'eme', component: PostIndividualComponent}
-
+  {path: 'eme', component: PostIndividualComponent},
+  {path: 'album', component: PhotoListComponent}
 ]
 
 @NgModule({
@@ -64,7 +70,13 @@ const  appRoutes: Routes = [
     PostIndividualComponent,
     LikeModalComponent,
     CommentModalComponent,
-    PostPageComponent
+    PostPageComponent,
+    FriendListComponent,
+    TimelineComponent,
+    AboutmeModalComponent,
+    AlbumListComponent,
+    AddAlbumModalComponent,
+    PhotoListComponent
   ],
   imports: [
     BrowserModule,

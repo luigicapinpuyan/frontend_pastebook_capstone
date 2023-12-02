@@ -1,0 +1,14 @@
+<div class="custom-modal">
+    <div class="row">
+        <div class="col mb-3">
+          <div class="form-group">
+            <label class="mb-3 text">Edit About Me</label>
+            <textarea class="form-control" rows="5" [(ngModel)] = "profileDTO.aboutMe"></textarea>
+            <div class="row d-flex">
+            <button class="btn bg-success mt-3 ms-auto col-2 me-2" (click)="onSubmitEditProfile()">Save Changes</button>
+            <button class="btn bg-danger mt-3 col-2" (click)="close()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

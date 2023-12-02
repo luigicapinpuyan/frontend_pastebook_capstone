@@ -21,8 +21,11 @@ export class PhotoService {
     private sessionService: SessionService
   ) { }
 
-  addPhoto(photoDTO: PhotoDTO): Observable<any> {
-    return this.http.post(`${this.baseUrl}/add-photo`, photoDTO, {headers: this.header})
+  addPhoto(albumId: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('albumId', albumId);
+    formData.append('file', file);
+    return this.http.post(`${this.baseUrl}/add-photo`, formData, {headers: this.header})
   }
 
   getPhoto(photoId: string): Observable<Object> {

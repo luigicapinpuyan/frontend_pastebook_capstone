@@ -1,0 +1,29 @@
+.custom-modal {
+    width: 100vw; 
+    max-width: 800px;
+    padding: 20px; 
+  }
+  
+  .photo-item {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 5px;
+  }
+  
+  .plus-icon {
+    font-size: 50px; 
+    color: #555; 
+    cursor: pointer;
+  }

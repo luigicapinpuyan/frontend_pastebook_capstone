@@ -1,0 +1,46 @@
+<body>                 
+    <div class="row">
+       <div class="col-md-12">
+          <div id="content" class="content content-full-width">
+             <div class="profile">
+                <div class="profile-header">
+                   <div class="profile-header-cover"></div>
+                </div>
+             </div>
+             <div class="profile-content">
+                <div class="tab-content p-0">
+                   <div class="tab-pane fade in active show" id="profile-friends">
+                      <h4 class="m-t-0 m-b-20 text-center">Friend List ({{ miniProfileDTO.friendCount }})</h4>
+                      <!-- begin row -->
+                      <div class="row row-space-2">
+                         <!-- <div class="photo-item" *ngFor="let album of albums">
+                                <img src="/assets/images/bg.jpg" alt="Photo 2">
+                                <p class="text-center">{{ album.albumName }}</p>
+                            </div> -->
+                         <!-- begin col-6 -->
+                         <div class="col-md-6 m-b-2" *ngFor="let friend of friends">
+                            <div class="p-10 bg-white">
+                               <div class="media media-xs overflow-visible">
+                                  <a class="media-left" href="javascript:;">
+                                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="media-object img-circle">
+                                  </a>
+                                  <div class="media-body valign-middle">
+                                     <b class="text-inverse">{{ friend.firstName + " " + friend.lastName}}</b>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                         <!-- end col-6 -->
+                      </div>
+                      <!-- end row -->
+                   </div>
+                   <!-- end #profile-friends tab -->
+                </div>
+                <!-- end tab-content -->
+             </div>
+             <!-- end profile-content -->
+          </div>
+       </div>
+    </div>
+ <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js'></script>
+ </body>

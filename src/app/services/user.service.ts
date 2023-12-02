@@ -54,6 +54,7 @@ export class UserService {
     return this.http.post(this.baseUrl + `authentication/verify-email/${recipientEmail}`, {});
   }
 
+  // wait for UserController from Backend
   getMainProfile(): Observable<ProfileDTO>{
     return this.http.get<ProfileDTO>(this.baseUrl + `profile/get-profile`, {headers: this.header});
   }

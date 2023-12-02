@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  
 
   searchText: string = '';
   searchResults: string[] = []; 
@@ -66,5 +67,4 @@ export class NavbarComponent {
       this.router.navigate(['/search-list'], { queryParams: { name: this.searchText } });
     }
   }
-
 }

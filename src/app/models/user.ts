@@ -59,7 +59,7 @@ export class ProfileDTO {
     constructor(
         public firstName?: string,
         public lastName?: string,
-        public birthDate?: string,
+        public birthDate?: Date,
         public sex?: string,
         public phoneNumber?: string,
         public aboutMe?: string
