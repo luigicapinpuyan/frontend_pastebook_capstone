@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { TimelineService } from 'src/app/services/timeline.service';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,23 +22,9 @@ export class HomeComponent implements OnInit{
   posts: Post[] = [];
    
   ngOnInit(): void {
-    this.getProfile();
-    this.getAllFriendRequests();
-    this.getNewsFeedPosts();
-  }
-  
-  constructor(
-    public dialog: MatDialog,
-    private userService: UserService,
-    private friendService: FriendService,
-    private sessionService: SessionService,
-    private router: Router,
-    private timelineService: TimelineService
-  ){
-
     let token: string = this.sessionService.getToken();
     
-    if (token != null) {3
+    if (token != null) {
       this.userService.validateToken().subscribe((response) => {
         let isUsable: boolean = response;
 
@@ -53,7 +37,21 @@ export class HomeComponent implements OnInit{
       });
     }
 
+
+    this.getProfile();
+    this.getAllFriendRequests();
+    this.getNewsFeedPosts();
+
   }
+  
+  constructor(
+    public dialog: MatDialog,
+    private userService: UserService,
+    private friendService: FriendService,
+    private sessionService: SessionService,
+    private router: Router,
+    private timelineService: TimelineService
+  ){}
 
   //PROFILE
   getProfile() {

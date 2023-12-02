@@ -22,7 +22,9 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private toast: NgToastService
-  ){
+  ){}
+
+  ngOnInit(): void {
     let token: string = this.sessionService.getToken();
     
     if (token != null) {
@@ -37,9 +39,7 @@ export class LoginComponent implements OnInit {
         }
       });
     }
-  }
 
-  ngOnInit(): void {
     const rememberMe = localStorage.getItem('rememberMe');
     if (rememberMe) {
       this.rememberMe = true;
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
         this.sessionService.setToken(response['token']);
         this.sessionService.setUserId(response['userId']);
     
-        this.router.navigate(['/home'])
+        this.router.navigate(['']);
       },
       error: (result: Record<string, any>) => {
         this.toast.error({detail: "ERROR", summary: "Invalid credentials.", duration: 5000});

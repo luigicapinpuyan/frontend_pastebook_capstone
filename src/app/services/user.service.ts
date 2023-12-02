@@ -36,7 +36,7 @@ export class UserService {
   }
  
   logout(): Observable<Object>{
-    return this.http.post(this.baseUrl + `authentication/logout`, {headers: this.header});
+    return this.http.post(this.baseUrl + `authentication/logout`, {}, {headers: this.header});
   }
 
   validateToken(): Observable<boolean>{
