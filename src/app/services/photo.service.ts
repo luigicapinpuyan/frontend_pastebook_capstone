@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Photo, PhotoDTO } from '../models/photo';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { SessionService } from './session.service';
 
 @Injectable({
@@ -28,9 +28,16 @@ export class PhotoService {
     return this.http.post(`${this.baseUrl}/add-photo`, formData, {headers: this.header})
   }
 
-  getPhoto(photoId: string): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/get-photo/${photoId}`, {headers: this.header});
+  getPhoto(photoId: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/get-photo/${photoId}`, { headers:this.header, responseType: 'blob' }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error loading photo:', error);
+        return throwError('Something went wrong while loading the photo.');
+      })
+    );
   }
+  
+  
 
   deletePhoto(photoId:string): Observable<Object> {
     return this.http.delete(`${this.baseUrl}/delete-photo/${photoId}`, {headers: this.header})
@@ -40,10 +47,8 @@ export class PhotoService {
     const formData: FormData = new FormData();
     formData.append('albumId', albumId);
     formData.append('file', file, file.name);
-    console.log('FormData:', formData);
-    console.log('Uploading file:', file);
 
-    return this.http.post<any>(`${this.baseUrl}/add-photo`, formData);
+    return this.http.post<string>(`${this.baseUrl}/add-photo`, formData, { headers: this.header });
   }
 
   

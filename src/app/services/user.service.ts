@@ -23,9 +23,6 @@ export class UserService {
   ) {
   }
 
-  
-  // 
-
 
   login(email: string, password: string): Observable<Object> {
     return this.http.post(this.baseUrl + 'authentication/login', {email, password})
@@ -42,11 +39,10 @@ export class UserService {
   validateToken(): Observable<boolean>{
     return this.http.get<boolean>(this.baseUrl + `authentication/validate-token`, {headers: this.header});
   }
-
-  // to be edited
   sendEmail(recipientEmail: string): Observable<Object> {
-    return this.http.post(this.baseUrl + `authentication/verify-email/${recipientEmail}`, {});
+    return this.http.post(`${this.baseUrl}authentication/verify-email/${recipientEmail}`, {});
   }
+  
 
   // wait for UserController from Backend
   getMainProfile(): Observable<ProfileDTO>{
@@ -63,7 +59,7 @@ export class UserService {
 
 
   editEmail(newEmail: string): Observable<ProfileDTO>{
-    return this.http.put(this.baseUrl + `profile/edit-email/${newEmail}`, {headers: this.header});
+    return this.http.put(`${this.baseUrl}profile/edit-email/${newEmail}`, {headers: this.header});
   }
 
   editPassword(editPasswordDTO: EditPasswordDTO): Observable<EditPasswordDTO>{

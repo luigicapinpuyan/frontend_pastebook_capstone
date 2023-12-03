@@ -26,7 +26,7 @@ export class PostService {
   private baseUrl: string = 'https://localhost:7208/api/post'
 
   addPost(postDTO: PostDTO): Observable<any> {
-    return this.http.post(`${this.baseUrl}/add-post/`, postDTO, {headers: this.header});
+    return this.http.post(`${this.baseUrl}/add-post`, postDTO, {headers: this.header});
   }
 
   updatePost(postDTO: PostDTO): Observable<any> {

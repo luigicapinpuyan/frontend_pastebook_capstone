@@ -12,11 +12,12 @@ body {
 }
 
 #landing-left {
-    background-color: #f2f2f2;
+    background-color: rgba(242, 242, 242, 1);
 }
 
 #landing-right {
-    background-color: #3373B0;
+    background-color: rgba(51, 115, 176, 0.75);
+    filter: blur(50);
 }
 
 #landing-left > button {

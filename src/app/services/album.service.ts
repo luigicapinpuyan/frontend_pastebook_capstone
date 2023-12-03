@@ -48,5 +48,9 @@ export class AlbumService {
   getMiniAlbum(): Observable<Object> {
     return this.http.get(`${this.baseUrl}/get-mini-album`, {headers: this.header})
   }
+
+  getUploadsAlbumId(): Observable<string>{
+    return this.http.get<string>(`${this.baseUrl}/get-uploads-album-id`, {headers:this.header});
+  }
   
 }

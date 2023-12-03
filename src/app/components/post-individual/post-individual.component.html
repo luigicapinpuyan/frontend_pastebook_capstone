@@ -28,6 +28,8 @@
         <p class="card-text">
             {{ post.postBody }}            
         </p>
+        <img *ngIf="photoUrl" [src]="photoUrl" alt="" class="img-fluid">
+
         <div class="d-flex px-3">
             <span id="likes-count" class="me-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ likedByString }}">
                 <span class="text-body text-opacity-50" id="likes-count" style="cursor: pointer;" (click)="openLikesModal()" data-bs-toggle="modal" data-bs-target="#likesModal">{{ usersLiked.length }} Likes</span>
@@ -58,7 +60,7 @@
         <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle" />
         <div class="flex-fill ps-2">
             <div class="position-relative d-flex align-items-center">
-                <input type="text" class="form-control rounded-pill bg-white bg-opacity-15" style="padding-right: 120px;" placeholder="Write a comment..." />
+                <input type="text" class="form-control rounded-pill bg-white bg-opacity-15" style="padding-right: 120px;" placeholder="Write a comment..." (keyup.enter)="commentPost()" [(ngModel)] = "comment" />
             </div>
         </div>
     </div>

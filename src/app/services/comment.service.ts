@@ -33,7 +33,7 @@ export class CommentService {
   }
 
   getCommentsByPostId(postId: string): Observable<Comment[]>{
-    return this.http.get<Comment[]>(`${this.baseUrl}/get-post-comments/${postId}`, {headers: this.header})
+    return this.http.get<Comment[]>(`${this.baseUrl}/get-post-comments/${postId}`, {headers: this.header});
   }
 
 }

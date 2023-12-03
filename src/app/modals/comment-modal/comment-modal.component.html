@@ -1,99 +1,25 @@
-<!-- Comments modal HTML structure -->
-<div class="custom-modal modal fade" id="commentsModal" tabindex="-1" aria-labelledby="commentsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="commentsModalLabel">Comments</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Populate this div with the list of users and their comments -->
-                <div *ngFor="let comment of comments" class="m-3">
-                    <div class="d-flex align-items-start">
-                        <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle me-3" />
-                        <div class="flex-fill">
-                            <div class="d-flex align-items-center">
-                                <strong>{{ comment.user }}</strong>
-                            </div>
-                            <div>
-                                {{ comment.text }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="custom-modal">
-        <!-- <h5 class="pb-3" style="border-bottom: 1px #dddddd solid;">Comments</h5>
-        <div class="comment pb-1 pt-2">
-            <img class="photo img-fluid me-3" src="/assets/images/bg.jpg" alt="Friend Photo">
-            <div class="friend-info m-2">
-                <p class=""><strong>Ad min</strong></p>
-            </div>
-        </div>
-
-        <div class="justify-content-center">
-            <p>
-                If the sentence is the essential soul to express oneself in their own way, then the paragraph is the virtual body of it. The Text Generator is an intelligent tool that creates random text incorporated with random thoughts. This smart tool is a virtual friend of yours that can talk to you in multidimensional thinking. It will provide you with thoughts, concepts, and ideas of different topics that will not only assist you in creating new knowledge but also enhance your brain function.
-            </p>
-        </div>
-        </div> -->
-        <div class="d-flex justify-content-between" style="border-bottom: 1px #dddddd solid;">
-            <h5 class="pb-3" >Comments</h5>
-            <button class="ms-auto" type="button" class="btn-close" (click)="closeModal()"></button>
-        </div>
-        <div class="d-flex my-4 mx-3">
-            <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle" />
-            <div class="flex-fill ps-2 ms-3">
-                <div class="position-relative d-flex align-items-center">
-                    <strong>Ad min</strong>
+    <div class="d-flex justify-content-between" style="border-bottom: 1px #dddddd solid;">
+        <h5 class="pb-3">Comments</h5>
+        <button class="ms-auto" type="button" class="btn-close" (click)="closeModal()"></button>
+    </div>
+    <div *ngIf="postComments.length === 0" class="m-3">
+        <h5>No comments available.</h5>
+    </div>
+    <div *ngFor="let comment of postComments" class="m-3">
+        <div class="d-flex align-items-start">
+            <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle me-3" />
+            <div class="flex-fill">
+                <div class="d-flex align-items-center">
+                    <strong>{{ comment.commenter?.firstName + " " + comment.commenter?.lastName }}</strong>
                 </div>
-                <div class="position-relative d-flex align-items-center">
-                    <p>If the sentence is the essential soul to express oneself in their own way, then the paragraph is the virtual body of it. The Text Generator is an intelligent tool that creates random text incorporated with random thoughts. This smart tool is a virtual friend of yours that can talk to you in multidimensional thinking. It will provide you with thoughts, concepts, and ideas of different topics that will not only assist you in creating new knowledge but also enhance your brain function.
-                    </p>
+                <div>
+                    {{ comment.commentContent }}
                 </div>
             </div>
         </div>
-
-
-
-
-
-<script>
-    function showComments() {
-        // You can fetch the list of users who commented on the post here
-        // For simplicity, let's assume you have a list called commentedUsers
-        let commentedUsers = ['Ad Min', 'Jayvee Tinio', 'Blessie Balagtas', 'Min Ad'];
-
-        let usersComments = {
-            'Ad Min': 'If the sentence is the essential soul to express oneself in their own way, then the paragraph is the virtual body of it. The Text Generator is an intelligent tool that creates random text incorporated with random thoughts. This smart tool is a virtual friend of yours that can talk to you in multidimensional thinking. It will provide you with thoughts, concepts, and ideas of different topics that will not only assist you in creating new knowledge but also enhance your brain function.',
-            'Jayvee Tinio': 'Amazing',
-            'Blessie Balagtas': 'Slay!',
-            'Min Ad': 'lorem ipsum et dolor sit amet.'
-        };
-
-        // Display the list in the modal
-        let commentsModal = new bootstrap.Modal(document.getElementById('commentsModal'));
-
-        // Populate the modal body with the list of users who commented on the post
-        let modalBody = document.querySelector('#commentsModal .modal-body');
-        modalBody.innerHTML = commentedUsers.map(user => `
-            <div class="d-flex align-items-center m-3">
-                <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle" />
-                <div class="flex-fill ps-2">
-                    <div class="position-relative d-flex align-items-center">
-                        <strong>${user}</strong>}
-                    </div>
-                    <div class="position-relative d-flex align-items-center">
-                        <strong>${usersComments[user]}
-                    </div>
-                </div>
-            </div>`).join('');
-
-        // Show the modal
-        commentsModal.show();
-    }
-</script>
+        
+    </div>
+</div>

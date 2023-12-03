@@ -11,34 +11,35 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ForgotPasswordComponent implements OnInit{
 
-  selectedContainer: string = "change-pass";
+  selectedContainer: 'verify' | 'change-pass' | 'check-email' = 'verify';
   email: string = '';
-  userId: string = this.sessionService.getUserId();
   password: string = "";
 
 
   constructor(
     private userService: UserService,
-    private sessionService: SessionService,
     private toast: NgToastService
   ){
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
-  onSubmit(): void{
-    this.userService.sendEmail(this.email).subscribe({next: this.emailSent.bind(this),
-      error: this.emailNotSent.bind(this)
-    })
   }
 
-  emailSent(){
-    this.toast.success({detail: "SUCCESS", summary: "Email verification sent!", duration: 5000})
-    //add the route to navigate or change the component that is being displayed in the forgot password
+  onVerifyEmail(): void {
+    this.userService.sendEmail(this.email).subscribe({
+      next: () => this.handleEmailResponse(true, 'Email verification sent!'),
+      error: (response) => this.handleEmailResponse(false, response['message'])
+    });
   }
-
-  emailNotSent(response: Record<string, any>){
-    this.toast.success({detail: "ERROR", summary: response["message"], duration: 5000})
+  
+  handleEmailResponse(success: boolean, message: string): void {
+    this.toast[success ? 'success' : 'error']({ detail: success ? 'SUCCESS' : 'ERROR', summary: message, duration: 5000 });
+    if (success) {
+      this.selectedContainer = "check-email";
+      window.location.reload();
+    }
   }
+  
 
 }
