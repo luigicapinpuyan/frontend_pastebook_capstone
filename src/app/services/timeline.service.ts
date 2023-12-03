@@ -32,7 +32,7 @@ export class TimelineService {
   getNewsFeedPosts(): Observable<PostDTO[]>{
     return this.http.get<Post[]>(this.baseUrl + `/get-newsfeed-posts`, {headers: this.getHeaders()});
   }
-  getAllPosts(): Observable<Post[]>{
-    return this.http.get<Post[]>(this.baseUrl + `/get-all-posts`, {headers: this.getHeaders()});
+  getAllPosts(userId: string): Observable<Post[]>{
+    return this.http.get<Post[]>(this.baseUrl + `/get-all-posts/${userId}`, {headers: this.getHeaders()});
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { CommentModalComponent } from 'src/app/modals/comment-modal/comment-modal.component';
 import { LikeModalComponent } from 'src/app/modals/like-modal/like-modal.component';
@@ -40,7 +41,8 @@ export class PostIndividualComponent {
     private postService: PostService,
     private commentService: CommentService,
     private toast: NgToastService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private router: Router
   ){
   }
 
@@ -50,7 +52,9 @@ export class PostIndividualComponent {
     this.isPostLiked();
     this.likedByString = this.generateLikedByString(this.usersLiked);
     this.photoId = this.post.photoId!;
-    this.loadPhoto();
+    if(this.photoId != null){
+      this.loadPhoto();
+    }
   }
 
   //modals
@@ -131,7 +135,6 @@ export class PostIndividualComponent {
   
     return likedByArray.length > 0 ? 'Liked by ' + likedByArray.join(', ') : '';
   }
-  
   loadPhoto(): void {
     this.photoService.getPhoto(this.photoId).subscribe(
       (photoBlob: Blob) => {
@@ -143,4 +146,9 @@ export class PostIndividualComponent {
       }
     );
   }
+  goToOtherProfile(){
+    this.router.navigate(['/profile'], { queryParams: { id: this.post.poster?.id } });
+  }
+
+
 }

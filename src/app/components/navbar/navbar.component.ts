@@ -14,6 +14,7 @@ export class NavbarComponent {
 
   searchText: string = '';
   searchResults: string[] = []; 
+  userId: string = this.sessionService.getUserId();
 
   itemsToSearch: string[] = [  
     'Item 1',
@@ -48,7 +49,7 @@ export class NavbarComponent {
   }
 
   goToDetailsPage() {
-    this.router.navigate(['/profile']); 
+    this.router.navigate(['/profile'], { queryParams: { id: this.userId } });
   }
 
   onEnterPressed(name:string) {

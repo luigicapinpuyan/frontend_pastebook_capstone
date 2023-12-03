@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Friend } from '../models/friend';
+import { Friend, FriendDTO } from '../models/friend';
 import { MiniProfileDTO, User } from '../models/user';
 import { SessionService } from './session.service';
 
@@ -29,6 +29,13 @@ export class FriendService {
     private sessionService: SessionService
   ) { }
 
+  addFriend(friendDTO: FriendDTO): Observable<Object>{
+    return this.http.post(this.baseUrl + `/add-friend`, friendDTO, {headers: this.getHeaders()});
+  }
+
+  getFriendExist(friendDTO: FriendDTO): Observable<Friend>{
+    return this.http.post<Friend>(`${this.baseUrl}/get-friend-exist`, friendDTO, {headers: this.getHeaders()});
+  }
 
   getAllFriendRequests(): Observable<Friend[]>{
     return this.http.get<Friend[]>(this.baseUrl + `/get-all-friend-request`, {headers: this.getHeaders()});

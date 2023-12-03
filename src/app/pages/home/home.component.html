@@ -9,7 +9,7 @@
             
             <h4 class="mt-4">{{ miniProfileDTO.friendCount ? miniProfileDTO.friendCount : 0 }}</h4>
             <p>Friends</p>
-            <h5 class="text-primary pt-5" style="font-weight: bold;"><a routerLink="/profile" style="text-decoration: none;">View My Profile</a></h5>
+            <h5 class="text-primary pt-5" style="font-weight: bold;"><a (click)="goToProfile()" style="text-decoration: none; cursor: pointer;">View My Profile</a></h5>
         </div>
 
         <div class="col-12 col-lg-5 custom-div d-block">

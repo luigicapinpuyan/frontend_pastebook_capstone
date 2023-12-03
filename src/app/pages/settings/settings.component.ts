@@ -6,6 +6,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { AlbumService } from 'src/app/services/album.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { MiniProfileDTO } from 'src/app/models/user';
+import { SessionService } from 'src/app/services/session.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -15,6 +16,7 @@ export class SettingsComponent implements OnInit {
   activeTab = 'account-general';
   profile: ProfileDTO = new ProfileDTO();
   miniProfile: MiniProfileDTO = new MiniProfileDTO();
+  userId: string = this.sessionService.getUserId();
 
   photoId: string = "";
   photoUrl: string = "";
@@ -35,7 +37,8 @@ export class SettingsComponent implements OnInit {
     private userService: UserService,
     private toast: NgToastService,
     private photoService: PhotoService,
-    private albumService: AlbumService
+    private albumService: AlbumService,
+    private sessionService: SessionService
   ){
   }
 
@@ -54,7 +57,7 @@ export class SettingsComponent implements OnInit {
 
 
   getProfile() {
-    this.userService.getMainProfile().subscribe(
+    this.userService.getMainProfile(this.userId).subscribe(
       (response) => {
         this.profile = response;
   
@@ -69,15 +72,18 @@ export class SettingsComponent implements OnInit {
   }
 
   getMiniProfile(){
-    this.userService.getMiniProfile().subscribe(
+    this.userService.getMiniProfile(this.userId).subscribe(
       (response: MiniProfileDTO) => {
         this.miniProfile = response;
         console.log(this.miniProfile);
         this.photoId = this.miniProfile.photo?.id!;
         this.loadPhoto();
+        this.toast.success({ detail: "SUCCESS", summary: "Profile image changed successfully.", duration: 5000 })
       },
       (error) => {
         console.error("Error fetching profile:", error);
+        this.toast.error({detail: "ERROR", summary: "Error changing profile image", duration: 5000});
+
       }
     );
   }

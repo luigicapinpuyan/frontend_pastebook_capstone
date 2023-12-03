@@ -1,49 +1,58 @@
 <html lang="en">
 <app-navbar></app-navbar>
+
 <body>
     <div class="row pt-2 pe-5 ps-5 justify-content-center gap-2">
 
-        <div class="col-12 col-md-9 col-lg-11 d-flex p-3 custom-div flex-column justify-content-center align-items-center">
+        <div
+            class="col-12 col-md-9 col-lg-11 d-flex p-3 custom-div flex-column justify-content-center align-items-center">
             <img src="/assets/images/bg.jpg" alt="Profile Photo" class="rounded-circle" width="150" height="150">
             <h1>{{ profileDTO.firstName + " " + profileDTO.lastName }}</h1>
-
-            <p>Software Developer Trainee</p>
+            <div [hidden]="userId == sentUserId" class="mt-2">
+                <button type="button" class="btn btn-success me-3" [hidden]="friend !== undefined && friend !== null" (click)="addFriend()">Add Friend</button>
+                <button type="button" class="btn btn-primary me-3" [hidden]="friend === undefined || friend === null || friend.isFriend" disabled>Friend Request Sent</button>
+                <button type="button" class="btn btn-danger" [hidden]="friend === undefined || friend === null || !friend.isFriend" (click)="removeFriend()">Remove Friend</button>
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-           <div class="col-md-12">
-              <div id="content" class="content content-full-width">
-                 <!-- begin profile -->
-                 <div class="profile">
-                    <div class="profile-header">
-                       <div class="profile-header-content">
-    
-    <ul class="profile-header-tab nav nav-tabs d flex align-items-center justify-content-center">   
-        <li class="nav-item" (click)="changeTab('timeline')"><a class="mx-auto" [class.active]="selectedTab === 'timeline'" style="cursor: pointer;">TIMELINE</a></li>
-        <li class="nav-item" (click)="changeTab('albums')"><a class="mx-auto" [class.active]="selectedTab === 'albums'" style="cursor: pointer;">ALBUMS</a></li>
-        <li class="nav-item" (click)="changeTab('friends')"><a class="mx-auto " [class.active]="selectedTab === 'friends'" style="cursor: pointer;">FRIENDS</a></li>
-     </ul>
-                                </div>
-                             </div>
-                         </div>
-                     </div>
+    <div class="container-fluid">
+        <div id="content" class="content content-full-width">
+            <!-- begin profile -->
+            <div class="profile">
+                <div class="profile-header">
+                    <div class="profile-header-content">
+
+                        <ul
+                            class="profile-header-tab nav nav-tabs d flex align-items-center justify-content-center">
+                            <li class="nav-item" (click)="changeTab('timeline')"><a class="mx-auto"
+                                    [class.active]="selectedTab === 'timeline'"
+                                    style="cursor: pointer;">TIMELINE</a></li>
+                            <li class="nav-item" (click)="changeTab('albums')"><a class="mx-auto"
+                                    [class.active]="selectedTab === 'albums'"
+                                    style="cursor: pointer;">ALBUMS</a></li>
+                            <li class="nav-item" (click)="changeTab('friends')"><a class="mx-auto "
+                                    [class.active]="selectedTab === 'friends'"
+                                    style="cursor: pointer;">FRIENDS</a></li>
+                        </ul>
+                    </div>
                 </div>
-             </div> 
+            </div>
         </div>
-    
-
-    <div class="row pt-2 pe-2 ps-2 justify-content-center gap-2">
-        <div class="col-11">
-            <app-timeline *ngIf="selectedTab === 'timeline'"></app-timeline>
-            <app-album-list *ngIf="selectedTab === 'albums'"></app-album-list>
-            <app-friend-list *ngIf="selectedTab === 'friends'"></app-friend-list>
-        </div>
-       
     </div>
 
-    
+
+    <div class="row pt-2 justify-content-center gap-2">
+        <div>
+            <app-timeline [sentUserId]="sentUserId" *ngIf="selectedTab === 'timeline'"></app-timeline>
+            <app-album-list [sentUserId]="sentUserId" *ngIf="selectedTab === 'albums'"></app-album-list>
+            <app-friend-list [sentUserId]="sentUserId" *ngIf="selectedTab === 'friends'"></app-friend-list>
+        </div>
+
+    </div>
+
+
 </body>
 <app-footer></app-footer>
+
 </html>

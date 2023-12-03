@@ -53,13 +53,12 @@ export class UserService {
   }
   
 
-  // wait for UserController from Backend
-  getMainProfile(): Observable<ProfileDTO>{
-    return this.http.get<ProfileDTO>(this.baseUrl + `profile/get-profile`, {headers: this.getHeaders()});
+  getMainProfile(userId: string): Observable<ProfileDTO>{
+    return this.http.get<ProfileDTO>(this.baseUrl + `profile/get-profile/${userId}`, {headers: this.getHeaders()});
   }
 
-  getMiniProfile(): Observable<MiniProfileDTO>{
-    return this.http.get<MiniProfileDTO>(this.baseUrl + `profile/get-mini-profile`, {headers: this.getHeaders()});
+  getMiniProfile(userId: string): Observable<MiniProfileDTO>{
+    return this.http.get<MiniProfileDTO>(this.baseUrl + `profile/get-mini-profile/${userId}`, {headers: this.getHeaders()});
   }
 
   editProfile(profileDTO: ProfileDTO): Observable<ProfileDTO>{

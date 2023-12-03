@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
 import { MiniProfileDTO, User } from 'src/app/models/user';
@@ -10,13 +10,13 @@ import { SessionService } from 'src/app/services/session.service';
   styleUrls: ['./friend-list.component.css']
 })
 export class FriendListComponent implements OnInit {
+  @Input() sentUserId: string = "";
   miniProfileDTO: MiniProfileDTO = new MiniProfileDTO();
   friends: MiniProfileDTO[] = []
 
   constructor(
     private friendService: FriendService,
-    private userService: UserService,
-    private sessionService: SessionService
+    private userService: UserService
   ){}
 
 
@@ -33,7 +33,7 @@ export class FriendListComponent implements OnInit {
   }
 
   getProfile() {
-    this.userService.getMiniProfile().subscribe(
+    this.userService.getMiniProfile(this.sentUserId).subscribe(
       (response: MiniProfileDTO) => {
         this.miniProfileDTO = response;
       },

@@ -58,6 +58,7 @@ export class MiniProfileDTO {
 
 export class ProfileDTO {
     constructor(
+        public id?: string,
         public firstName?: string,
         public lastName?: string,
         public birthDate?: Date,

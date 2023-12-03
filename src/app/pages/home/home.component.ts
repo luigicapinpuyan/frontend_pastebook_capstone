@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit{
   posts: Post[] = [];
   photoId: string = "";
   photoUrl: string = "";
+  userId: string = this.sessionService.getUserId();
    
   ngOnInit(): void {
     this.helperService.checkToken();
@@ -41,13 +42,15 @@ export class HomeComponent implements OnInit{
     private friendService: FriendService,
     private timelineService: TimelineService,
     private helperService: HelperService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private sessionService: SessionService,
+    private router: Router
   ){
   }
 
   //PROFILE
   getProfile() {
-    this.userService.getMiniProfile().subscribe(
+    this.userService.getMiniProfile(this.userId).subscribe(
       (response: MiniProfileDTO) => {
         this.miniProfileDTO = response;
         console.log(this.miniProfileDTO);
@@ -58,9 +61,7 @@ export class HomeComponent implements OnInit{
         console.error("Error fetching profile:", error);
       }
     );
-    
   }
-
   loadPhoto(): void {
     this.photoService.getPhoto(this.photoId).subscribe(
       (photoBlob: Blob) => {
@@ -71,6 +72,9 @@ export class HomeComponent implements OnInit{
         reader.readAsDataURL(photoBlob);
       }
     );
+  }
+  goToProfile() {
+    this.router.navigate(['/profile'], { queryParams: { id: this.userId } });
   }
 
 

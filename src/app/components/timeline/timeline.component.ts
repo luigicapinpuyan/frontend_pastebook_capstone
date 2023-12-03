@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 //import { EditAboutmeComponent } from 'src/app/modals/edit-aboutme/edit-aboutme.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
@@ -15,19 +15,23 @@ import { TimelineService } from 'src/app/services/timeline.service';
 })
 export class TimelineComponent implements OnInit{
 
+  @Input() sentUserId = '';
+  userId: string = this.sessionService.getUserId();
   profileDTO: ProfileDTO = new ProfileDTO();
   posts: Post[] = [];
 
   constructor(
     public dialog: MatDialog,
     private userService: UserService,
-    private timelineService: TimelineService
+    private timelineService: TimelineService,
+    private sessionService: SessionService
   ){
+  }
+
+  ngOnInit(): void {
     this.loadProfile();
     this.getAllPosts();
   }
-
-  ngOnInit(): void {}
 
   //Modal
   openModal() {
@@ -41,7 +45,7 @@ export class TimelineComponent implements OnInit{
 
   //User
   loadProfile(){
-    this.userService.getMainProfile().subscribe(
+    this.userService.getMainProfile(this.sentUserId).subscribe(
       (response: ProfileDTO) => {
         this.profileDTO = response;
       },
@@ -53,7 +57,7 @@ export class TimelineComponent implements OnInit{
 
   //Timeline
   getAllPosts(){
-    this.timelineService.getAllPosts().subscribe((response: Post[]) => {
+    this.timelineService.getAllPosts(this.sentUserId).subscribe((response: Post[]) => {
       this.posts = response;
     },
     (error) => {
