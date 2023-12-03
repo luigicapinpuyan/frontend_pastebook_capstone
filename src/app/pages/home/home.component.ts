@@ -53,7 +53,6 @@ export class HomeComponent implements OnInit{
     this.userService.getMiniProfile(this.userId).subscribe(
       (response: MiniProfileDTO) => {
         this.miniProfileDTO = response;
-        console.log(this.miniProfileDTO);
         this.photoId = this.miniProfileDTO.photo?.id!;
         this.loadPhoto();
       },

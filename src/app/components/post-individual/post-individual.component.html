@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <div class="mr-2">
-                    <img class="rounded-circle me-2" width="47" height="47" src="/assets/images/bg.jpg" alt="">
+                    <img class="rounded-circle me-2" width="47" height="47" [src]="postPhotoUrl" alt="">
                 </div>
                 <div class="ml-2">
                     <div class="h5 m-0">
@@ -13,7 +13,7 @@
             </div>
 
             <div class="dropdown">
-                <i class="fa-regular fa-clock" style="color: #000000;"></i> {{ post.datePosted | date: 'medium'  }}
+                <i class="fa-regular fa-clock" style="color: #000000;"></i> {{ post.datePosted! | timeDifference  }}
                 <button *ngIf="post.posterId === userId" class="ms-2 p-1 btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis" style="color: #000000;"></i>
                 </button>
@@ -61,7 +61,7 @@
     </div>
 
     <div class="d-flex align-items-center m-3">
-        <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle" />
+        <img [src]="postPhotoUrl" alt="" width="40" height="40" class="rounded-circle" />
         <div class="flex-fill ps-2">
             <div class="position-relative d-flex align-items-center">
                 <input type="text" class="form-control rounded-pill bg-white bg-opacity-15" style="padding-right: 120px;" placeholder="Write a comment..." (keyup.enter)="commentPost()" [(ngModel)] = "comment" />

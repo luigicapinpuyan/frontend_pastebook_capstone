@@ -30,6 +30,9 @@ export class PostIndividualComponent {
   photoId: string = "";
   photoUrl: string = "";
 
+  postPhotoId:string = "";
+  postPhotoUrl: string = "/assets/images/default_profile.png";
+
   userId: string = this.sessionService.getUserId();
   likeDTO: LikeDTO = new LikeDTO();
   commentDTO: CommentDTO = new CommentDTO();
@@ -52,8 +55,12 @@ export class PostIndividualComponent {
     this.isPostLiked();
     this.likedByString = this.generateLikedByString(this.usersLiked);
     this.photoId = this.post.photoId!;
+    this.postPhotoId = this.post.poster?.photo?.id!;
     if(this.photoId != null){
       this.loadPhoto();
+    }
+    if(this.postPhotoId != null){
+      this.loadPosterPhoto();
     }
   }
 
@@ -146,6 +153,18 @@ export class PostIndividualComponent {
       }
     );
   }
+  loadPosterPhoto(){
+    this.photoService.getPhoto(this.postPhotoId).subscribe(
+      (photoBlob: Blob) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.postPhotoId = reader.result as string;
+        };
+        reader.readAsDataURL(photoBlob);
+      }
+    );
+  }
+
   goToOtherProfile(){
     this.router.navigate(['/profile'], { queryParams: { id: this.post.poster?.id } });
   }

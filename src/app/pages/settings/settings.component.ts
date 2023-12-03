@@ -68,7 +68,7 @@ export class SettingsComponent implements OnInit {
       (error) => {
         console.error('Error fetching profile:', error);
       }
-    );
+    );  
   }
 
   getMiniProfile(){
@@ -78,11 +78,9 @@ export class SettingsComponent implements OnInit {
         console.log(this.miniProfile);
         this.photoId = this.miniProfile.photo?.id!;
         this.loadPhoto();
-        this.toast.success({ detail: "SUCCESS", summary: "Profile image changed successfully.", duration: 5000 })
       },
       (error) => {
         console.error("Error fetching profile:", error);
-        this.toast.error({detail: "ERROR", summary: "Error changing profile image", duration: 5000});
 
       }
     );
@@ -92,14 +90,14 @@ export class SettingsComponent implements OnInit {
   async onFileChange(event: any): Promise<void> {
     this.file = event.target.files[0];
 
-    let photoId = await this.uploadPhoto();
-    console.log(photoId);
+    this.photoId = await this.uploadPhoto();
+    console.log(this.photoId);
 
-    this.userService.editProfilePic(photoId).subscribe((response) =>{
+    this.userService.editProfilePic(this.photoId).subscribe((response) =>{
       console.log(response);
     });
     
-    // this.loadPhoto(await photoId);
+    this.loadPhoto();
   }
 
   async uploadPhoto(): Promise<string> {
@@ -107,10 +105,12 @@ export class SettingsComponent implements OnInit {
       try {
         console.log(this.albumId);
         const response = await this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
-        console.log(response);
+        this.toast.success({ detail: "SUCCESS", summary: "Profile image changed successfully.", duration: 5000 })
         return response;
       } catch (error) {
         console.error(error);
+        this.toast.error({detail: "ERROR", summary: "Error changing profile image", duration: 5000});
+
         return '';
       }
     }

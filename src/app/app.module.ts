@@ -35,6 +35,7 @@ import { AboutmeModalComponent } from './modals/aboutme-modal/aboutme-modal.comp
 import { AlbumListComponent } from './components/album-list/album-list.component';
 import { AddAlbumModalComponent } from './modals/add-album-modal/add-album-modal.component';
 import { PhotoListComponent } from './pages/photo-list/photo-list.component';
+import { TimeDifferencePipe } from './pipes/time-difference.pipe';
 
 
 
@@ -76,7 +77,8 @@ const  appRoutes: Routes = [
     AboutmeModalComponent,
     AlbumListComponent,
     AddAlbumModalComponent,
-    PhotoListComponent
+    PhotoListComponent,
+    TimeDifferencePipe
   ],
   imports: [
     BrowserModule,
