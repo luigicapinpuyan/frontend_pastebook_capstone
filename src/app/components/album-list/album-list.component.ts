@@ -10,6 +10,7 @@ import { AddAlbumModalComponent } from 'src/app/modals/add-album-modal/add-album
   styleUrls: ['./album-list.component.css']
 })
 export class AlbumListComponent implements OnInit {
+  @Input() sentUserId: string = "";
   albums: Album[] =[]
   newAlbum: AlbumDTO = {
   };

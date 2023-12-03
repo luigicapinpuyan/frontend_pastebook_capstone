@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProfileDTO } from 'src/app/models/user';
+import { SessionService } from 'src/app/services/session.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AboutmeModalComponent {
   profileDTO: ProfileDTO = new ProfileDTO();
+  userId: string = this.sessionService.getToken();
 
 
 
@@ -19,7 +21,8 @@ export class AboutmeModalComponent {
     public dialogRef: MatDialogRef<AboutmeModalComponent>,
     private userService: UserService,
     private toast: NgToastService,
-    private router: Router
+    private router: Router,
+    private sessionService: SessionService
     ) {
       this.getMainProfile();
     }
@@ -50,7 +53,7 @@ export class AboutmeModalComponent {
   
 
   getMainProfile(){
-    this.userService.getMainProfile().subscribe(
+    this.userService.getMainProfile(this.userId).subscribe(
       (response: ProfileDTO) => {
         this.profileDTO = response;
       },

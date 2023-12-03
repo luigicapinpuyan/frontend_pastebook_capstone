@@ -63,7 +63,7 @@
                             <img src="/assets/images/user-icon.png">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                            <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" (click)="goToDetailsPage()">Profile</a></li>
                             <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
                             <li><a class="dropdown-item" routerLink="/" (click)="logout()">Logout</a></li>
                         </ul>

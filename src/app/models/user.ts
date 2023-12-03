@@ -51,12 +51,14 @@ export class MiniProfileDTO {
         public firstName?: string,
         public lastName?: string,
         public photo?: Photo,
-        public friendCount?: number
+        public friendCount?: number,
+        public photoUrl?: string
     ){}
 }
 
 export class ProfileDTO {
     constructor(
+        public id?: string,
         public firstName?: string,
         public lastName?: string,
         public birthDate?: Date,

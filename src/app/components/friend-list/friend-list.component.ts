@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
 import { MiniProfileDTO, User } from 'src/app/models/user';
@@ -10,33 +10,30 @@ import { SessionService } from 'src/app/services/session.service';
   styleUrls: ['./friend-list.component.css']
 })
 export class FriendListComponent implements OnInit {
+  @Input() sentUserId: string = "";
   miniProfileDTO: MiniProfileDTO = new MiniProfileDTO();
   friends: MiniProfileDTO[] = []
-  private userId: number = Number(this.sessionService.getUserId());
-
-
 
   constructor(
     private friendService: FriendService,
-    private userService: UserService,
-    private sessionService: SessionService
+    private userService: UserService
   ){}
 
 
   ngOnInit(): void {
-    this.loadFriends(this.userId)
-    this.getProfile(this.userId)
+    this.loadFriends()
+    this.getProfile()
   }
 
 
-  loadFriends(userId: number){
+  loadFriends(){
     this.friendService.getAllFriends().subscribe((response: MiniProfileDTO[]) => {
       this.friends = response
     });
   }
 
-  getProfile(userId: number) {
-    this.userService.getMiniProfile().subscribe(
+  getProfile() {
+    this.userService.getMiniProfile(this.sentUserId).subscribe(
       (response: MiniProfileDTO) => {
         this.miniProfileDTO = response;
       },

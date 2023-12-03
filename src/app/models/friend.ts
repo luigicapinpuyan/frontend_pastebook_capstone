@@ -11,3 +11,11 @@ export class Friend {
         public isFriend?: boolean
     ){}
 }
+
+export class FriendDTO{
+    constructor(
+        public id?: string,
+        public receiverId?: string,
+        public senderId?: string,
+    ){}
+}
