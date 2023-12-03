@@ -13,9 +13,18 @@ export class UserService {
 
   private baseUrl: string = 'https://localhost:7208/api/'
 
-  private header: HttpHeaders = new HttpHeaders({
-    'Authorization': this.sessionService.getToken()
-  })
+  private getHeaders(): HttpHeaders {
+    const token = this.sessionService.getToken();
+    if (!token) {
+      // Handle the case where there is no token (optional)
+      console.error("No token available");
+      return new HttpHeaders();
+    }
+
+    return new HttpHeaders({
+      'Authorization': token,
+    });
+  }
 
   constructor(
     private http: HttpClient,
@@ -33,11 +42,11 @@ export class UserService {
   }
  
   logout(): Observable<Object>{
-    return this.http.post(this.baseUrl + `authentication/logout`, {}, {headers: this.header});
+    return this.http.post(this.baseUrl + `authentication/logout`, {}, {headers: this.getHeaders()});
   }
 
   validateToken(): Observable<boolean>{
-    return this.http.get<boolean>(this.baseUrl + `authentication/validate-token`, {headers: this.header});
+    return this.http.get<boolean>(this.baseUrl + `authentication/validate-token`, {headers: this.getHeaders()});
   }
   sendEmail(recipientEmail: string): Observable<Object> {
     return this.http.post(`${this.baseUrl}authentication/verify-email/${recipientEmail}`, {});
@@ -46,29 +55,28 @@ export class UserService {
 
   // wait for UserController from Backend
   getMainProfile(): Observable<ProfileDTO>{
-    return this.http.get<ProfileDTO>(this.baseUrl + `profile/get-profile`, {headers: this.header});
+    return this.http.get<ProfileDTO>(this.baseUrl + `profile/get-profile`, {headers: this.getHeaders()});
   }
 
   getMiniProfile(): Observable<MiniProfileDTO>{
-    return this.http.get<MiniProfileDTO>(this.baseUrl + `profile/get-mini-profile`, {headers: this.header});
+    return this.http.get<MiniProfileDTO>(this.baseUrl + `profile/get-mini-profile`, {headers: this.getHeaders()});
   }
 
   editProfile(profileDTO: ProfileDTO): Observable<ProfileDTO>{
-    return this.http.put(this.baseUrl + `profile/edit-profile`, profileDTO, {headers: this.header});
+    return this.http.put(this.baseUrl + `profile/edit-profile`, profileDTO, {headers: this.getHeaders()});
   }
 
 
   editEmail(newEmail: string): Observable<ProfileDTO>{
-    return this.http.put(`${this.baseUrl}profile/edit-email/${newEmail}`, {headers: this.header});
+    return this.http.put(`${this.baseUrl}profile/edit-email/${newEmail}`, {}, {headers: this.getHeaders()});
   }
 
   editPassword(editPasswordDTO: EditPasswordDTO): Observable<EditPasswordDTO>{
-    return this.http.put(this.baseUrl + "profile/edit-password", editPasswordDTO, {headers: this.header});
+    return this.http.put(this.baseUrl + "profile/edit-password", editPasswordDTO, {headers: this.getHeaders()});
   }
 
-  // we haven't called edit-profile-pic yet
   editProfilePic(profileImageId: string): Observable<ProfileDTO>{
-    return this.http.put(this.baseUrl + `profile/edit-profile-pic/${profileImageId}`, {headers: this.header})
+    return this.http.put(this.baseUrl + `profile/edit-profile-pic/${profileImageId}`, {}, {headers: this.getHeaders()})
   }
 
   getAllUserBySearch(name: string): Observable<User[]> {

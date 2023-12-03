@@ -26,7 +26,6 @@ export class PostIndividualComponent {
   likedByString: string = "";
   isCurrentPostLiked: boolean = false;
   
-  photo: any;
   photoId: string = "";
   photoUrl: string = "";
 
@@ -48,8 +47,8 @@ export class PostIndividualComponent {
   ngOnInit(): void {
     this.getPostLikes();
     this.getCommentsByPostId();
-    this.likedByString = this.generateLikedByString(this.usersLiked);
     this.isPostLiked();
+    this.likedByString = this.generateLikedByString(this.usersLiked);
     this.photoId = this.post.photoId!;
     this.loadPhoto();
   }
@@ -64,7 +63,9 @@ export class PostIndividualComponent {
     });
   }
   openLikesModal(){
-    const dialogRef = this.dialog.open(LikeModalComponent);
+    const dialogRef = this.dialog.open(LikeModalComponent, {
+      data: { postId: this.post.id },
+    });
 
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
@@ -101,6 +102,7 @@ export class PostIndividualComponent {
     console.log(this.likeDTO)
     this.postService.likePost(this.likeDTO).subscribe((response) => {
       console.log(response);
+      window.location.reload();
     })
   }
   commentPost(){
@@ -117,7 +119,7 @@ export class PostIndividualComponent {
   generateLikedByString(usersLiked: MiniProfileDTO[]): string {
     const likedByArray: string[] = [];
   
-    for (let i = 0; i < Math.min(usersLiked.length, 3); i++) {
+    for (let i = 0; i < usersLiked.length; i++) {
       likedByArray.push(`${usersLiked[i].firstName} ${usersLiked[i].lastName}`);
     }
   

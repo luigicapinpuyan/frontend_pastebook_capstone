@@ -10,9 +10,18 @@ import { SessionService } from './session.service';
 export class PhotoService {
   
   private baseUrl: string = 'https://localhost:7208/api/photo'
-  private header: HttpHeaders = new HttpHeaders({
-    'Authorization': this.sessionService.getToken()
-  })
+  private getHeaders(): HttpHeaders {
+    const token = this.sessionService.getToken();
+    if (!token) {
+      // Handle the case where there is no token (optional)
+      console.error("No token available");
+      return new HttpHeaders();
+    }
+
+    return new HttpHeaders({
+      'Authorization': token,
+    });
+  }
 
 
 
@@ -25,11 +34,11 @@ export class PhotoService {
     const formData = new FormData();
     formData.append('albumId', albumId);
     formData.append('file', file);
-    return this.http.post(`${this.baseUrl}/add-photo`, formData, {headers: this.header})
+    return this.http.post(`${this.baseUrl}/add-photo`, formData, {headers: this.getHeaders()})
   }
 
   getPhoto(photoId: string): Observable<Blob> {
-    return this.http.get(`${this.baseUrl}/get-photo/${photoId}`, { headers:this.header, responseType: 'blob' }).pipe(
+    return this.http.get(`${this.baseUrl}/get-photo/${photoId}`, { headers:this.getHeaders(), responseType: 'blob' }).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error('Error loading photo:', error);
         return throwError('Something went wrong while loading the photo.');
@@ -40,7 +49,7 @@ export class PhotoService {
   
 
   deletePhoto(photoId:string): Observable<Object> {
-    return this.http.delete(`${this.baseUrl}/delete-photo/${photoId}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete-photo/${photoId}`, {headers: this.getHeaders()})
   }
 
   uploadPhoto(albumId: string, file: File): Observable<any> {
@@ -48,7 +57,7 @@ export class PhotoService {
     formData.append('albumId', albumId);
     formData.append('file', file, file.name);
 
-    return this.http.post<string>(`${this.baseUrl}/add-photo`, formData, { headers: this.header });
+    return this.http.post<string>(`${this.baseUrl}/add-photo`, formData, { headers: this.getHeaders()});
   }
 
   

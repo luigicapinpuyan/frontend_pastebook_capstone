@@ -7,6 +7,7 @@ import { PostService } from 'src/app/services/post.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AlbumService } from 'src/app/services/album.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-add-post',
@@ -28,7 +29,6 @@ export class AddPostComponent implements OnInit{
   ngOnInit(): void {
     this.albumService.getUploadsAlbumId().subscribe((response: string) => {
       this.albumId = response;
-      console.log(response);
     });
   }
 

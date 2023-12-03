@@ -1,78 +1,65 @@
 import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
-import { EditPasswordDTO, ProfileDTO } from 'src/app/models/user';
-import { SessionService } from 'src/app/services/session.service';
+import { EditPasswordDTO, ProfileDTO, User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { PhotoService } from 'src/app/services/photo.service';
-import { Photo } from 'src/app/models/photo';
-import { Album, AlbumDTO } from 'src/app/models/album';
 import { AlbumService } from 'src/app/services/album.service';
+import { HelperService } from 'src/app/services/helper.service';
+import { MiniProfileDTO } from 'src/app/models/user';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-
-
-  public imageURL: string = '/assets/images/bg.jpg';
-  editPasswordDTO: EditPasswordDTO = new EditPasswordDTO();
-  newEmail: string = '';
-  repeatNewPassword: string = '';
   activeTab = 'account-general';
   profile: ProfileDTO = new ProfileDTO();
+  miniProfile: MiniProfileDTO = new MiniProfileDTO();
+
+  photoId: string = "";
+  photoUrl: string = "";
+
+  editPasswordDTO: EditPasswordDTO = new EditPasswordDTO();
+  repeatNewPassword: string = '';
+
+  newEmail: string = '';
+
   gender: string = "";
   file: File | null = null;
-  albumList: Album[] = [];
-  albumId: string | undefined = '';
+  albumId: string = '';
+  formattedDate: string = "";
 
-  ngOnInit(): void {}
+  
+
   constructor(
     private userService: UserService,
-    private sessionService: SessionService,
     private toast: NgToastService,
     private photoService: PhotoService,
     private albumService: AlbumService
   ){
+  }
+
+  ngOnInit(): void {
     this.getProfile();
-    this.getAlbums();
-    this.searchForUploads();
-  }
-
-  // Retrieves all albums of the current user
-  getAlbums(){
-    this.albumService.getAllAlbums().subscribe((response)=> {
-      this.albumList = response;
-    })
-  }
-
-  searchForUploads(){
-    this.albumList.forEach(a => {
-      if(a.albumName?.toLowerCase() === "uploads"){
-        this.albumId = a.id;
-      }
+    this.getMiniProfile();
+    this.albumService.getUploadsAlbumId().subscribe((response: string) => {
+      this.albumId = response;
     });
-    console.log(this.albumId);
+
   }
-  
+
+  switchTab(tabId: string) {
+    this.activeTab = tabId;
+  }
+
+
   getProfile() {
     this.userService.getMainProfile().subscribe(
       (response) => {
         this.profile = response;
-        console.log(this.profile.sex);
-        
+  
         if (this.profile.sex != null) {
           this.gender = this.profile.sex;
-        }
-  
-        if (this.profile.birthDate) {
-          const birthDate = new Date(this.profile.birthDate);
-  
-          if (!isNaN(birthDate.getTime())) {
-            this.profile.birthDate = birthDate;
-          } else {
-            console.error('Invalid birth date format');
-          }
         }
       },
       (error) => {
@@ -80,53 +67,62 @@ export class SettingsComponent implements OnInit {
       }
     );
   }
+
+  getMiniProfile(){
+    this.userService.getMiniProfile().subscribe(
+      (response: MiniProfileDTO) => {
+        this.miniProfile = response;
+        console.log(this.miniProfile);
+        this.photoId = this.miniProfile.photo?.id!;
+        this.loadPhoto();
+      },
+      (error) => {
+        console.error("Error fetching profile:", error);
+      }
+    );
+  }
   
+
+  async onFileChange(event: any): Promise<void> {
+    this.file = event.target.files[0];
+
+    let photoId = await this.uploadPhoto();
+    console.log(photoId);
+
+    this.userService.editProfilePic(photoId).subscribe((response) =>{
+      console.log(response);
+    });
+    
+    // this.loadPhoto(await photoId);
+  }
+
   async uploadPhoto(): Promise<string> {
     if (this.file) {
       try {
-        if(this.albumId != null){
-          const response = await this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
-          return response.photoId;
-        }
-        
+        console.log(this.albumId);
+        const response = await this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
+        console.log(response);
+        return response;
       } catch (error) {
         console.error(error);
-        return "0";
+        return '';
       }
     }
-    return "0"; // Return 0 if this.file is not defined
-  }
-  // async uploadPhoto(): Promise<number> {
-  //   if (this.file) {
-  //     try {
-  //       const response = await this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
-  //       return response.photoId;
-  //     } catch (error) {
-  //       console.error(error);
-  //       return 0;
-  //     }
-  //   }
-  //   return 0; // Return 0 if this.file is not defined
-  // }
-
-  onFileChange(event: any): void {
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = (e: any) => {
-        this.imageURL = e.target.result;
-      };
-
-      reader.readAsDataURL(file);
-    } 
+    return ''; 
   }
 
-  switchTab(tabId: string) {
-    this.activeTab = tabId;
+  loadPhoto(): void {
+    this.photoService.getPhoto(this.photoId).subscribe(
+      (photoBlob: Blob) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.photoUrl = reader.result as string;
+        };
+        reader.readAsDataURL(photoBlob);
+      }
+    );
   }
-
+  
   onSubmitEditProfile(): void{
     if(this.profile.firstName == null || this.profile.lastName == null || this.profile.birthDate == null){
       this.toast.error({detail: "ERROR", summary: "Please enter all the required fields", duration: 5000});

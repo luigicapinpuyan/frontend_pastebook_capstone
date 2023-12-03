@@ -10,9 +10,18 @@ import { Post, PostDTO } from '../models/post';
 export class TimelineService {
   private baseUrl: string = 'https://localhost:7208/api/timeline'
 
-  private header: HttpHeaders = new HttpHeaders({
-    'Authorization': this.sessionService.getToken()
-  })
+  private getHeaders(): HttpHeaders {
+    const token = this.sessionService.getToken();
+    if (!token) {
+      // Handle the case where there is no token (optional)
+      console.error("No token available");
+      return new HttpHeaders();
+    }
+
+    return new HttpHeaders({
+      'Authorization': token,
+    });
+  }
   constructor(
     private sessionService: SessionService,
     private http: HttpClient
@@ -21,9 +30,9 @@ export class TimelineService {
 
   // put these two posts into timeline service
   getNewsFeedPosts(): Observable<PostDTO[]>{
-    return this.http.get<Post[]>(this.baseUrl + `/get-newsfeed-posts`, {headers: this.header});
+    return this.http.get<Post[]>(this.baseUrl + `/get-newsfeed-posts`, {headers: this.getHeaders()});
   }
   getAllPosts(): Observable<Post[]>{
-    return this.http.get<Post[]>(this.baseUrl + `/get-all-posts`, {headers: this.header});
+    return this.http.get<Post[]>(this.baseUrl + `/get-all-posts`, {headers: this.getHeaders()});
   }
 }

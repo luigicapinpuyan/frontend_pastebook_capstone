@@ -28,13 +28,13 @@
         <p class="card-text">
             {{ post.postBody }}            
         </p>
-        <img *ngIf="photoUrl" [src]="photoUrl" alt="" class="img-fluid">
+        <img *ngIf="photoUrl" [src]="photoUrl" alt="" class="img-fluid mx-auto">
 
         <div class="d-flex px-3">
-            <span id="likes-count" class="me-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ likedByString }}">
+            <span id="likes-count" class="me-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ likedByString }}" [hidden]="usersLiked.length == 0">
                 <span class="text-body text-opacity-50" id="likes-count" style="cursor: pointer;" (click)="openLikesModal()" data-bs-toggle="modal" data-bs-target="#likesModal">{{ usersLiked.length }} Likes</span>
             </span>
-            <span id="comments-count" class="ms-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="left" title="Comments on {{ post.postTitle }}">
+            <span id="comments-count" class="ms-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="left" title="Comments on {{ post.postTitle }}" [hidden]="comments.length == 0">
                 <span class="text-body text-opacity-50" id="comments-count" style="cursor: pointer;" (click)="openCommentsModal()" data-bs-toggle="modal" data-bs-target="#commentsModal">{{ comments.length }} Comments</span>
             </span>
         </div>

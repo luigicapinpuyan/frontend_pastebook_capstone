@@ -11,9 +11,18 @@ import { SessionService } from './session.service';
 export class FriendService {
   private baseUrl: string = 'https://localhost:7208/api/friend'
 
-  private header: HttpHeaders = new HttpHeaders({
-    'Authorization': this.sessionService.getToken()
-  })
+  private getHeaders(): HttpHeaders {
+    const token = this.sessionService.getToken();
+    if (!token) {
+      // Handle the case where there is no token (optional)
+      console.error("No token available");
+      return new HttpHeaders();
+    }
+
+    return new HttpHeaders({
+      'Authorization': token,
+    });
+  }
 
   constructor(
     private http: HttpClient,
@@ -22,20 +31,19 @@ export class FriendService {
 
 
   getAllFriendRequests(): Observable<Friend[]>{
-    return this.http.get<Friend[]>(this.baseUrl + `/get-all-friend-request`, {headers: this.header});
+    return this.http.get<Friend[]>(this.baseUrl + `/get-all-friend-request`, {headers: this.getHeaders()});
   }
 
   acceptFriendRequest(requestId?: string): Observable<Object>{
-    const options = {headers: this.header};
-    return this.http.post(this.baseUrl + `/accept-friend/${requestId}`, {}, options);
+    return this.http.post(`${this.baseUrl}/accept-friend/${requestId}`, {}, {headers: this.getHeaders()});
   }
 
   removeFriendRequest(requestId?: string): Observable<Object>{
-    return this.http.delete(this.baseUrl + `/reject-friend/${requestId}`, {headers: this.header});
+    return this.http.delete(this.baseUrl + `/reject-friend/${requestId}`, {headers: this.getHeaders()});
   }
 
   getAllFriends(): Observable<MiniProfileDTO[]>{
-    return this.http.get<MiniProfileDTO[]>(this.baseUrl + `/get-all-friends`, {headers: this.header});
+    return this.http.get<MiniProfileDTO[]>(this.baseUrl + `/get-all-friends`, {headers: this.getHeaders()});
   }
 
 }

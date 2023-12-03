@@ -12,9 +12,18 @@ export class AlbumService {
 
   private baseUrl: string = 'https://localhost:7208/api/album'
 
-  private header: HttpHeaders = new HttpHeaders({
-    'Authorization': this.sessionService.getToken()
-  })
+  private getHeaders(): HttpHeaders {
+    const token = this.sessionService.getToken();
+    if (!token) {
+      // Handle the case where there is no token (optional)
+      console.error("No token available");
+      return new HttpHeaders();
+    }
+
+    return new HttpHeaders({
+      'Authorization': token,
+    });
+  }
 
   constructor(
     private http: HttpClient,
@@ -26,31 +35,31 @@ export class AlbumService {
    }
 
   addAlbum(albumDTO: AlbumDTO): Observable<any> {
-    return this.http.post(this.baseUrl + '/add-album', albumDTO, {headers: this.header})
+    return this.http.post(this.baseUrl + '/add-album', albumDTO, {headers: this.getHeaders()})
   }
 
   updateAlbum(albumDTO: AlbumDTO): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/update-album/`, albumDTO, {headers: this.header})
+    return this.http.put(`${this.baseUrl}/update-album/`, albumDTO, {headers: this.getHeaders()})
   }
 
   deleteAlbum(albumId: string): Observable<Object> {
-    return this.http.delete(`${this.baseUrl}/delete-album/${albumId}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete-album/${albumId}`, {headers: this.getHeaders()})
   }
 
   getAllAlbums(): Observable<Album[]> {
-    return this.http.get<Album[]>(`${this.baseUrl}/get-all-albums`, {headers: this.header})
+    return this.http.get<Album[]>(`${this.baseUrl}/get-all-albums`, {headers: this.getHeaders()})
   }
 
   getAllPhotos(albumId: string): Observable<Photo[]> {
-    return this.http.get<Photo[]>(`${this.baseUrl}/get-all-photos/${albumId}`, {headers: this.header})
+    return this.http.get<Photo[]>(`${this.baseUrl}/get-all-photos/${albumId}`, {headers: this.getHeaders()})
   }
 
   getMiniAlbum(): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/get-mini-album`, {headers: this.header})
+    return this.http.get(`${this.baseUrl}/get-mini-album`, {headers: this.getHeaders()})
   }
 
   getUploadsAlbumId(): Observable<string>{
-    return this.http.get<string>(`${this.baseUrl}/get-uploads-album-id`, {headers:this.header});
+    return this.http.get<string>(`${this.baseUrl}/get-uploads-album-id`, {headers:this.getHeaders()});
   }
   
 }

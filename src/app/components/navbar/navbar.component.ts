@@ -33,8 +33,8 @@ export class NavbarComponent {
       this.userService.logout().subscribe(() => {
         this.toast.success({detail: "SUCCESS", summary: "Logout Successful", duration: 5000}); 
         this.sessionService.clear();
+        this.router.navigate(['login']);
       });
-      this.router.navigate(['login']);
     }
   
   onSearch() {

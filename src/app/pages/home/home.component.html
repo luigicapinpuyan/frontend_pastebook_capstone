@@ -3,7 +3,7 @@
     
     <div class="row pe-5 ps-5 pt-5 justify-content-center gap-2 ">
         <div class="col-3 d-block p-3 custom-div d-none d-lg-flex d-flex flex-column align-items-center text-center">
-            <img src="{{ miniProfileDTO.photo ? miniProfileDTO.photo : '/assets/images/bg.jpg' }}" alt="Profile Photo" class="rounded-circle mb-3 mt-2" width="100" height="100">
+            <img src="{{ photoUrl != '' ? photoUrl : '/assets/images/bg.jpg' }}" alt="Profile Photo" class="rounded-circle mb-3 mt-2" width="100" height="100">
             <h2>{{ miniProfileDTO.firstName }}</h2>
             <h2>{{ miniProfileDTO.lastName }}</h2>
             

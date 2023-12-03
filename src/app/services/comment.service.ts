@@ -10,9 +10,18 @@ export class CommentService {
 
   private baseUrl: string = 'https://localhost:7208/api/comment'
 
-  private header: HttpHeaders = new HttpHeaders({
-    'Authorization': this.sessionService.getToken()
-  })
+  private getHeaders(): HttpHeaders {
+    const token = this.sessionService.getToken();
+    if (!token) {
+      // Handle the case where there is no token (optional)
+      console.error("No token available");
+      return new HttpHeaders();
+    }
+
+    return new HttpHeaders({
+      'Authorization': token,
+    });
+  }
 
   constructor(
     private http: HttpClient,
@@ -21,19 +30,19 @@ export class CommentService {
   ) { }
 
   addComment(commentDTO: CommentDTO): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/add-comment`, commentDTO, {headers: this.header})
+    return this.http.post(`${this.baseUrl}/add-comment`, commentDTO, {headers: this.getHeaders()})
   }
 
   editComment(commentDTO: CommentDTO): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/update-comment`, commentDTO, {headers: this.header})
+    return this.http.put(`${this.baseUrl}/update-comment`, commentDTO, {headers: this.getHeaders()})
   }
 
   deleteComment(commentId:string): Observable<Object> {
-    return this.http.delete(`${this.baseUrl}/delete-comment/${commentId}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete-comment/${commentId}`, {headers: this.getHeaders()})
   }
 
   getCommentsByPostId(postId: string): Observable<Comment[]>{
-    return this.http.get<Comment[]>(`${this.baseUrl}/get-post-comments/${postId}`, {headers: this.header});
+    return this.http.get<Comment[]>(`${this.baseUrl}/get-post-comments/${postId}`, {headers: this.getHeaders()});
   }
 
 }
