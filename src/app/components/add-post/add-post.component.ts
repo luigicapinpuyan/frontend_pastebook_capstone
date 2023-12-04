@@ -51,9 +51,12 @@ export class AddPostComponent implements OnInit{
   }
 
   async addPost(){
-    let photoId = await this.uploadPhoto();
-    this.post.photoId = photoId;
-    console.log(this.post.photoId);
+    if (this.file){
+      let photoId = await this.uploadPhoto();
+      this.post.photoId = photoId;
+      console.log(this.post.photoId);
+    }
+    
 
 
     console.log(this.post);

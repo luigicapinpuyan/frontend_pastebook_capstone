@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div class="row gap-2 d-flex flex-lg-row flex-xs-column justify-content-center align-items-center">
       <div class="d-block col-lg-3 col-12 content pt-2" style="align-self: flex-start;">
+            
         <div class="d-flex">
           <h6>About Me</h6>
           <div [hidden]="userId != sentUserId" class="ms-auto">
@@ -17,6 +18,9 @@
         </div>
       </div>
       <div class="col-lg-8 col-12 content p-3">
+        <div class="py-3">
+          <app-add-post></app-add-post>
+        </div>
         <app-post-individual *ngFor="let post of posts" [post]="post"></app-post-individual>    
       </div>
     </div>

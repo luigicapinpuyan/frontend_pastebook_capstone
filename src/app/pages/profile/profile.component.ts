@@ -108,7 +108,7 @@ changeTab(tab: string) {
     });
   }
   removeFriend(){
-    this.friendService.removeFriendRequest(this.friend.id).subscribe((response)=>{
+    this.friendService.removeFriend(this.sentUserId).subscribe((response)=>{
       console.log(response);
       this.toast.success({ detail: "SUCCESS", summary: "Friend Removed.", duration: 5000 });
       this.isUserFriend();
