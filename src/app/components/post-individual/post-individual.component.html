@@ -1,5 +1,5 @@
 <div class="card mb-3" style="cursor: pointer;">
-    <div class="card-header" (click)="goToPostPage()">
+    <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <div class="mr-2">
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="card-body pb-0">
+    <div class="card-body pb-0" (click)="goToPostPage()">
         <h5 class="card-title">{{post.postTitle}}</h5>
         <p class="card-text">
             {{ post.postBody }}            
