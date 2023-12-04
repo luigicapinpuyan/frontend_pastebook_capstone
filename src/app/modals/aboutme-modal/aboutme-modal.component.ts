@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AboutmeModalComponent {
   profileDTO: ProfileDTO = new ProfileDTO();
-  userId: string = this.sessionService.getToken();
+  userId: string = this.sessionService.getUserId();
 
 
 
@@ -45,7 +45,7 @@ export class AboutmeModalComponent {
          });
       },
       error: () => {
-        this.toast.success({ detail: "ERROR", summary: "Error changing profile.", duration: 500000 });
+        this.toast.error({ detail: "ERROR", summary: "Error changing profile.", duration: 500000 });
       }
     });
   }
