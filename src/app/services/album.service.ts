@@ -61,5 +61,9 @@ export class AlbumService {
   getUploadsAlbumId(): Observable<string>{
     return this.http.get<string>(`${this.baseUrl}/get-uploads-album-id`, {headers:this.getHeaders()});
   }
+
+  getAlbum(albumId: string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/get-album-by-id/${albumId}`, {headers: this.getHeaders()})
+  }
   
 }
