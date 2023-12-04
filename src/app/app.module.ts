@@ -36,6 +36,7 @@ import { AlbumListComponent } from './components/album-list/album-list.component
 import { AddAlbumModalComponent } from './modals/add-album-modal/add-album-modal.component';
 import { PhotoListComponent } from './pages/photo-list/photo-list.component';
 import { TimeDifferencePipe } from './pipes/time-difference.pipe';
+import { EditPostModalComponent } from './modals/edit-post-modal/edit-post-modal.component';
 
 
 
@@ -78,7 +79,8 @@ const  appRoutes: Routes = [
     AlbumListComponent,
     AddAlbumModalComponent,
     PhotoListComponent,
-    TimeDifferencePipe
+    TimeDifferencePipe,
+    EditPostModalComponent
   ],
   imports: [
     BrowserModule,
