@@ -2,15 +2,28 @@
 
 <div class="container">
   <h1 class="pt-3 text-center">Album Details</h1>
-  <div class="text-center"> 
-    <input class="form-control" type="file" 
-            (change)="onChange($event)"> 
-  
-    <button (click)="onUpload()"  
-        class="btn btn-success"> 
-        Upload 
-    </button> 
-</div> 
+  <h2>{{ album.albumName }}</h2>
+  <div class="photo-grid">
+    <div class="photo-item">
+      <div class="btn btn-success">
+        <i class="plus-icon d-flex justify-content-center align-items-center" (click)="fileInput.click()">Add Photo</i>
+        <input type="file" (change)="onFileChange($event)" #fileInput style="display: none;" />
+      </div>
+    </div>
+    <div class="photo-item pt-2" *ngFor="let photo of photos">
+      <a>
+        <img [src]="photo.photoImageURL" class="img-fluid smaller-image mx-auto">
+      </a>
+    </div>
+  </div>
+
+  <!-- <div class="text-center">
+    <input class="form-control" type="file" (change)="onChange($event)">
+
+    <button (click)="onUpload()" class="btn btn-success">
+      Upload
+    </button>
+  </div>
   <div *ngIf="album">
     <h2>{{ album.albumName }}</h2>
     <div class="photo-item" *ngFor="let photo of photos">
@@ -18,8 +31,7 @@
         <img [src]="photo.photoImageURL" class="rounded-circle" width="150" height="150">
       </div>
     </div>
-    <!-- Other album details... -->
-  </div>
+  </div> -->
 </div>
 
 <app-footer></app-footer>
