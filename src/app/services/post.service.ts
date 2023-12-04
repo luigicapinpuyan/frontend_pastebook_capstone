@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Photo, PhotoDTO } from '../models/photo';
 import { Observable } from 'rxjs';
-import { PostDTO } from '../models/post';
+import { Post, PostDTO } from '../models/post';
 import { SessionService } from './session.service';
 import { MiniProfileDTO } from '../models/user';
 import { LikeDTO } from '../models/like';
@@ -38,8 +38,8 @@ export class PostService {
     return this.http.post(`${this.baseUrl}/add-post`, postDTO, {headers: this.getHeaders()});
   }
 
-  updatePost(postDTO: PostDTO): Observable<any> {
-    return this.http.put(`${this.baseUrl}/update-post/`, postDTO, {headers: this.getHeaders()});
+  updatePost(postDTO: PostDTO): Observable<PostDTO> {
+    return this.http.put(`${this.baseUrl}/update-post`, postDTO, {headers: this.getHeaders()});
   }
 
   deletePost(postId: string): Observable<Object> {

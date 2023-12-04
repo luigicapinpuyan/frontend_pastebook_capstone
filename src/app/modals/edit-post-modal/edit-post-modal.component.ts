@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
 import { Post, PostDTO } from 'src/app/models/post';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -21,19 +21,28 @@ export class EditPostModalComponent implements OnInit {
   file: File | null = null;
   albumId: string = '';
   photoUrl: string = "";
+  postId: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<EditPostModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private photoService: PhotoService,
     private postService: PostService,
     private toast: NgToastService,
-    private albumService: AlbumService) {}
+    private albumService: AlbumService,
+    private router: Router,
+    
+    ) {
+    this.postId = data.postId;
+
+    }
 
   ngOnInit(): void {
     this.albumService.getUploadsAlbumId().subscribe((response: string) => {
       this.albumId = response;
     });
-    
+    this.loadPost(this.postId);
+    console.log(this.post)
   }
   
 
@@ -59,26 +68,59 @@ export class EditPostModalComponent implements OnInit {
     return ''; 
   }
 
-  async addPost(){
+
+  loadPost(postId: string) {
+    this.postService.getPost(postId).subscribe((response: Post) => {
+      this.post = response
+    },
+    (error) => {
+      console.error("Error fetching post:", error)
+    })
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
+
+  async onSubmitEditPost() {
     let photoId = await this.uploadPhoto();
     this.post.photoId = photoId;
     console.log(this.post.photoId);
+    this.postService.updatePost(this.post).subscribe({
+      next: () => {
+        this.toast.success({ detail: "SUCCESS", summary: "Successfully Updated.", duration: 5000 });
+        this.close();
+        
+        // Navigating to the current route to refresh the page
+         const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['']);
+          window.location.reload();
+         });
+      },
+      error: () => {
+        this.toast.error({ detail: "ERROR", summary: "Error changing post.", duration: 500000 });
+      }
+    });
+  }
 
-
-    console.log(this.post);
-    this.postService.addPost(this.post).subscribe({
-      next: (response) => {
-        Swal.fire({
-          title: "Post Added!",
-          text: "New pastebook post success!",
-          icon: "success"
-        }).then(() => {
+  removePhoto() {
+    // Clear the photoId and update the post
+    this.post.photoId = '';
+    this.postService.updatePost(this.post).subscribe({
+      next: () => {
+        this.toast.success({ detail: "SUCCESS", summary: "Successfully Removed Photo.", duration: 5000 });
+        this.close();
+        
+        // Navigating to the current route to refresh the page
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['']);
           window.location.reload();
         });
       },
-      error: (response) =>{
-        this.toast.error({detail: "ERROR", summary: "Error adding a new post!", duration: 5000});
-        console.log(response);
+      error: () => {
+        this.toast.error({ detail: "ERROR", summary: "Error removing photo.", duration: 500000 });
       }
     });
   }
