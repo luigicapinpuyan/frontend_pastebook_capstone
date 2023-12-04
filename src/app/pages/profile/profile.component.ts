@@ -8,6 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 import { FriendService } from 'src/app/services/friend.service';
 import { Friend, FriendDTO } from 'src/app/models/friend';
 import { NgToastService } from 'ng-angular-popup';
+import { Router } from '@angular/router';
+
+
 //import { EditAboutmeComponent } from 'src/app/modals/edit-aboutme/edit-aboutme.component';
 
 @Component({
@@ -36,16 +39,21 @@ export class ProfileComponent implements OnInit{
     private route: ActivatedRoute,
     private friendService: FriendService,
     private toast: NgToastService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private activatedRouter : Router
   ){
   }
   ngOnInit(): void{    
     this.route.queryParams.subscribe(params => {
-      this.sentUserId = params['id'];
+     this.sentUserId = params['id'];
+      this.route.queryParams.subscribe(params => {
+      this.selectedTab = params['tab'] || 'albums'; // 'defaultTab' can be any default tab you want to show
+      
     });
-    this.loadProfile();
-    this.getMiniProfile();
-    this.isUserFriend();
+     });
+     this.loadProfile();
+     this.getMiniProfile();
+     this.isUserFriend();
   }
 
 

@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit{
    
   ngOnInit(): void {
     this.helperService.checkToken();
+    
+
 
     this.getProfile();
     
@@ -73,7 +75,7 @@ export class HomeComponent implements OnInit{
     );
   }
   goToProfile() {
-    this.router.navigate(['/profile'], { queryParams: { id: this.userId } });
+    this.router.navigate(['/profile'], { queryParams: { tab: 'timeline',id: this.userId } });
   }
 
 

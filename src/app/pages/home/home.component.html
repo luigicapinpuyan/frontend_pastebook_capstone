@@ -32,7 +32,10 @@
         <div class="col-3 d-none d-lg-block p-3 custom-div" style="align-self: flex-start;">
             <div class="d-flex">
               <h6>Album</h6>
-              <p class="ms-auto"><a routerLink="/album" class="text-decoration-none text-dark">View All</a></p>
+              
+              <p class="ms-auto"><a [routerLink]="['/profile']" [queryParams]="{ selectedTab: 'albums',id: this.userId }" class="text-decoration-none text-dark">View All</a></p>
+
+              
             </div>
             <div class="">
                 <div class="photo-grid">
