@@ -42,6 +42,7 @@ export class ProfileComponent implements OnInit{
   ngOnInit(): void{    
     this.route.queryParams.subscribe(params => {
       this.sentUserId = params['id'];
+      this.selectedTab = params['tab'] || 'albums';
     });
     this.loadProfile();
     this.getMiniProfile();
@@ -78,7 +79,9 @@ changeTab(tab: string) {
       (response: MiniProfileDTO) => {
         this.miniProfile = response;
         this.photoId = this.miniProfile.photo?.id!;
-        this.loadPhoto();
+        if(this.photoId){
+          this.loadPhoto();
+        }
       },
       (error) => {
         console.error("Error fetching profile:", error);

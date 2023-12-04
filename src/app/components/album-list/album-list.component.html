@@ -1,21 +1,14 @@
-<!-- Photo Album Grid -->
 <body>
     <h1 class="pt-3 text-center">Album</h1>
-    <div class="photo-grid p-4">
-        
-        <!-- Photo 1 -->
+    <div class="photo-grid">
         <div class="photo-item" >
             <i class="plus-icon d-flex align-items-center justify-content-center" (click)="openModal()">+</i>
         </div>
-        <!-- Photo 2 -->
-        <div class="photo-item" *ngFor="let album of albums">
-        <!-- <div class="photo-item" *ngFor="let album of albums; let i = index" > -->
-            <a (click)="goToPhotoList(album.id!)">
-                <img src="/assets/images/bg.jpg" alt="Album Photo">
-                <p class="text-center">{{ album.albumName }}</p>
-              </a>
-            <!-- <img src="{{ thumbnail[i].photo ? thumbnail[i].photo : '/assets/images/bg.jpg' }}" alt="Photo 2"> -->
-            <p class="text-center">{{ album.albumName }}</p>
+        <div class="photo-item pt-2" *ngFor="let album of albums">
+            <a (click)="goToPhotoList(album.albumDTO?.id!)">
+                <img [src]="album.photoUrl" class="img-fluid smaller-image mx-auto" alt="Album Photo">
+                <h5 class="text-center mt-3">{{ album.albumDTO?.albumName }}</h5>
+            </a>
         </div>
     </div>
 </body>

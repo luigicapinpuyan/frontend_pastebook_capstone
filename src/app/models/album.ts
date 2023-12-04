@@ -19,7 +19,9 @@ export class AlbumDTO {
 
 export class AlbumWithFirstPhoto {
     constructor(
-        public album?: Album,
-        public photo?: Photo
+        public albumDTO?: Album,
+        public firstPhoto?: Photo,
+
+        public photoUrl?: string
     ){}
 }

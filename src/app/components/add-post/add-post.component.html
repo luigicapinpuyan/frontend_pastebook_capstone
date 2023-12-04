@@ -13,11 +13,9 @@
         <ng-container *ngIf="uploadedPhoto; else noPhoto">
             <p class="ms-3">Your photo was uploaded successfully.</p>
 
-            <div class="ms-auto">                
-                <!-- Delete Photo button -->
+            <div class="ms-auto">             
                 <button *ngIf="uploadedPhoto" class="btn btn-danger me-2" (click)="deletePhoto()">Remove Photo</button>
                 
-                <!-- Add Post button -->
                 <button id="postButton" class="btn" (click)="addPost()">Add Post</button>
             </div>
         </ng-container>
@@ -25,13 +23,11 @@
             <p class="ms-3">No photo uploaded</p>
 
             <div class="ms-auto">
-                <!-- Upload Photo button -->
                 <label for="fileInput" class="btn btn-success me-2">
                     Upload Photo
                     <input type="file" (change)="onFileChange($event)" id="fileInput" style="display: none;" />
                 </label>
                 
-                <!-- Add Post button -->
                 <button id="postButton" class="btn" (click)="addPost()">Add Post</button>
             </div> 
         </ng-template>

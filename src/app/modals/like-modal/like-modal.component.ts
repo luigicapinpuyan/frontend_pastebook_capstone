@@ -13,7 +13,6 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./like-modal.component.css']
 })
 export class LikeModalComponent implements OnInit {
-  likedUsers = ['Ad Min', 'Jayvee Tinio', 'Blessie Balagtas', 'Min Ad'];
   usersLiked: MiniProfileDTO[] = [];
   postId: string = "";
 

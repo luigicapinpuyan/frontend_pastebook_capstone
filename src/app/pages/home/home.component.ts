@@ -14,6 +14,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { Album, AlbumWithFirstPhoto } from 'src/app/models/album';
 import { AlbumService } from 'src/app/services/album.service';
 import { AddAlbumModalComponent } from 'src/app/modals/add-album-modal/add-album-modal.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +25,10 @@ import { AddAlbumModalComponent } from 'src/app/modals/add-album-modal/add-album
 export class HomeComponent implements OnInit{
   miniProfileDTO: MiniProfileDTO = new MiniProfileDTO();
   friends: Friend[] = [];
+
   posts: Post[] = [];
   albums: AlbumWithFirstPhoto[] = [];
+  
   photoId: string = "";
   photoUrl: string = "";
   userId: string = this.sessionService.getUserId();
@@ -34,10 +37,9 @@ export class HomeComponent implements OnInit{
     this.helperService.checkToken();
 
     this.getProfile();
-    
-
     this.getAllFriendRequests();
     this.getNewsFeedPosts();
+    this.getMiniAlbum();
   }
   
   constructor(
@@ -80,7 +82,7 @@ export class HomeComponent implements OnInit{
     );
   }
   goToProfile() {
-    this.router.navigate(['/profile'], { queryParams: { id: this.userId } });
+    this.router.navigate(['/profile'], { queryParams: { tab: 'timeline', id: this.userId } });
   }
 
   //FRIEND REQUESTS
@@ -110,7 +112,27 @@ export class HomeComponent implements OnInit{
   //ALBUMS
   getMiniAlbum(){
     this.albumService.getMiniAlbum().subscribe((response: AlbumWithFirstPhoto[]) => {
+        this.albums = response.slice(0, 6);
+        
+        this.albums.forEach((album) => {
+          if(album.firstPhoto?.photoImageURL != null){
+            this.loadPhotoAlbum(album.firstPhoto?.id!).subscribe(
+              (photoUrl: string) => {
+                album.photoUrl = photoUrl;
+              },
+              () => {
+                
+              }
+            )
+          }else{
+            album.photoUrl = "assets/images/default_album.png";
+          }
+          
+          
+        });
 
+
+        
     });
   }
 
@@ -122,5 +144,23 @@ export class HomeComponent implements OnInit{
     });
   }
 
+
+  loadPhotoAlbum(photoId: string): Observable<string> {
+    return new Observable<string>((observer) => {
+      this.photoService.getPhoto(photoId).subscribe(
+        (photoBlob: Blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            observer.next(reader.result as string);
+            observer.complete();
+          };
+          reader.readAsDataURL(photoBlob);
+        },
+        (error) => {
+          observer.error(error);
+        }
+      );
+    });
+  }
 
 }

@@ -25,3 +25,8 @@
 body {
   height: 80vh;
 }
+
+.smaller-image {
+  max-width: 70%; /* Set the maximum width to 100% of the container */
+  max-height: 70%; /* Set the maximum height to your desired value */
+}

@@ -49,11 +49,11 @@ export class NavbarComponent {
   }
 
   goToDetailsPage() {
+    console.log(this.userId);
     this.router.navigate(['/profile'], { queryParams: { id: this.userId } });
   }
 
   onEnterPressed(name:string) {
-    
     if (this.searchText.trim() !== '') {
       // Navigate to the search page (replace '/search' with your desired route)
       this.router.navigate(['/search-list'], { queryParams: { name: this.searchText } });

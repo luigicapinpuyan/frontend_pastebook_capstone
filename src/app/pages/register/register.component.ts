@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit {
 
   onRegister() {
     if(this.user.firstName == null || this.user.lastName == null || this.user.email == null || this.user.password == null || this.user.birthDate == null){
-      
       this.toast.error({detail: "ERROR", summary: "All fields with '*' are required.", duration: 5000});
       return;
     }
@@ -36,8 +35,6 @@ export class RegisterComponent implements OnInit {
 
     this.userService.register(this.user).subscribe({next: this.successfulRegister.bind(this),
       error: this.failedRegister.bind(this)
-      
-    
     })
     
 
@@ -49,7 +46,7 @@ export class RegisterComponent implements OnInit {
   }
 
   failedRegister(result: Record<string, any>) {
-    this.toast.error({detail: "ERROR", summary: result["error"], duration: 5000});
+    this.toast.error({detail: "ERROR", summary: 'Registration failed!', duration: 5000});
   }
   
 

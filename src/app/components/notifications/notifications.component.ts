@@ -53,7 +53,7 @@ export class NotificationsComponent implements OnInit {
             if (notification.notificationType === "like") {
               notification.likeContext = response;
               console.log(response)
-              this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+              //this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
             }
           })
         }

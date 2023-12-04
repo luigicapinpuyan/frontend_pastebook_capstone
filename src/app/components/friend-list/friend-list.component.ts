@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
 import { MiniProfileDTO, User } from 'src/app/models/user';
-import { SessionService } from 'src/app/services/session.service';
-import { ActivatedRoute, NavigationEnd, Route, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Friend } from 'src/app/models/friend';
 import { filter } from 'rxjs';
 
@@ -32,18 +31,15 @@ export class FriendListComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      // Handle route changes here
       this.handleRouteChange();
     });
   }
 
   handleRouteChange(): void {
-    // Extract and handle the query parameters
     this.route.queryParams.subscribe(params => {
       const newUserId = params['id'];
       this.sentUserId = newUserId;
       window.location.reload();
-      // Reload your component data or perform other actions based on the newUserId
     });
   }
   loadFriends(){

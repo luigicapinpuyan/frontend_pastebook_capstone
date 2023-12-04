@@ -9,11 +9,12 @@
   .close-icon {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 10px;
     cursor: pointer;
     padding: 7px;
-    color: red;
-}
+    color: black;
+    font-size: 30px;
+  }
 
 .comment {
   display: flex;

@@ -5,6 +5,8 @@ import { AlbumService } from 'src/app/services/album.service';
 import { Album, AlbumDTO, AlbumWithFirstPhoto } from 'src/app/models/album';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAlbumModalComponent } from 'src/app/modals/add-album-modal/add-album-modal.component';
+import { Observable } from 'rxjs';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
   selector: 'app-album-list',
@@ -13,21 +15,22 @@ import { AddAlbumModalComponent } from 'src/app/modals/add-album-modal/add-album
 })
 export class AlbumListComponent implements OnInit {
   @Input() sentUserId: string = "";
-  albums: Album[] =[]
+  albums: AlbumWithFirstPhoto[] =[]
   newAlbum: AlbumDTO = {
   };
+
   constructor(
     public dialog: MatDialog,
     private albumService: AlbumService,
-    private router: Router
+    private router: Router,
+    private photoService: PhotoService
   ){}
 
 
 
   ngOnInit(): void {
-    this.loadAlbums();
+    this.getAlbums();
   }
-
 
   openModal() {
     const dialogRef = this.dialog.open(AddAlbumModalComponent);
@@ -37,9 +40,25 @@ export class AlbumListComponent implements OnInit {
     });
   }
 
-  loadAlbums() {
-    this.albumService.getAllAlbums().subscribe((response: Album[]) => {
-      this.albums = response
+  getAlbums() {
+    this.albumService.getMiniAlbum().subscribe((response: AlbumWithFirstPhoto[]) => {
+      this.albums = response;
+
+      this.albums.forEach((album) => {
+        if(album.firstPhoto?.photoImageURL != null){
+          this.loadPhotoAlbum(album.firstPhoto?.id!).subscribe(
+            (photoUrl: string) => {
+              album.photoUrl = photoUrl;
+            },
+            () => {
+              
+            }
+          )
+        }else{
+          album.photoUrl = "assets/images/default_album.png";
+        }
+      });
+
     });
   }
   
@@ -52,6 +71,24 @@ export class AlbumListComponent implements OnInit {
         console.error('Error adding album:', error);
       }
     );
+  }
+
+  loadPhotoAlbum(photoId: string): Observable<string> {
+    return new Observable<string>((observer) => {
+      this.photoService.getPhoto(photoId).subscribe(
+        (photoBlob: Blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            observer.next(reader.result as string);
+            observer.complete();
+          };
+          reader.readAsDataURL(photoBlob);
+        },
+        (error) => {
+          observer.error(error);
+        }
+      );
+    });
   }
 
   goToPhotoList(albumId: string){

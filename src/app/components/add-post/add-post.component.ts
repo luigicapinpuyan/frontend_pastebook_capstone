@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { PostDTO } from 'src/app/models/post';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -19,13 +19,14 @@ export class AddPostComponent implements OnInit {
   file: File | null = null;
   albumId: string = '';
   uploadedPhoto: boolean = false;
+  @Input() sentUserId: string = "";
 
   constructor(
     private photoService: PhotoService,
     private postService: PostService,
     private toast: NgToastService,
     private albumService: AlbumService,
-    private cdr: ChangeDetectorRef  // Inject ChangeDetectorRef
+    private cdr: ChangeDetectorRef  
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class AddPostComponent implements OnInit {
   onFileChange(event: any) {
     this.file = event.target.files[0];
     this.uploadedPhoto = true; 
-    this.cdr.detectChanges(); // Manually trigger change detection
+    this.cdr.detectChanges(); 
   }
 
   async uploadPhoto(): Promise<string> {
@@ -63,6 +64,10 @@ export class AddPostComponent implements OnInit {
     if (this.file) {
       let photoId = await this.uploadPhoto();
       this.post.photoId = photoId;
+    }
+
+    if(this.sentUserId != ""){
+      this.post.userId = this.sentUserId;
     }
 
     console.log(this.post);
