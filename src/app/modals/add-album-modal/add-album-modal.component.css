@@ -27,3 +27,8 @@
     color: #555; 
     cursor: pointer;
   }
+
+  .smaller-image{
+    max-width: 80px;
+    max-height: 80px;
+  }

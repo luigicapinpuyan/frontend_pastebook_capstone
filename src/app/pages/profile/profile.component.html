@@ -8,6 +8,10 @@
             class="col-12 col-md-9 col-lg-11 d-flex p-3 custom-div flex-column justify-content-center align-items-center">
             <img [src]="photoUrl" alt="Profile Photo" class="rounded-circle" width="150" height="150">
             <h1>{{ profileDTO.firstName + " " + profileDTO.lastName }}</h1>
+            <div *ngIf="friend != null && friend.isFriend" class="text-center">
+                <h6>Date of Friendship: {{ friend.friendshipDate | date: 'short' }}</h6>
+                <p>Have been friends since: {{ friend.friendshipDate! | timeDifference }}</p>
+            </div>
             <div [hidden]="userId == sentUserId" class="mt-2">
                 <button type="button" class="btn btn-success me-3" [hidden]="friend !== undefined && friend !== null" (click)="addFriend()">Add Friend</button>
                 <button type="button" class="btn btn-primary me-3" [hidden]="friend === undefined || friend === null || friend.isFriend" disabled>Friend Request Sent</button>

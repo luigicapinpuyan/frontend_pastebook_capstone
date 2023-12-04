@@ -34,8 +34,8 @@ export class AlbumService {
     return localStorage.getItem('albumId')!
    }
 
-  addAlbum(albumDTO: AlbumDTO): Observable<any> {
-    return this.http.post(this.baseUrl + '/add-album', albumDTO, {headers: this.getHeaders()})
+  addAlbum(albumDTO: AlbumDTO): Observable<string> {
+    return this.http.post<string>(this.baseUrl + '/add-album', albumDTO, {headers: this.getHeaders()})
   }
 
   updateAlbum(albumDTO: AlbumDTO): Observable<Object> {
