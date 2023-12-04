@@ -109,18 +109,5 @@ export class AlbumListComponent implements OnInit {
 //     }
 //   }
 
-//   deleteAlbum(): void {
-//     if (this.selectedAlbum) {
-//       this.albumService.deleteAlbum(this.selectedAlbum.Id).subscribe(
-//         () => {
-//           console.log('Album deleted successfully');
-//           this.loadAlbums(); // Refresh the album list
-//         },
-//         error => {
-//           console.error('Error deleting album:', error);
-//         }
-//       );
-//     }
-//   }
-// }
+
 }

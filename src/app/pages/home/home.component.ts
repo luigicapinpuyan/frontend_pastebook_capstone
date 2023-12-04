@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit{
     this.userService.getMiniProfile(this.userId).subscribe(
       (response: MiniProfileDTO) => {
         this.miniProfileDTO = response;
+        console.log(response)
         this.photoId = this.miniProfileDTO.photo?.id!;
         if(this.photoId != undefined){
           this.loadPhoto();

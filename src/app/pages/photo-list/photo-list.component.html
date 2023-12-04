@@ -1,37 +1,27 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-  <h1 class="pt-3 text-center">Album Details</h1>
-  <h2>{{ album.albumName }}</h2>
-  <div class="photo-grid">
-    <div class="photo-item">
-      <div class="btn btn-success">
-        <i class="plus-icon d-flex justify-content-center align-items-center" (click)="fileInput.click()">Add Photo</i>
-        <input type="file" (change)="onFileChange($event)" #fileInput style="display: none;" />
-      </div>
-    </div>
-    <div class="photo-item pt-2" *ngFor="let photo of photos">
-      <a>
-        <img [src]="photo.photoImageURL" class="img-fluid smaller-image mx-auto">
-      </a>
-    </div>
-  </div>
-
-  <!-- <div class="text-center">
-    <input class="form-control" type="file" (change)="onChange($event)">
-
-    <button (click)="onUpload()" class="btn btn-success">
-      Upload
-    </button>
-  </div>
-  <div *ngIf="album">
+<body class="vh-100">
+  <div class="container">
+    <h1 class="pt-3 text-center">Album Details</h1>
     <h2>{{ album.albumName }}</h2>
-    <div class="photo-item" *ngFor="let photo of photos">
-      <div>
-        <img [src]="photo.photoImageURL" class="rounded-circle" width="150" height="150">
+    <div class="photo-grid">
+      <div class="photo-item">
+        <div class="btn btn-success">
+          <i class="plus-icon d-flex justify-content-center align-items-center" (click)="fileInput.click()">Add Photo</i>
+          <input type="file" (change)="onFileChange($event)" #fileInput style="display: none;" />
+        </div>
+      </div>
+      <div class="photo-item">
+        <button class="btn btn-danger" (click)="deleteAlbum()">Delete Album</button>
+      </div>
+      <div class="photo-item pt-2" *ngFor="let photo of photos">
+        <a>
+          <img [src]="photo.photoImageURL" class="img-fluid smaller-image mx-auto">
+        </a>
       </div>
     </div>
-  </div> -->
-</div>
+  
+  </div>
+</body>
 
 <app-footer></app-footer>

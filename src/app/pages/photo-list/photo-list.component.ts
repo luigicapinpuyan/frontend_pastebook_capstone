@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlbumService } from 'src/app/services/album.service';
 import { Photo } from 'src/app/models/photo';
 import { PhotoService } from 'src/app/services/photo.service';
 import { Observable } from 'rxjs';
 import { NgToastService } from 'ng-angular-popup';
+import { AlbumDTO } from 'src/app/models/album';
 
 @Component({
   selector: 'app-photo-list',
@@ -21,8 +22,9 @@ export class PhotoListComponent implements OnInit {
     public toast: NgToastService,
     private route: ActivatedRoute,
     private albumService: AlbumService,
-    private photoService: PhotoService
-  ) {}
+    private photoService: PhotoService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -53,13 +55,13 @@ export class PhotoListComponent implements OnInit {
     });
   }
 
-onFileChange(event: any) { 
-    this.file = event.target.files[0]; 
+  onFileChange(event: any) {
+    this.file = event.target.files[0];
     this.onUpload();
-} 
+  }
 
-  onUpload() { 
-  if (this.file) {
+  onUpload() {
+    if (this.file) {
       if (this.file) {
         try {
           this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
@@ -68,7 +70,7 @@ onFileChange(event: any) {
             summary: 'Photo added to album successfully.',
             duration: 5000
           });
-  
+
           // Optionally reload the photos after adding a new photo
           this.getPhotos();
         } catch (error) {
@@ -77,7 +79,7 @@ onFileChange(event: any) {
         }
       }
     }
-  } 
+  }
 
   loadPhoto(photoId: string): Observable<string> {
     return new Observable<string>((observer) => {
@@ -96,4 +98,18 @@ onFileChange(event: any) {
       );
     });
   }
+
+  deleteAlbum(): void {
+    this.albumService.deleteAlbum(this.albumId).subscribe(
+      () => {
+        this.toast.success({detail: "SUCCESS", summary: "Album deleted successfully", duration: 5000}); 
+        this.router.navigate(['']);
+      },
+      error => {
+        this.toast.success({detail: "SUCCESS", summary: "Album not removed, error", duration: 5000}); 
+
+      }
+    );
+  }
 }
+

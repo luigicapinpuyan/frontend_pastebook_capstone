@@ -19,6 +19,7 @@ export class FriendRequestIndividualComponent implements OnInit{
   acceptRequest(requestId?: string, friend?: Friend){
     this.friendService.acceptFriendRequest(requestId).subscribe((response: Record<string, any>)=>{
       this.deleteFriendFromView(friend);
+      window.location.reload();
     });
   }
 

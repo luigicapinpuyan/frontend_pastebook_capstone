@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit{
   ngOnInit(): void{    
     this.route.queryParams.subscribe(params => {
       this.sentUserId = params['id'];
-      this.selectedTab = params['tab'] || 'albums';
+      this.selectedTab = params['tab'];
     });
     this.loadProfile();
     this.getMiniProfile();

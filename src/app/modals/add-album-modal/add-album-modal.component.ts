@@ -4,6 +4,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { SessionService } from 'src/app/services/session.service';
 import { AlbumService } from 'src/app/services/album.service';
 import { AlbumDTO } from 'src/app/models/album';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-add-album-modal',
@@ -12,7 +13,7 @@ import { AlbumDTO } from 'src/app/models/album';
 })
 export class AddAlbumModalComponent {
 
-  file: File | null = null;
+  file: { stream: string, url: string, file: File }[] = [];
   albumId: string = this.albumService.getAlbumId()
   newAlbum: AlbumDTO = {
   };
@@ -20,22 +21,22 @@ export class AddAlbumModalComponent {
     (
       public dialogRef: MatDialogRef<AddAlbumModalComponent>,
       private photoService: PhotoService,
-      private albumService: AlbumService
+      private albumService: AlbumService,
+      private toast: NgToastService
     ) {}
 
 
     addAlbum() {
-      this.albumService.addAlbum(this.newAlbum).subscribe(
-        (response) => {
-          
-          if (this.file) {
-            this.uploadPhoto();
-          }
-        },
-        (error) => {
-          console.error('Error adding album:', error);
+      this.albumService.addAlbum(this.newAlbum).subscribe((response: string)=> {
+        this.albumId = response;
+        if (this.file.length > 0) {
+          this.uploadPhoto();
         }
-      );
+
+        this.toast.success({detail: "SUCCESS", summary: "Album Added", duration: 5000}); 
+        this.close();
+        window.location.reload();
+      });
     }
 
   close() {
@@ -43,14 +44,24 @@ export class AddAlbumModalComponent {
   }
 
   onFileChange(event: any) {
-    this.file = event.target.files[0];
-    this.uploadPhoto();
-  }
+    const file = event.target.files[0];
   
+    const reader = new FileReader();
+    reader.onload = () => {
+      const fileObject = {
+        stream: reader.result as string,
+        url: URL.createObjectURL(file),
+        file: file, 
+      };
+      this.file.push(fileObject);
+    };
+  
+    reader.readAsDataURL(file);
+  }
 
   uploadPhoto() {
-    if (this.file) {
-      this.photoService.uploadPhoto(this.albumId, this.file).subscribe(
+    this.file.forEach(fileObject => {
+      this.photoService.uploadPhoto(this.albumId, fileObject.file).subscribe(
         (response) => {
           console.log('Photo uploaded successfully. Photo ID:', response);
         },
@@ -59,6 +70,6 @@ export class AddAlbumModalComponent {
           // Handle the error as needed
         }
       );
-    }
+    });
   }
 }
