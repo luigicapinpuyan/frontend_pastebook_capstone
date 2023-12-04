@@ -11,6 +11,8 @@ import { SessionService } from 'src/app/services/session.service';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/helper.service';
 import { PhotoService } from 'src/app/services/photo.service';
+import { Album, AlbumWithFirstPhoto } from 'src/app/models/album';
+import { AlbumService } from 'src/app/services/album.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +24,7 @@ export class HomeComponent implements OnInit{
   miniProfileDTO: MiniProfileDTO = new MiniProfileDTO();
   friends: Friend[] = [];
   posts: Post[] = [];
+  albums: AlbumWithFirstPhoto[] = [];
   photoId: string = "";
   photoUrl: string = "";
   userId: string = this.sessionService.getUserId();
@@ -46,7 +49,8 @@ export class HomeComponent implements OnInit{
     private helperService: HelperService,
     private photoService: PhotoService,
     private sessionService: SessionService,
-    private router: Router
+    private router: Router,
+    private albumService: AlbumService
   ){
   }
 
@@ -56,7 +60,9 @@ export class HomeComponent implements OnInit{
       (response: MiniProfileDTO) => {
         this.miniProfileDTO = response;
         this.photoId = this.miniProfileDTO.photo?.id!;
-        this.loadPhoto();
+        if(this.photoId != undefined){
+          this.loadPhoto();
+        }
       },
       (error) => {
         console.error("Error fetching profile:", error);
@@ -77,7 +83,6 @@ export class HomeComponent implements OnInit{
   goToProfile() {
     this.router.navigate(['/profile'], { queryParams: { tab: 'timeline',id: this.userId } });
   }
-
 
   //FRIEND REQUESTS
   deleteFriendFromView(givenFriend: Friend): void{
@@ -100,6 +105,13 @@ export class HomeComponent implements OnInit{
   getNewsFeedPosts(){
     this.timelineService.getNewsFeedPosts().subscribe((response: Post[]) => {
       this.posts = response;
+    });
+  }
+
+  //ALBUMS
+  getMiniAlbum(){
+    this.albumService.getMiniAlbum().subscribe((response: AlbumWithFirstPhoto[]) => {
+
     });
   }
 

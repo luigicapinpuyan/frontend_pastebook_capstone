@@ -54,12 +54,16 @@ export class AlbumService {
     return this.http.get<Photo[]>(`${this.baseUrl}/get-all-photos/${albumId}`, {headers: this.getHeaders()})
   }
 
-  getMiniAlbum(): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/get-mini-album`, {headers: this.getHeaders()})
+  getMiniAlbum(): Observable<AlbumWithFirstPhoto[]> {
+    return this.http.get<AlbumWithFirstPhoto[]>(`${this.baseUrl}/get-mini-album`, {headers: this.getHeaders()})
   }
 
   getUploadsAlbumId(): Observable<string>{
     return this.http.get<string>(`${this.baseUrl}/get-uploads-album-id`, {headers:this.getHeaders()});
+  }
+
+  getAlbum(albumId: string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/get-album-by-id/${albumId}`, {headers: this.getHeaders()})
   }
   
 }

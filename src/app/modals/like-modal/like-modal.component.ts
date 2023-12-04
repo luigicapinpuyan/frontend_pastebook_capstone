@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MiniProfileDTO, User } from 'src/app/models/user';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -20,7 +21,8 @@ export class LikeModalComponent implements OnInit {
     public dialogRef: MatDialogRef<LikeModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private postService: PostService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private router: Router
   ){
     this.postId = data.postId;
   }
@@ -73,6 +75,11 @@ export class LikeModalComponent implements OnInit {
         );
       });
     });
+  }
+
+  goToOtherProfile(user: User){
+    this.router.navigate(['/profile'], { queryParams: { id: user?.id } });
+    this.closeModal()
   }
 
 }

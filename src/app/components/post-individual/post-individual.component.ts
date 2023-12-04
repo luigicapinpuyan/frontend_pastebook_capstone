@@ -12,14 +12,13 @@ import { CommentService } from 'src/app/services/comment.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { PostService } from 'src/app/services/post.service';
 import { SessionService } from 'src/app/services/session.service';
-import { UserService } from 'src/app/services/user.service';
-
+import { EditPostModalComponent } from 'src/app/modals/edit-post-modal/edit-post-modal.component';
 @Component({
   selector: 'app-post-individual',
   templateUrl: './post-individual.component.html',
   styleUrls: ['./post-individual.component.css']
 })
-export class PostIndividualComponent {
+export class PostIndividualComponent implements OnInit{
   @Input() post: Post= new Post();
   usersLiked: MiniProfileDTO[] = [];
   comments: CommentDTO[] = [];
@@ -46,8 +45,7 @@ export class PostIndividualComponent {
     private toast: NgToastService,
     private photoService: PhotoService,
     private router: Router
-  ){
-  }
+  ){}
 
   ngOnInit(): void {
     this.getPostLikes();
@@ -59,7 +57,7 @@ export class PostIndividualComponent {
     if(this.photoId != null){
       this.loadPhoto();
     }
-    if(this.postPhotoId != null){
+    if(this.postPhotoId != undefined){
       this.loadPosterPhoto();
     }
   }
@@ -78,6 +76,15 @@ export class PostIndividualComponent {
       data: { postId: this.post.id },
     });
 
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEditPostModal(){
+    const dialogRef = this.dialog.open(EditPostModalComponent, {
+      data: { postId: this.post.id },
+    });
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
@@ -158,7 +165,7 @@ export class PostIndividualComponent {
       (photoBlob: Blob) => {
         const reader = new FileReader();
         reader.onload = () => {
-          this.postPhotoId = reader.result as string;
+          this.postPhotoUrl = reader.result as string;
         };
         reader.readAsDataURL(photoBlob);
       }

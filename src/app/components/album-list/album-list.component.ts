@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlbumService } from 'src/app/services/album.service';
 import { Album, AlbumDTO, AlbumWithFirstPhoto } from 'src/app/models/album';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,6 +19,7 @@ export class AlbumListComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private albumService: AlbumService,
+    private router: Router
   ){}
 
 
@@ -49,6 +52,10 @@ export class AlbumListComponent implements OnInit {
         console.error('Error adding album:', error);
       }
     );
+  }
+
+  goToPhotoList(albumId: string){
+    this.router.navigate(['/album'], { queryParams: { id: albumId } });
   }
 
 //   updateAlbum(): void {

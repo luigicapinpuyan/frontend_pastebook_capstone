@@ -1,10 +1,25 @@
+<app-navbar></app-navbar>
+
 <div class="container">
-    <h1 class="pt-3 text-center">Album Details</h1>
-    <div *ngIf="albumData">
-      <h2>{{ albumData.albumName }}</h2>
+  <h1 class="pt-3 text-center">Album Details</h1>
+  <div class="text-center"> 
+    <input class="form-control" type="file" 
+            (change)="onChange($event)"> 
+  
+    <button (click)="onUpload()"  
+        class="btn btn-success"> 
+        Upload 
+    </button> 
+</div> 
+  <div *ngIf="album">
+    <h2>{{ album.albumName }}</h2>
+    <div class="photo-item" *ngFor="let photo of photos">
       <div>
-        <!-- all photos -->
+        <img [src]="photo.photoImageURL" class="rounded-circle" width="150" height="150">
       </div>
-      <!-- Other album details... -->
     </div>
+    <!-- Other album details... -->
   </div>
+</div>
+
+<app-footer></app-footer>

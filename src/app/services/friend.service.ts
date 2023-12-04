@@ -49,8 +49,12 @@ export class FriendService {
     return this.http.delete(this.baseUrl + `/reject-friend/${requestId}`, {headers: this.getHeaders()});
   }
 
-  getAllFriends(): Observable<MiniProfileDTO[]>{
-    return this.http.get<MiniProfileDTO[]>(this.baseUrl + `/get-all-friends`, {headers: this.getHeaders()});
+  removeFriend(removeFriendId?: string): Observable<Object>{
+    return this.http.delete(this.baseUrl + `/remove-friend/${removeFriendId}`, {headers: this.getHeaders()});
+  }
+
+  getAllFriends(userId: string): Observable<MiniProfileDTO[]>{
+    return this.http.get<MiniProfileDTO[]>(this.baseUrl + `/get-all-friends/${userId}`, {headers: this.getHeaders()});
   }
 
 }
