@@ -57,8 +57,9 @@ export class PostIndividualComponent implements OnInit{
     if(this.photoId != null){
       this.loadPhoto();
     }
-    
-    this.loadPosterPhoto();
+    if(this.postPhotoId != undefined){
+      this.loadPosterPhoto();
+    }
   }
 
   //modals
