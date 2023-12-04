@@ -37,6 +37,7 @@ import { AddAlbumModalComponent } from './modals/add-album-modal/add-album-modal
 import { PhotoListComponent } from './pages/photo-list/photo-list.component';
 import { TimeDifferencePipe } from './pipes/time-difference.pipe';
 import { EditPostModalComponent } from './modals/edit-post-modal/edit-post-modal.component';
+import { PhotoPageComponent } from './pages/photo-page/photo-page.component';
 
 
 
@@ -50,7 +51,6 @@ const  appRoutes: Routes = [
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'post-page', component: PostPageComponent},
   {path: 'album', component: PhotoListComponent},
-  {path: 'eme', component: PostIndividualComponent}
 ]
 
 @NgModule({
@@ -80,7 +80,8 @@ const  appRoutes: Routes = [
     AddAlbumModalComponent,
     PhotoListComponent,
     TimeDifferencePipe,
-    EditPostModalComponent
+    EditPostModalComponent,
+    PhotoPageComponent
   ],
   imports: [
     BrowserModule,

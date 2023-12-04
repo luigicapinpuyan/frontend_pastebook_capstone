@@ -53,11 +53,12 @@ export class PhotoListComponent implements OnInit {
     });
   }
 
-  onChange(event: any) { 
+onFileChange(event: any) { 
     this.file = event.target.files[0]; 
+    this.onUpload();
 } 
 
-onUpload() { 
+  onUpload() { 
   if (this.file) {
       if (this.file) {
         try {
@@ -76,7 +77,7 @@ onUpload() {
         }
       }
     }
-} 
+  } 
 
   loadPhoto(photoId: string): Observable<string> {
     return new Observable<string>((observer) => {

@@ -30,6 +30,8 @@ export class HelperService {
           this.router.navigate(['']);
         }
       });
+    }else{
+      this.router.navigate(['login']);
     }
   }
   

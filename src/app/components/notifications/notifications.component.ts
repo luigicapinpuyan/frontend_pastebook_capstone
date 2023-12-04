@@ -51,6 +51,9 @@ export class NotificationsComponent implements OnInit {
           this.notificationService.getNotificationContext(notification.id!).subscribe((response) => {
             if (notification.notificationType === "like") {
               notification.likeContext = response;
+              console.log(response)
+              //this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+
               console.log(notification.likeContext);
               let like = notification.likeContext;
               console.log(like?.liker);
@@ -62,6 +65,7 @@ export class NotificationsComponent implements OnInit {
               }
               
               this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+
             }
           })
         }

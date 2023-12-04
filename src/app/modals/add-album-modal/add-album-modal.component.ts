@@ -19,7 +19,6 @@ export class AddAlbumModalComponent {
   constructor
     (
       public dialogRef: MatDialogRef<AddAlbumModalComponent>,
-      private sessionService: SessionService,
       private photoService: PhotoService,
       private albumService: AlbumService
     ) {}
@@ -28,8 +27,7 @@ export class AddAlbumModalComponent {
     addAlbum() {
       this.albumService.addAlbum(this.newAlbum).subscribe(
         (response) => {
-          console.log('Album added successfully. Album ID:', response);
-          // Check if a file is selected and upload it if needed
+          
           if (this.file) {
             this.uploadPhoto();
           }

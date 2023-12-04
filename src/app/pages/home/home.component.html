@@ -13,14 +13,19 @@
         </div>
 
         <div class="col-12 col-lg-5 custom-div d-block">
-            <app-add-post></app-add-post>
+            <div class="mt-5">
+                <app-add-post [sentUserId]="userId"></app-add-post>
+            </div>
         </div>        
         
         <div class="col-3 p-3 custom-div d-none d-lg-flex flex-column text-center">
             <div>
                 <div class="d-flex">
                     <h6>Friend Requests</h6>   
-                    <p class="ms-auto"><a (click)="openFriendRequestModal()" style="cursor: pointer;">View All</a></p>
+                    <p [hidden]="friends.length == 0" class="ms-auto"><a (click)="openFriendRequestModal()" style="cursor: pointer;">View All</a></p>
+                </div>
+                <div *ngIf="friends.length === 0" class="m-3">
+                    <h6>No friend requests to show.</h6>
                 </div>
                 <app-friend-request-individual *ngFor="let friend of friends" [friend]="friend" [deleteFriendFromView]="deleteFriendFromView.bind(this)"></app-friend-request-individual>
             </div>
@@ -32,21 +37,14 @@
         <div class="col-3 d-none d-lg-block p-3 custom-div" style="align-self: flex-start;">
             <div class="d-flex">
               <h6>Album</h6>
-              <p class="ms-auto"><a routerLink="/album" class="text-decoration-none text-dark">View All</a></p>
+              <p class="ms-auto"><a [routerLink]="['/profile']" [queryParams]="{ selectedTab: 'albums',id: this.userId }" class="text-decoration-none text-dark">View All</a></p>
+              <!-- <p class="ms-auto"><a routerLink="/album" class="text-decoration-none text-dark">View All</a></p> -->
             </div>
             <div class="">
                 <div class="photo-grid">
-                    <div class="photo-item">
-                        <i class="plus-icon d-flex align-items-center justify-content-center" (click)="openModal()">+</i>
-                    </div>
-                    <div class="photo-item">
-                        <a routerLink ="/photos"><img src="/assets/images/bg.jpg" alt="Photo 2"></a>
-                    </div>
-                    <div class="photo-item">
-                        <a routerLink ="/photos"><img src="/assets/images/bg.jpg" alt="Photo 2"></a>
-                    </div>
-                    <div class="photo-item">
-                        <a routerLink ="/photos"><img src="/assets/images/bg.jpg" alt="Photo 2"></a>
+                    <div class="photo-item text-center" *ngFor="let album of albums">
+                        <a><img [src]="album.photoUrl" class="img-fluid"></a>
+                        <p>{{ album.albumDTO?.albumName }}</p>
                     </div>
                 </div>
             </div>

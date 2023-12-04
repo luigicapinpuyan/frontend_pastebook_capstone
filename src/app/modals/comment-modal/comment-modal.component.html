@@ -3,7 +3,7 @@
 <div class="custom-modal">
     <div class="d-flex justify-content-between" style="border-bottom: 1px #dddddd solid;">
         <h5 class="pb-3">Comments</h5>
-        <button class="ms-auto" type="button" class="btn-close" (click)="closeModal()"></button>
+        <p class="close-icon ms-auto" (click)="closeModal()">&times;</p>
     </div>
     <div *ngIf="postComments.length === 0" class="m-3">
         <h5>No comments available.</h5>

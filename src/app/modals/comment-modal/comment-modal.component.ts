@@ -23,6 +23,7 @@ export class CommentModalComponent implements OnInit {
     console.log(data.postId);
     this.postId = data.postId;
   }
+
   ngOnInit(): void {
     this.getPostComments();
   }
@@ -45,9 +46,6 @@ export class CommentModalComponent implements OnInit {
         );
       });
 
-
-
-
     });
   }
 
@@ -67,9 +65,11 @@ export class CommentModalComponent implements OnInit {
           observer.error(error);
         }
       );
+      console.log(this.postComments);
     });
   }
-
+  
+  
   closeModal() {
     this.dialogRef.close();
   }
