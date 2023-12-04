@@ -4,16 +4,32 @@
     <!-- Loop through notifications -->
     <li *ngFor="let notification of notifications" [ngClass]="{ 'read-notification': notification.isRead }">
       <a class="dropdown-item">
-        <div (click)="onClick(notification.notificationType)"
+        <div
           [ngStyle]="{ 'background-color': notification.isRead ? 'white' : 'lightgray' }">
+          <ng-container *ngIf="notification.notificationType == 'like'">
+            <p>{{likerFullName}}</p>
+          </ng-container>
+          
+          <!-- <p *ngIf="notification.notificationType == 'comment'">{{notification.notificationType}}</p>
+          <p *ngIf="notification.notificationType == 'friend-request'">{{notification.notificationType}}</p> -->
           <br>
           <!-- "Mark as Read" option for unread notifications -->
-          <span class="mark-as-read-btn" *ngIf="!notification.isRead" (click)="markAsRead(notification)">Mark as
-            Read</span>
-          <span class="mark-as-unread-btn" *ngIf="notification.isRead" (click)="markAsUnread(notification)">Mark as
-            Unread</span>
+          <ng-container *ngIf="!notification.isRead">
+            <span class="mark-as-read-btn"  (click)="markAsRead(notification)">
+              Mark as Read
+            </span>
+          </ng-container>
+          <ng-container>
+            <span class="mark-as-unread-btn" *ngIf="notification.isRead" (click)="markAsUnread(notification)">
+              Mark as Unread
+            </span>
+          </ng-container>
+          
+          <ng-container>
+            <span class="delete-btn" (click)="deleteNotification(notification)">x</span>
+          </ng-container>
           <!-- "x" button to delete the notification -->
-          <span class="delete-btn" (click)="deleteNotification(notification)">x</span>
+          
         </div>
       </a>
       <hr />
