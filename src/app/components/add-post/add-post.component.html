@@ -1,21 +1,41 @@
 <div class="mb-3">
     <div class="col-6 col-lg-6 text-center mx-auto">
-        <h4 style="color: #3373B0;" class="mt-4 mb-3">What's on your mind?</h4>
+        <h4 style="color: #3373B0;" class="mt-1 mb-3">What's on your mind?</h4>
     </div>
 </div>
 <div class="custom-div d-flex flex-column justify-content-center">
 
     <input class="roundedBoarder" type="text" placeholder="Title" name="title" [(ngModel)] ="post.postTitle">
-    <textarea class="mt-1 textHeight roundedBoarder" placeholder="Type your post here" [(ngModel)] = "post.postBody"></textarea>
+    <textarea class="mt-1 textHeight roundedBorder" placeholder="Type your post here" [(ngModel)] = "post.postBody"></textarea>
     
     <div class="d-flex mt-2 mb-3">
-        <p class="ms-5">Photo URL</p>
-        <div class="ms-auto">
-            <label for="fileInput" class="btn btn-success me-2">
-                Upload Photo
-                <input type="file" (change)="onFileChange($event)" id="fileInput" style="display: none;" />
-              </label>
-              <button id="postButton" class="btn" (click)="addPost()">Add Post</button>
-        </div>
+        <!-- Display uploaded photo or preview -->
+        <ng-container *ngIf="uploadedPhoto; else noPhoto">
+            <p class="ms-3">Your photo was uploaded successfully.</p>
+
+            <div class="ms-auto">                
+                <!-- Delete Photo button -->
+                <button *ngIf="uploadedPhoto" class="btn btn-danger me-2" (click)="deletePhoto()">Remove Photo</button>
+                
+                <!-- Add Post button -->
+                <button id="postButton" class="btn" (click)="addPost()">Add Post</button>
+            </div>
+        </ng-container>
+        <ng-template #noPhoto>
+            <p class="ms-3">No photo uploaded</p>
+
+            <div class="ms-auto">
+                <!-- Upload Photo button -->
+                <label for="fileInput" class="btn btn-success me-2">
+                    Upload Photo
+                    <input type="file" (change)="onFileChange($event)" id="fileInput" style="display: none;" />
+                </label>
+                
+                <!-- Add Post button -->
+                <button id="postButton" class="btn" (click)="addPost()">Add Post</button>
+            </div> 
+        </ng-template>
     </div>
+    
+    
 </div>

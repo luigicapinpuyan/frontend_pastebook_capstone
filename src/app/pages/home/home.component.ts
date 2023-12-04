@@ -13,6 +13,7 @@ import { HelperService } from 'src/app/services/helper.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { Album, AlbumWithFirstPhoto } from 'src/app/models/album';
 import { AlbumService } from 'src/app/services/album.service';
+import { AddAlbumModalComponent } from 'src/app/modals/add-album-modal/add-album-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -110,6 +111,14 @@ export class HomeComponent implements OnInit{
   getMiniAlbum(){
     this.albumService.getMiniAlbum().subscribe((response: AlbumWithFirstPhoto[]) => {
 
+    });
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(AddAlbumModalComponent);
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
     });
   }
 

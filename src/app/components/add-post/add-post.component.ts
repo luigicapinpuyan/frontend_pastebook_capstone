@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { PostDTO } from 'src/app/models/post';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -14,18 +14,20 @@ import { HelperService } from 'src/app/services/helper.service';
   templateUrl: './add-post.component.html',
   styleUrls: ['./add-post.component.css']
 })
-export class AddPostComponent implements OnInit{
+export class AddPostComponent implements OnInit {
   post: PostDTO = new PostDTO();
   file: File | null = null;
   albumId: string = '';
+  uploadedPhoto: boolean = false;
 
   constructor(
     private photoService: PhotoService,
     private postService: PostService,
     private toast: NgToastService,
-    private albumService: AlbumService
-  ){
-  }
+    private albumService: AlbumService,
+    private cdr: ChangeDetectorRef  // Inject ChangeDetectorRef
+  ) {}
+
   ngOnInit(): void {
     this.albumService.getUploadsAlbumId().subscribe((response: string) => {
       this.albumId = response;
@@ -34,46 +36,54 @@ export class AddPostComponent implements OnInit{
 
   onFileChange(event: any) {
     this.file = event.target.files[0];
+    this.uploadedPhoto = true; 
+    this.cdr.detectChanges(); // Manually trigger change detection
   }
 
   async uploadPhoto(): Promise<string> {
     if (this.file) {
       try {
         const response = await this.photoService.uploadPhoto(this.albumId, this.file).toPromise();
-        console.log(response);
+        this.uploadedPhoto = response;
         return response;
       } catch (error) {
         console.error(error);
         return '';
       }
     }
-    return ''; 
+    return '';
   }
 
-  async addPost(){
-    if (this.file){
+  deletePhoto() {
+    this.uploadedPhoto = false;
+    this.file = null;
+  }
+
+  async addPost() {
+    if (this.file) {
       let photoId = await this.uploadPhoto();
       this.post.photoId = photoId;
-      console.log(this.post.photoId);
     }
-    
-
 
     console.log(this.post);
     this.postService.addPost(this.post).subscribe({
       next: (response) => {
         Swal.fire({
-          title: "Post Added!",
-          text: "New pastebook post success!",
-          icon: "success"
+          title: 'Post Added!',
+          text: 'New Pastebook post success!',
+          icon: 'success',
         }).then(() => {
           window.location.reload();
         });
       },
-      error: (response) =>{
-        this.toast.error({detail: "ERROR", summary: "Error adding a new post!", duration: 5000});
+      error: (response) => {
+        this.toast.error({
+          detail: 'ERROR',
+          summary: 'Error adding a new post!',
+          duration: 5000,
+        });
         console.log(response);
-      }
+      },
     });
   }
 }
