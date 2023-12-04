@@ -10,7 +10,7 @@
     </div>
     <div *ngFor="let comment of postComments" class="m-3">
         <div class="d-flex align-items-start">
-            <img src="/assets/images/bg.jpg" alt="" width="40" height="40" class="rounded-circle me-3" />
+            <img [src]="comment.commenter!.photo!.photoImageURL" alt="" width="40" height="40" class="rounded-circle me-3" />
             <div class="flex-fill">
                 <div class="d-flex align-items-center">
                     <strong>{{ comment.commenter?.firstName + " " + comment.commenter?.lastName }}</strong>

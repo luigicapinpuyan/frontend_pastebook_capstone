@@ -46,8 +46,8 @@ export class PostService {
     return this.http.delete(`${this.baseUrl}/delete-post/${postId}`, {headers: this.getHeaders()});
   }
 
-  getPost(postId: string): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/get-post/${postId}`, {headers: this.getHeaders()});
+  getPost(postId: string): Observable<Post> {
+    return this.http.get<Post>(`${this.baseUrl}/get-post/${postId}`, {headers: this.getHeaders()});
   }
 
   getPostLikes(postId: string): Observable<MiniProfileDTO[]>{

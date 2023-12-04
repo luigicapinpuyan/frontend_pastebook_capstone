@@ -1,3 +1,5 @@
+import { Friend } from "./friend";
+import { Like } from "./like";
 import { User } from "./user";
 
 export class Notification {
@@ -6,7 +8,11 @@ export class Notification {
         public notifiedUserId?: string,
         public notifiedUser?: User,
         public notificationType?: string,
+        public isRead?: boolean,
+        
         public contextId?: string,
-        public isRead?: boolean
+        public likeContext?: Like,
+        public friendContext?: Friend,
+        public commentContext?: Comment
     ){}
 }
