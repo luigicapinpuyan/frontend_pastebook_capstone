@@ -26,11 +26,18 @@
               <label for="password">Password:</label>
               <input class="rounded p-2" type="password" placeholder="Enter password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
 
-              <!-- remember me -->
-              <label for="rememberMe" class="form-check-label">
-                <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
-              Remember Me
-              </label>
+              <!-- remember me --> 
+              <div class="d-flex">
+                <div class="form-check" style="margin-left: 0;">
+                  <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+              </div>
+                <p for="rememberMe" class="form-check-label mb-0 ms-2" style="font-size: 15px; margin-right: 0;">
+                    Remember Me
+                </p>
+                
+            </div>
+            
+            
 
               <button class="btn mt-3 fw-bold me-auto" style="background-color: #eab676; text-decoration-color: blanchedalmond;">
                 <span><i aria-hidden="true" class="fa fa-key"> LOGIN</i></span>

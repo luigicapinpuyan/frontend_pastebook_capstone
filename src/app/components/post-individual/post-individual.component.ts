@@ -13,6 +13,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { PostService } from 'src/app/services/post.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UserService } from 'src/app/services/user.service';
+import { EditPostModalComponent } from 'src/app/modals/edit-post-modal/edit-post-modal.component';
 
 @Component({
   selector: 'app-post-individual',
@@ -78,6 +79,15 @@ export class PostIndividualComponent {
       data: { postId: this.post.id },
     });
 
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEditPostModal(){
+    const dialogRef = this.dialog.open(EditPostModalComponent, {
+      data: { postId: this.post.id },
+    });
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
