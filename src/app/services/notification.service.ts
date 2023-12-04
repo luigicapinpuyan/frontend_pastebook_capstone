@@ -34,7 +34,11 @@ export class NotificationService {
     return this.http.get<Notification[]>(this.baseUrl + `/get-notifications`, {headers: this.getHeaders()});
   }
   
-  getNotificationContext(notificationId: number | undefined): Observable<any>{
-    return this.http.get<any>(this.baseUrl + `/get-notification-context/${notificationId}`);
+  getNotificationContext(notificationId: string): Observable<any>{
+    return this.http.get<any>(this.baseUrl + `/get-notification-context/${notificationId}`, {headers:this.getHeaders()});
+  }
+
+  deleteNotification(notificationId: string): Observable<Object>{
+    return this.http.get(this.baseUrl + `/delete-notification/${notificationId}`, {headers: this.getHeaders()});
   }
 }

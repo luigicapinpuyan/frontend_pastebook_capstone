@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post';
 import { SessionService } from 'src/app/services/session.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LikeModalComponent } from 'src/app/modals/like-modal/like-modal.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { CommentModalComponent } from 'src/app/modals/comment-modal/comment-modal.component';
 import { Comment, CommentDTO } from 'src/app/models/comment';
-import { Like, LikeDTO } from 'src/app/models/like';
+import { LikeDTO } from 'src/app/models/like';
 import { MiniProfileDTO } from 'src/app/models/user';
 import { CommentService } from 'src/app/services/comment.service';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -22,22 +22,22 @@ import { Observable } from 'rxjs';
   styleUrls: ['./post-page.component.css']
 })
 export class PostPageComponent implements OnInit {
-  @Input() post: Post= new Post();
   userId: string = this.sessionService.getUserId();
   usersLiked: MiniProfileDTO[] =[];
+
   comments: Comment[] = [];
-  
+  post: Post = new Post();
+  postId: string = "";
   likedByString: string = "";
   isCurrentPostLiked: boolean = false;
+  posterPhotoId: string = "";
+  posterPhotoUrl: string = "/assets/images/default_profile.png";
+
 
   photoId: string = "";
   photoUrl: string = "";
 
-  postPhotoId: string = "";
-
-  // Ask what this is for
-  postPhotoUrl: string = "/assets/images/default_profile.png";
-  //
+  
 
   commenterPhotoId: string = "";
   commenterPhotoUrl: string = "";
@@ -56,29 +56,49 @@ export class PostPageComponent implements OnInit {
     private commentService: CommentService,
     private toast: NgToastService,
     private photoService: PhotoService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService
     // private datePipe: DatePipe
   ){
   }
 
   ngOnInit(): void {
-    this.getPostLikes();
-    this.getCommentsByPostId();
-    this.isPostLiked();
+    this.route.queryParams.subscribe(params => {
+      this.postId = params['id'];
+    });
+    console.log(this.post.poster?.firstName);
+    this.getPostbyPostId();
+    
     this.likedByString = this.generateLikedByString(this.usersLiked);
-    this.photoId = this.post.photoId!;
-    this.postPhotoId = this.post.poster?.photo?.id!;
-    if(this.photoId != null){
-      this.loadPhoto();
-    }
-    if(this.postPhotoId != null){
-      this.loadPosterPhoto();
-    }
+    
+    
     // const datePosted = this.post?.datePosted; 
     // this.formattedDate = this.datePipe.transform(datePosted, 'MM/dd/yyyy hh:mm:ss a') || '';
   }
 
-  
+  getPostbyPostId(){
+    this.postService.getPost(this.postId).subscribe((response: Post) => {
+      this.post = response;
+      console.log(this.post);
+      this.posterPhotoId = this.post.poster?.photo?.id!;
+      
+      this.getPostLikes();
+      this.getCommentsByPostId();
+      
+      this.isPostLiked();
+
+      this.photoId = this.post.photoId!;
+      if(this.photoId != null){
+        this.loadPhoto();
+      }
+      if(this.posterPhotoId != null){
+        this.loadPosterPhoto();
+      }
+      console.log(this.comments);
+    });
+  }
+
 
   openLikesModal(){
     const dialogRef = this.dialog.open(LikeModalComponent);
@@ -114,13 +134,14 @@ export class PostPageComponent implements OnInit {
 
     this.commentService.getCommentsByPostId(postId).subscribe((response: Comment[]) => {
       this.comments = response;
+      console.log(this.comments);
 
 
       // Load photos for each user
       this.comments.forEach((comment) => {
         this.loadCommenterPhoto(comment.commenter?.photo?.id!).subscribe(
           (photoUrl: string) => {
-            this.commenterPhotoUrl = photoUrl;
+            comment.commenter!.photo!.photoImageURL = photoUrl;
           },
           (error) => {
             console.error('Error loading photo:', error);
@@ -203,11 +224,11 @@ export class PostPageComponent implements OnInit {
     
   
   loadPosterPhoto(){
-    this.photoService.getPhoto(this.postPhotoId).subscribe(
+    this.photoService.getPhoto(this.posterPhotoId).subscribe(
       (photoBlob: Blob) => {
         const reader = new FileReader();
         reader.onload = () => {
-          this.postPhotoId = reader.result as string;
+          this.posterPhotoUrl = reader.result as string;
         };
         reader.readAsDataURL(photoBlob);
       }

@@ -176,5 +176,9 @@ export class PostIndividualComponent implements OnInit{
     this.router.navigate(['/profile'], { queryParams: { id: this.post.poster?.id } });
   }
 
+  goToPostPage(){
+    this.router.navigate([`/post-page`], { queryParams: { id: this.post.id } });
+  }
+
 
 }

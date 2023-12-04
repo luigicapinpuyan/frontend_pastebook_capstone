@@ -15,35 +15,24 @@ import {Router} from '@angular/router';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-  private userId: number = Number(this.sessionService.getUserId());
   notifications: Notification[] = [];
-  likeContext: Like = new Like();
-  commentContext: Comment = new Comment();
-  friendRequestContext: Friend = new Friend();
   notificationType: string = "";
 
   likeContexts: Like[] = [];
   commentContexts: Comment[] = [];
   friendRequestContexts: Friend[] = [];
 
+  likerFullName: string = "";
+  // likerFullName: string = this.likeContext.liker?.firstName + " " + this.likeContext.liker?.lastName;
+  // commenterFullName: string = this.commentContext.commenter?.firstName + " " + this.commentContext.commenter?.lastName;
+  // requesterFullName: string = this.friendRequestContext.sender?.firstName + " " + this.friendRequestContext.sender?.lastName;
+  // receiverFullName: string = this.friendRequestContext.receiver?.firstName + " " + this.friendRequestContext.receiver?.lastName;
 
-  likerFullName: string = this.likeContext.liker?.firstName + " " + this.likeContext.liker?.lastName;
-  commenterFullName: string = this.commentContext.commenter?.firstName + " " + this.commentContext.commenter?.lastName;
-  requesterFullName: string = this.friendRequestContext.sender?.firstName + " " + this.friendRequestContext.sender?.lastName;
-  receiverFullName: string = this.friendRequestContext.receiver?.firstName + " " + this.friendRequestContext.receiver?.lastName;
 
-
-  // notifications: any[] = [
-  //   { sender: 'Blessie Balagtas', action: "liked", type: 'photo', read: false },
-  //   { sender: 'John Bernard Tinio', action: "commented on", type: 'post', read: false },
-  //   { sender: 'Jigs Capinpuyan', action: "liked", type: 'post', read: false }
-  //   // Add more notifications as needed
-  // ];
+  
 
   ngOnInit() {
-    for (const notification of this.notifications) {
-      // this.getNotificationContext(notification.id, notification.notificationType);
-    }
+    this.getNotificationLists();
   }
 
   constructor(
@@ -51,59 +40,64 @@ export class NotificationsComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router
   ){
-    // this.getNotificationLists(this.userId);
-    this.notifications.forEach(element => {
-      
-    });
   }
-  getNotificationLists(userId: number) {
+
+  getNotificationLists() {
     this.notificationService.getNotificationLists().subscribe((response: Notification[]) =>{
       this.notifications = response;
+      console.log(this.notifications);
+
+      this.notifications.forEach((notification) => {
+        if (notification.notificationType == "like"){
+          this.notificationService.getNotificationContext(notification.id!).subscribe((response) => {
+            if (notification.notificationType === "like") {
+              notification.likeContext = response;
+              console.log(response)
+              this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+            }
+          })
+        }
+        else if (notification.notificationType == "comment"){
+          // notification.contextUser = this.getNotificationContext(notification.id!, notification.notificationType).commenter;
+        }
+        else if (notification.notificationType == "add-friend-request"){
+          // notification.contextUser = this.getNotificationContext(notification.id!, notification.notificationType).sender;
+        }
+        else if (notification.notificationType == "accept-friend-request"){
+          // notification.contextUser = this.getNotificationContext(notification.id!, notification.notificationType).receiver;
+
+        }
+      });
     },
     (error) => {
         console.error("Error fetching notifications", error);
     });
-    this.notifications.forEach(notification => {
-      // this.getNotificationContext(notification.contextId, notification.notificationType);
-    });
-  }
-
-  getNotificationContext(contextId: number | undefined, notificationType?: string) {
-    this.notificationService.getNotificationContext(contextId).subscribe(
-      (response) => {
-        if (notificationType === "like") {
-          this.likeContexts.push(response as Like);
-        } else if (notificationType === "comment") {
-          this.commentContexts.push(response as Comment);
-        } else if (notificationType === "add-friend-request" || notificationType === "accept-friend-request") {
-          this.friendRequestContexts.push(response as Friend);
-        }
-      },
-      (error) => {
-        console.error("Error fetching notifications", error);
-      }
-    );
   }
 
 
-  onClick(notificationType?: string) {
-    switch (notificationType) {
-      case 'like':
-        this.router.navigate(['/post' + this.likeContext.postId]); 
-        break;
-      case 'comment':
-        this.router.navigate(['/post' + this.commentContext.postId]); 
-        break;
-      case 'add-friend-request':
-        this.router.navigate(['/user' + this.friendRequestContext.senderId]); 
-        break;
-      case 'accept-friend-request':
-        this.router.navigate(['/user' + this.friendRequestContext.receiverId]); 
-        break;
-      default:
-        return;
-    }
-  }
+  
+
+ 
+
+
+  // onClick(notificationType?: string) {
+  //   switch (notificationType) {
+  //     case 'like':
+  //       this.router.navigate(['/post' + this.likeContext.postId]); 
+  //       break;
+  //     case 'comment':
+  //       this.router.navigate(['/post' + this.commentContext.postId]); 
+  //       break;
+  //     case 'add-friend-request':
+  //       this.router.navigate(['/user' + this.friendRequestContext.senderId]); 
+  //       break;
+  //     case 'accept-friend-request':
+  //       this.router.navigate(['/user' + this.friendRequestContext.receiverId]); 
+  //       break;
+  //     default:
+  //       return;
+  //   }
+  // }
   
 
   markAsRead(notification: Notification) {
@@ -115,6 +109,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   deleteNotification(notification: Notification) {
+    this.notificationService.deleteNotification(notification.id!);
     // Perform actions to delete a specific notification
     const index = this.notifications.indexOf(notification);
     // if (index !== -1) {
@@ -124,11 +119,19 @@ export class NotificationsComponent implements OnInit {
 
     if (this.notifications.length > 0) {
       this.notifications.shift();
-  }
+    }
+
+    
+
+  
   }
 
   deleteAllNotifications() {
     // Perform actions to delete all notifications
+    this.notifications.forEach(notification => {
+      this.notificationService.deleteNotification(notification.id!);
+    });
     this.notifications = [];
+
   }
 }
