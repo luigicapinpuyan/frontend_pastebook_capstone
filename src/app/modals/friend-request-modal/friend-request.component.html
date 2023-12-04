@@ -1,6 +1,7 @@
 <div class="custom-modal">
     <div class="d-flex">
         <h5 class="me-5 mt-2 mb-4">Friend Requests</h5>
+        <p class="close-icon ms-auto" (click)="closeModal()">&times;</p>
     </div>
     <app-friend-request-individual *ngFor="let friend of friends" [friend]="friend" [deleteFriendFromView]="deleteFriendFromView.bind(this)"></app-friend-request-individual>
 </div>

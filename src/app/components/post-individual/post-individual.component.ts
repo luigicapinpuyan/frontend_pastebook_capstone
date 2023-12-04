@@ -12,7 +12,7 @@ import { CommentService } from 'src/app/services/comment.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { PostService } from 'src/app/services/post.service';
 import { SessionService } from 'src/app/services/session.service';
-
+import { EditPostModalComponent } from 'src/app/modals/edit-post-modal/edit-post-modal.component';
 @Component({
   selector: 'app-post-individual',
   templateUrl: './post-individual.component.html',
@@ -76,6 +76,15 @@ export class PostIndividualComponent implements OnInit{
       data: { postId: this.post.id },
     });
 
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEditPostModal(){
+    const dialogRef = this.dialog.open(EditPostModalComponent, {
+      data: { postId: this.post.id },
+    });
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
