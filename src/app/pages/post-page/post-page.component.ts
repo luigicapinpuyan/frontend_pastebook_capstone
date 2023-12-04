@@ -14,6 +14,8 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
 import { Photo } from 'src/app/models/photo';
+import { ObserversModule } from '@angular/cdk/observers';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-post-page',
   templateUrl: './post-page.component.html',
@@ -37,6 +39,8 @@ export class PostPageComponent implements OnInit {
   postPhotoUrl: string = "/assets/images/default_profile.png";
   //
 
+  commenterPhotoId: string = "";
+  commenterPhotoUrl: string = "";
   likeDTO: LikeDTO = new LikeDTO();
   commentDTO: CommentDTO = new CommentDTO();
   comment: string = "";
@@ -74,6 +78,7 @@ export class PostPageComponent implements OnInit {
     // this.formattedDate = this.datePipe.transform(datePosted, 'MM/dd/yyyy hh:mm:ss a') || '';
   }
 
+  
 
   openLikesModal(){
     const dialogRef = this.dialog.open(LikeModalComponent);
@@ -107,10 +112,27 @@ export class PostPageComponent implements OnInit {
   getCommentsByPostId(){
     const postId = this.post.id ?? ''; 
 
-    this.commentService.getCommentsByPostId(postId).subscribe((response: CommentDTO[]) => {
+    this.commentService.getCommentsByPostId(postId).subscribe((response: Comment[]) => {
       this.comments = response;
+
+
+      // Load photos for each user
+      this.comments.forEach((comment) => {
+        this.loadCommenterPhoto(comment.commenter?.photo?.id!).subscribe(
+          (photoUrl: string) => {
+            this.commenterPhotoUrl = photoUrl;
+          },
+          (error) => {
+            console.error('Error loading photo:', error);
+          }
+        );
+      });
+
     });
+
+    
   }
+  
 
   //like and comment
   likePost(){
@@ -161,6 +183,25 @@ export class PostPageComponent implements OnInit {
       }
     );
   }
+  loadCommenterPhoto(photoId: string): Observable<string> {
+    return new Observable<string>((observer) => {
+      this.photoService.getPhoto(photoId).subscribe(
+        (photoBlob:Blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            observer.next(reader.result as string);
+            observer.complete();
+          };
+          reader.readAsDataURL(photoBlob);
+        },
+        (error) => {
+          observer.error(error);
+        }
+      );
+    });
+  }
+    
+  
   loadPosterPhoto(){
     this.photoService.getPhoto(this.postPhotoId).subscribe(
       (photoBlob: Blob) => {
