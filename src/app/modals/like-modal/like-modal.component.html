@@ -12,7 +12,9 @@
         <img [src]="user.photoUrl || '/assets/images/bg.jpg'" alt="" width="40" height="40"
             class="rounded-circle" />
         <div class="position-relative d-flex align-items-center ms-3">
-            <strong>{{ user.firstName + " " + user.lastName }}</strong>
+            <a (click)="goToOtherProfile(user)" style="cursor: pointer;">
+                <strong>{{ user.firstName + " " + user.lastName }}</strong>
+            </a>
         </div>
     </div>
 
