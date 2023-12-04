@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-search-list',
   templateUrl: './search-list.component.html',
@@ -17,7 +17,8 @@ export class SearchListComponent implements OnInit {
 
   constructor (
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ){
     
   }
@@ -38,6 +39,10 @@ export class SearchListComponent implements OnInit {
     (error) => {
       console.error("Error fetching users", error);
     });
+  }
+
+  goToOtherProfile(user: User){
+    this.router.navigate(['/profile'], { queryParams: { id: user?.id } });
   }
 }
 

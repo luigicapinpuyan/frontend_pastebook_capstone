@@ -3,6 +3,9 @@ import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
 import { MiniProfileDTO, User } from 'src/app/models/user';
 import { SessionService } from 'src/app/services/session.service';
+import { ActivatedRoute, NavigationEnd, Route, Router } from '@angular/router';
+import { Friend } from 'src/app/models/friend';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-friend-list',
@@ -12,22 +15,39 @@ import { SessionService } from 'src/app/services/session.service';
 export class FriendListComponent implements OnInit {
   @Input() sentUserId: string = "";
   miniProfileDTO: MiniProfileDTO = new MiniProfileDTO();
-  friends: MiniProfileDTO[] = []
+  friends: MiniProfileDTO[] = [];
 
   constructor(
     private friendService: FriendService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
   ){}
 
 
   ngOnInit(): void {
     this.loadFriends()
     this.getProfile()
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      // Handle route changes here
+      this.handleRouteChange();
+    });
   }
 
-
+  handleRouteChange(): void {
+    // Extract and handle the query parameters
+    this.route.queryParams.subscribe(params => {
+      const newUserId = params['id'];
+      this.sentUserId = newUserId;
+      window.location.reload();
+      // Reload your component data or perform other actions based on the newUserId
+    });
+  }
   loadFriends(){
-    this.friendService.getAllFriends().subscribe((response: MiniProfileDTO[]) => {
+    this.friendService.getAllFriends(this.sentUserId).subscribe((response: MiniProfileDTO[]) => {
       this.friends = response
     });
   }
@@ -42,5 +62,11 @@ export class FriendListComponent implements OnInit {
       }
     );
   }
+
+  goToOtherProfile(friend: Friend) {
+    console.log("clicked");
+    this.router.navigate(['/profile'], { queryParams: { id: friend.id } });
+  }
+  
 
 }
