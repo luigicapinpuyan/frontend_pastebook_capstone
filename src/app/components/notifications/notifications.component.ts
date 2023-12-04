@@ -17,7 +17,6 @@ import {Router} from '@angular/router';
 export class NotificationsComponent implements OnInit {
   notifications: Notification[] = [];
   notificationType: string = "";
-
   likeContexts: Like[] = [];
   commentContexts: Comment[] = [];
   friendRequestContexts: Friend[] = [];
@@ -54,6 +53,19 @@ export class NotificationsComponent implements OnInit {
               notification.likeContext = response;
               console.log(response)
               //this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+
+              console.log(notification.likeContext);
+              let like = notification.likeContext;
+              console.log(like?.liker);
+              if(like?.liker != null){
+                console.log(like.liker);
+              }
+              else{
+                console.log('tae');
+              }
+              
+              this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+
             }
           })
         }
