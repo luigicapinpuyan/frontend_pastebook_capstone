@@ -11,6 +11,7 @@ import { SessionService } from 'src/app/services/session.service';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/helper.service';
 import { PhotoService } from 'src/app/services/photo.service';
+import { Album } from 'src/app/models/album';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit{
   miniProfileDTO: MiniProfileDTO = new MiniProfileDTO();
   friends: Friend[] = [];
   posts: Post[] = [];
+  albums: Album[] = [];
   photoId: string = "";
   photoUrl: string = "";
   userId: string = this.sessionService.getUserId();
