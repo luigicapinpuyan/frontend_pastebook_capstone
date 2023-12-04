@@ -48,8 +48,8 @@ const  appRoutes: Routes = [
   {path: 'settings', component: SettingsComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'post-page', component: PostPageComponent},
-  {path: 'eme', component: PostIndividualComponent},
-  {path: 'album', component: PhotoListComponent}
+  {path: 'album', component: PhotoListComponent},
+  {path: 'eme', component: PostIndividualComponent}
 ]
 
 @NgModule({

@@ -41,7 +41,11 @@ export class SessionService {
    }
 
    clear(): void {
-    localStorage.clear()
-    this.hasToken.emit(false)
-   }
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    
+    this.hasToken.emit(false);
+}
+
 }
