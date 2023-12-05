@@ -46,7 +46,7 @@
                         <span id="likes-count" class="me-auto text-body text-opacity-50 text-decoration-none"
                             data-bs-toggle="tooltip" data-bs-placement="top"
                             title="{{likedByString}}" [hidden]="usersLiked.length == 0">
-                            <span class="text-body text-opacity-50" id="likes-count" style="cursor: pointer;" (click)="openLikesModal()" data-bs-toggle="modal" data-bs-target="#likesModal"> {{usersLiked.length}} Likes</span>
+                            <span class="text-body text-opacity-50" id="likes-count" style="cursor: pointer;" (click)="openLikesModal()"> {{usersLiked.length}} Likes</span>
                         </span>
                         <span  id="comments-count" class="ms-auto text-body text-opacity-50 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="left" title="Comments on {{ post.postTitle }}" [hidden]="comments.length == 0">
                             <span class="text-body text-opacity-50" id="comments-count">
@@ -85,7 +85,7 @@
 
         <div class="col-4 d-block p-3 custom-div d-none d-lg-flex flex-row">
             <div class="card py-3 pe-2">
-                <div class="d-flex my-1 mx-3">
+                <div class="d-flex flex-column my-1 mx-3">
                     <div *ngIf="comments.length === 0" class="m-3">
                         <h5>No comments available.</h5>
                     </div>
@@ -139,19 +139,6 @@
             </div>
         </div>
 
-        <div class="modal fade" id="likesModal" tabindex="-1" aria-labelledby="likesModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="likesModalLabel">Users who liked the post</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Populate this div with the list of users who liked the post -->
-                        <div *ngFor="let user of usersLiked" class="mb-2">{{ user }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </body>

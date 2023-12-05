@@ -61,7 +61,7 @@
     </div>
 
     <div class="d-flex align-items-center m-3">
-        <img [src]="postPhotoUrl" alt="" width="40" height="40" class="rounded-circle" />
+        <img [src]="postPhotoUrl" alt="" width="40" height="40" (click)="goToPhoto()" style="cursor: pointer;" class="rounded-circle" />
         <div class="flex-fill ps-2">
             <div class="position-relative d-flex align-items-center">
                 <input type="text" class="form-control rounded-pill bg-white bg-opacity-15" style="padding-right: 120px;" placeholder="Write a comment..." (keyup.enter)="commentPost()" [(ngModel)] = "comment" />

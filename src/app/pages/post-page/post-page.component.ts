@@ -99,7 +99,9 @@ export class PostPageComponent implements OnInit {
 
 
   openLikesModal(){
-    const dialogRef = this.dialog.open(LikeModalComponent);
+    const dialogRef = this.dialog.open(LikeModalComponent, {
+      data: { postId: this.post.id },
+    });
 
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');

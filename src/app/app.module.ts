@@ -51,6 +51,7 @@ const  appRoutes: Routes = [
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'post-page', component: PostPageComponent},
   {path: 'album', component: PhotoListComponent},
+  {path: 'photo', component: PhotoPageComponent}
 ]
 
 @NgModule({

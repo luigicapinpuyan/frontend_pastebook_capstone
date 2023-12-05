@@ -180,5 +180,8 @@ export class PostIndividualComponent implements OnInit{
     this.router.navigate([`/post-page`], { queryParams: { id: this.post.id } });
   }
 
+  goToPhoto(){
+    this.router.navigate([`/photo`]);
+  }
 
 }
