@@ -98,7 +98,10 @@ export class EditPostModalComponent implements OnInit {
     });
   }
 
-  updatePost(){
+  async updatePost(){
+    let photoId = await this.uploadPhoto();
+    this.post.photoId = photoId;
+
     this.postService.updatePost(this.post).subscribe((response) => {
       Swal.fire({
         title: "Post Updated!",
