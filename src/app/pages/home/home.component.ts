@@ -137,6 +137,10 @@ export class HomeComponent implements OnInit{
     });
   }
 
+  goToPhotoList(albumId: string){
+    this.router.navigate(['/album'], { queryParams: { id: albumId } });
+  }
+
   openModal() {
     const dialogRef = this.dialog.open(AddAlbumModalComponent);
 

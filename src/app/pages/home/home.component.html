@@ -45,7 +45,7 @@
                         <h5>No available album.</h5>
                     </div>
                     <div class="photo-item text-center m-2" *ngFor="let album of albums">
-                        <a><img [src]="album.photoUrl" class="img-fluid"></a>
+                        <a (click)="goToPhotoList(album.albumDTO?.id!)"><img [src]="album.photoUrl" class="img-fluid"></a>
                         <p>{{ album.albumDTO?.albumName }}</p>
                     </div>
                 </div>

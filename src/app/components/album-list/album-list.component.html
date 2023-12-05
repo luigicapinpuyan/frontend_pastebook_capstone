@@ -1,10 +1,11 @@
-<div class="container-fluid pb-3 bg-white">
+<div class="container bg-white">
     <h1 class="pt-3 text-center">Album List</h1>
-    <div class="photo-grid">
+    <div class="photo-grid justify-content-center">
         <div class="photo-item m-3">
             <i class="plus-icon d-flex align-items-center justify-content-center" (click)="openModal()">+</i>
         </div>
-        <div class="photo-item pt-2 m-3" *ngFor="let album of albums">
+        
+        <div class="photo-item pt-2 my-auto" *ngFor="let album of albums">
             <a (click)="goToPhotoList(album.albumDTO?.id!)">
                 <img [src]="album.photoUrl" class="img-fluid smaller-image mx-auto" alt="Album Photo">
                 <h5 class="text-center mt-3">{{ album.albumDTO?.albumName }}</h5>

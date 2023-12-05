@@ -1,27 +1,19 @@
-<app-navbar></app-navbar>
 
-<body class="vh-100">
-  <div class="container">
-    <h1 class="pt-3 text-center">Album Details</h1>
-    <h2>{{ album.albumName }}</h2>
-    <div class="photo-grid">
-      <div class="photo-item">
-        <div class="btn btn-success">
-          <i class="plus-icon d-flex justify-content-center align-items-center" (click)="fileInput.click()">Add Photo</i>
+<app-navbar></app-navbar>
+  <div class="container" [ngClass]="{'vh-100': photos.length <= 7}">
+    <h1 class="pt-3 text-center">{{ album.albumName }}</h1>
+    <button class="btn btn-danger d-flex ms-auto" (click)="deleteAlbum()">Delete Album</button>
+    <div class="photo-grid justify-content-center">
+        <div class="photo-item m-3">
+          <i class="plus-icon d-flex align-items-center justify-content-center" (click)="fileInput.click()">+</i>
           <input type="file" (change)="onFileChange($event)" #fileInput style="display: none;" />
         </div>
-      </div>
-      <div class="photo-item">
-        <button class="btn btn-danger" (click)="deleteAlbum()">Delete Album</button>
-      </div>
-      <div class="photo-item pt-2" *ngFor="let photo of photos">
+     
+      <div class="photo item pt-2 m-auto" *ngFor="let photo of photos">
         <a>
-          <img [src]="photo.photoImageURL" class="img-fluid smaller-image mx-auto">
+          <img [src]="photo.photoImageURL" class="img-fluid smaller-image">
         </a>
       </div>
-    </div>
-  
   </div>
-</body>
-
+  </div>
 <app-footer></app-footer>

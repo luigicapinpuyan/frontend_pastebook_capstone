@@ -49,9 +49,9 @@ export class NavbarComponent {
   }
 
   goToDetailsPage() {
-    console.log(this.userId);
-    this.router.navigate(['/profile'], { queryParams: { id: this.userId } });
+    this.router.navigate(['/profile'], { queryParams: { tab: 'timeline', id: this.userId } });
   }
+  
 
   onEnterPressed(name:string) {
     if (this.searchText.trim() !== '') {
