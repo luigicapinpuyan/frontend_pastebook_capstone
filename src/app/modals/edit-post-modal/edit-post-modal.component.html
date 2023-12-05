@@ -10,11 +10,11 @@
         </div>
         <div class="custom-div d-flex flex-column justify-content-center">
         
-            <input class="roundedBoarder mb-3" type="text" placeholder="EditTitle" name="title" [(ngModel)] ="post.postTitle">
-            <textarea class="textHeight roundedBoarder" placeholder="EditPost" [(ngModel)] = "post.postBody"></textarea>
+            <input class="roundedBoarder mb-3" type="text" name="title" [(ngModel)] ="post.postTitle">
+            <textarea class="textHeight roundedBoarder" [(ngModel)] = "post.postBody"></textarea>
 
             <div style="position: relative; display: inline-block;">
-                <img alt="" class="img-fluid mb-2 mt-2" src="/assets/images/bg.jpg">
+                <img alt="" class="img-fluid mb-2 mt-2" [src]="photoUrl">
             </div>
             
             
@@ -30,7 +30,7 @@
                 <button id="deleteButton" class="btn btn-danger">
                     <i class="fas fa-trash"></i> <!-- Font Awesome delete icon -->
                 </button>
-                <button id="postButton" class="btn me-2 text-light ms-auto" style="background-color: #3373B0;">Save Changes</button>
+                <button id="postButton" (click)="updatePost()" class="btn me-2 text-light ms-auto" style="background-color: #3373B0;">Save Changes</button>
             </div>
             
         </div>

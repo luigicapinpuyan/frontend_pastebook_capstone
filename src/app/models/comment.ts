@@ -10,7 +10,9 @@ export class Comment {
         public postId?: string,
         public post?: Post,
         public commenterId?: string,
-        public commenter?: User
+        public commenter?: User,
+        
+        public commenterPhotoUrl?: string
     ){}
 }
 export class CommentDTO {

@@ -40,7 +40,7 @@ export class PostPageComponent implements OnInit {
   
 
   commenterPhotoId: string = "";
-  commenterPhotoUrl: string = "";
+  
   likeDTO: LikeDTO = new LikeDTO();
   commentDTO: CommentDTO = new CommentDTO();
   comment: string = "";
@@ -80,22 +80,20 @@ export class PostPageComponent implements OnInit {
   getPostbyPostId(){
     this.postService.getPost(this.postId).subscribe((response: Post) => {
       this.post = response;
-      console.log(this.post);
-      this.posterPhotoId = this.post.poster?.photo?.id!;
       
       this.getPostLikes();
-      this.getCommentsByPostId();
-      
+      this.getCommentsByPostId(this.post.id!);
       this.isPostLiked();
 
-      this.photoId = this.post.photoId!;
+      this.photoId = this.post.photoId!; //photo of the post
       if(this.photoId != null){
         this.loadPhoto();
       }
+
+      this.posterPhotoId = this.post.poster?.photo?.id!;
       if(this.posterPhotoId != null){
         this.loadPosterPhoto();
       }
-      console.log(this.comments);
     });
   }
 
@@ -129,24 +127,26 @@ export class PostPageComponent implements OnInit {
       this.isCurrentPostLiked = response;
     });
   }
-  getCommentsByPostId(){
-    const postId = this.post.id ?? ''; 
-
+  getCommentsByPostId(postId: string){
     this.commentService.getCommentsByPostId(postId).subscribe((response: Comment[]) => {
       this.comments = response;
-      console.log(this.comments);
 
-
-      // Load photos for each user
       this.comments.forEach((comment) => {
-        this.loadCommenterPhoto(comment.commenter?.photo?.id!).subscribe(
-          (photoUrl: string) => {
-            comment.commenter!.photo!.photoImageURL = photoUrl;
-          },
-          (error) => {
-            console.error('Error loading photo:', error);
-          }
-        );
+        this.commenterPhotoId = comment.commenter?.photo?.id!;
+        console.log(this.commenterPhotoId);
+        if(this.commenterPhotoId == undefined){
+          comment.commenterPhotoUrl = "assets/images/default_profile.png";
+        }else{
+          this.loadCommenterPhoto(this.commenterPhotoId).subscribe(
+            (photoUrl: string) => {
+              comment.commenterPhotoUrl = photoUrl;
+            
+            },
+            (error) => {
+              console.error('Error loading photo:', error);
+            }
+          );
+        }
       });
 
     });

@@ -1,7 +1,7 @@
 <div class="card mb-3" style="cursor: pointer;">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center" (click)="goToPostPage()">
                 <div class="mr-2">
                     <img class="rounded-circle me-2" width="47" height="47" [src]="postPhotoUrl" alt="">
                 </div>
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="card-body pb-0" (click)="goToPostPage()">
+    <div class="card-body pb-0">
         <h5 class="card-title">{{post.postTitle}}</h5>
         <p class="card-text">
             {{ post.postBody }}            
