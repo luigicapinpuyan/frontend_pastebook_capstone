@@ -14,13 +14,14 @@ export class CommentModalComponent implements OnInit {
   postComments: Comment[] = [];
   postId: string = "";
 
+  commenterPhotoId: string = "";
+
   constructor(
     public dialogRef: MatDialogRef<CommentModalComponent>,  
     @Inject(MAT_DIALOG_DATA) public data: any,
     private commentService: CommentService,
     private photoService: PhotoService
   ){
-    console.log(data.postId);
     this.postId = data.postId;
   }
 
@@ -33,17 +34,24 @@ export class CommentModalComponent implements OnInit {
       this.postComments = response;
 
       this.postComments.forEach((comment) => {
-        this.loadCommenterPhoto(comment.commenter?.photo?.id!).subscribe(
-          (photoUrl: string) => {
-            if(comment.commenter!.photo != null){
-              comment.commenter!.photo!.photoImageURL = photoUrl;
-            }
+        this.commenterPhotoId = comment.commenter?.photo?.id!;
+        console.log(this.commenterPhotoId);
+
+        if(this.commenterPhotoId == undefined){
+          comment.commenterPhotoUrl = "assets/images/default_profile.png";
+        }else{
+          this.loadCommenterPhoto(comment.commenter?.photo?.id!).subscribe(
+            (photoUrl: string) => {
+              comment.commenterPhotoUrl = photoUrl;
             
-          },
-          (error) => {
-            console.error('Error loading photo:', error);
-          }
-        );
+              
+            },
+            (error) => {
+              console.error('Error loading photo:', error);
+            }
+          );
+        }
+        
       });
 
     });

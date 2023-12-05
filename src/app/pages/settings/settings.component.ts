@@ -77,7 +77,11 @@ export class SettingsComponent implements OnInit {
         this.miniProfile = response;
         console.log(this.miniProfile);
         this.photoId = this.miniProfile.photo?.id!;
-        this.loadPhoto();
+        if(this.photoId == undefined){
+          this.photoUrl = "assets/images/default_profile.png"
+        }else{
+          this.loadPhoto();
+        }
       },
       (error) => {
         console.error("Error fetching profile:", error);

@@ -48,26 +48,26 @@ export class NotificationsComponent implements OnInit {
 
       this.notifications.forEach((notification) => {
         if (notification.notificationType == "like"){
-          // this.notificationService.getNotificationContext(notification.id!).subscribe((response) => {
-          //   if (notification.notificationType === "like") {
-          //     notification.likeContext = response;
-          //     // console.log(response)
-          //     //this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+          this.notificationService.getNotificationContext(notification.id!).subscribe((response) => {
+            if (notification.notificationType === "like") {
+              notification.likeContext = response;
+              // console.log(response)
+              //this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
 
-          //     // console.log(notification.likeContext);
-          //     let like = notification.likeContext;
-          //     // console.log(like?.liker);
-          //     if(like?.liker != null){
-          //       // console.log(like.liker);
-          //     }
-          //     else{
-          //       // console.log('tae');
-          //     }
+              // console.log(notification.likeContext);
+              let like = notification.likeContext;
+              // console.log(like?.liker);
+              if(like?.liker != null){
+                // console.log(like.liker);
+              }
+              else{
+                // console.log('tae');
+              }
               
-          //     this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
+              this.likerFullName = notification.likeContext!.liker!.firstName + " " + notification.likeContext!.liker!.lastName;
 
-          //   }
-          // })
+            }
+          })
         }
         else if (notification.notificationType == "comment"){
           // notification.contextUser = this.getNotificationContext(notification.id!, notification.notificationType).commenter;
