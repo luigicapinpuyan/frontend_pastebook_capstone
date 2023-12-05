@@ -1,0 +1,30 @@
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+  }
+  
+  .photo-item {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .plus-icon {
+    font-size: 170px; /* Adjust the font size to make the plus icon larger */
+    color: #555; /* Adjust the color of the plus icon */
+    cursor: pointer;
+}
+
+
+.smaller-image {
+  max-width: 100%; /* Set the maximum width to 100% of the container */
+  max-height: 100%; /* Set the maximum height to your desired value */
+}
